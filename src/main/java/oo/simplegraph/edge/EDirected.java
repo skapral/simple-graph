@@ -60,10 +60,10 @@ public class EDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implem
 
     @Override
     public final int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.start);
-        hash = 97 * hash + Objects.hashCode(this.end);
-        return hash;
+        return Objects.hash(
+                this.start,
+                this.end
+        );
     }
 
     @Override

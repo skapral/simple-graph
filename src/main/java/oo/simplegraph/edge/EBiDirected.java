@@ -67,10 +67,10 @@ public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impl
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.node1);
-        hash = 41 * hash + Objects.hashCode(this.node2);
-        return hash;
+        return Objects.hash(
+                this.node1,
+                this.node2
+        );
     }
 
     @Override

@@ -51,9 +51,7 @@ public class SgInferred<T, N extends Node<T>, E extends Edge<T, N, E>> implement
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.inference);
-        return hash;
+        return Objects.hash(this.inference);
     }
 
     @Override

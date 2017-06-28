@@ -67,10 +67,7 @@ class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements Structu
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.nodes);
-        hash = 23 * hash + Objects.hashCode(this.edges);
-        return hash;
+        return Objects.hash(this.nodes, this.edges);
     }
 
     @Override

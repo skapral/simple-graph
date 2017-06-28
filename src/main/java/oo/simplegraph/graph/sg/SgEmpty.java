@@ -24,8 +24,6 @@
 package oo.simplegraph.graph.sg;
 
 import javaslang.collection.HashSet;
-import javaslang.collection.List;
-import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 

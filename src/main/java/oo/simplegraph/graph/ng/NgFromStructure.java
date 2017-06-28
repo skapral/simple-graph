@@ -49,9 +49,7 @@ class NgFromStructureInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>
 
     @Override
     public final int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.structuredGraph);
-        return hash;
+        return Objects.hash(structuredGraph);
     }
 
     @Override

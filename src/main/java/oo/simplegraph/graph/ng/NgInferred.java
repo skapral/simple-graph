@@ -46,9 +46,7 @@ public class NgInferred<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> imple
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.graphInference);
-        return hash;
+        return Objects.hash(this.graphInference);
     }
 
     @Override

@@ -41,9 +41,7 @@ public class NReference<T> implements Node<T> {
 
     @Override
     public final int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + System.identityHashCode(this.value);
-        return hash;
+        return System.identityHashCode(this.value);
     }
 
     @Override

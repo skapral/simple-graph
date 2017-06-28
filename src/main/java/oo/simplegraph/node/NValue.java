@@ -43,9 +43,7 @@ public class NValue<T> implements Node<T> {
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.value);
-        return hash;
+        return Objects.hash(this.value);
     }
 
     @Override

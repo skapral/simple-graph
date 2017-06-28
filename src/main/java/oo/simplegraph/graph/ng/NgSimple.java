@@ -50,9 +50,7 @@ public class NgSimple<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impleme
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.edges);
-        return hash;
+        return Objects.hash(this.edges);
     }
 
     @Override

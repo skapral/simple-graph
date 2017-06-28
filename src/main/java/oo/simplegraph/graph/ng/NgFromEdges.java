@@ -63,9 +63,7 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.edges);
-        return hash;
+        return Objects.hash(edges);
     }
 
     @Override

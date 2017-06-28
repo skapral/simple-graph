@@ -46,10 +46,7 @@ class SgWithNodesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
 
     @Override
     public final int hashCode() {
-        int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.sg);
-        hash = 47 * hash + Objects.hashCode(this.nodes);
-        return hash;
+        return Objects.hash(this.sg, this.nodes);
     }
 
     @Override

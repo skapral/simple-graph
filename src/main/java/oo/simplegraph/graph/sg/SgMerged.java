@@ -48,9 +48,7 @@ class SgMergedInference<T, N extends Node<T>, E extends Edge<T, N, E>> implement
 
     @Override
     public final int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.graphs);
-        return hash;
+        return Objects.hash(this.graphs);
     }
 
     @Override
