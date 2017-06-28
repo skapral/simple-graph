@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.naive;
+package oo.simplegraph.pft.pc;
 
 import javaslang.collection.List;
 import javaslang.control.Option;
@@ -32,7 +32,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-interface PathChunk<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+public interface PathChunk<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
     ND head();
     ND tail();
     List<ED> path();

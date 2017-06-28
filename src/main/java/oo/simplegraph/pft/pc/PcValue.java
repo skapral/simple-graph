@@ -21,47 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.naive;
+package oo.simplegraph.pft.pc;
 
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
-import oo.simplegraph.pft.PathFindingTask;
-import oo.simplegraph.graph.ng.NavigableGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class PftNaive<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
-    private final NavigableGraph<T, ND, ED> graph;
-    
-    public PftNaive(NavigableGraph<T, ND, ED> graph) {
-        this.graph = graph;
+public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathChunk<T, ND, ED> {
+    private final ND startNode;
+    private final ND endNode;
+    private final List<ED> edges;
+
+    public PcValue(ND startNode, ND endNode, List<ED> edges) {
+        this.startNode = startNode;
+        this.endNode = endNode;
+        this.edges = edges;
     }
-    
+
     @Override
-    public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
-        if (nodeStart.equals(nodeEnd)) {
-            return Option.of(List.empty());
+    public final ND head() {
+        return startNode;
+    }
+
+    @Override
+    public final ND tail() {
+        return endNode;
+    }
+
+    @Override
+    public final List<ED> path() {
+        return edges;
+    }
+
+    @Override
+    public final Option<PathChunk<T, ND, ED>> advance(ED edge) {
+        if(edges.contains(edge)) {
+            // We are in a loop. No sense in advancing further
+            return Option.none();
         }
-        List<PathChunk<T, ND, ED>> pathChunks = List.of(new PcEmpty<>(nodeStart));
-        while (!pathChunks.isEmpty()) {
-            pathChunks = pathChunks.flatMap(pc -> {
-                ND tail = pc.tail();
-                return List.ofAll(graph.edges(tail))
-                        .map(pc::advance)
-                        .filter(Option::isDefined)
-                        .map(Option::get);
-            });
-            List<PathChunk<T, ND, ED>> potentialResults = pathChunks.filter(pc -> pc.tail().equals(nodeEnd));
-            if(!potentialResults.isEmpty()) {
-                return Option.of(
-                    potentialResults.get(0).path()
-                );
-            }
-        }
-        return Option.none();
+        
+        return edge.follow(endNode).map(n -> new PcValue<>(startNode, n, edges.append(edge)));
     }
 }

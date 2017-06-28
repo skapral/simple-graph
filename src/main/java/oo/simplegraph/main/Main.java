@@ -25,7 +25,7 @@ package oo.simplegraph.main;
 
 import oo.simplegraph.edge.EDirected;
 import oo.simplegraph.node.NValue;
-import oo.simplegraph.pft.naive.PftNaive;
+import oo.simplegraph.pft.PftNaive;
 import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.graph.ng.NgFromStructure;

@@ -21,42 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.naive;
+package oo.simplegraph.pft;
 
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
+import oo.simplegraph.pft.PathFindingTask;
+import oo.simplegraph.graph.ng.NavigableGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-class PcEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathChunk<T,ND,ED> {
-    private final ND node;
+public class PftDijkstra<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
+    private final NavigableGraph<T, ND, ED> graph;
 
-    public PcEmpty(ND node) {
-        this.node = node;
+    public PftDijkstra(NavigableGraph<T, ND, ED> graph) {
+        this.graph = graph;
     }
 
     @Override
-    public final ND head() {
-        return node;
-    }
-
-    @Override
-    public final ND tail() {
-        return node;
-    }
-
-    @Override
-    public final List<ED> path() {
-        return List.empty();
-    }
-
-    @Override
-    public final Option<PathChunk<T, ND, ED>> advance(ED edge) {
-        return edge.follow(node)
-                .map(n -> new PcValue<>(node, n, List.of(edge)));
+    public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
+        if (nodeStart.equals(nodeEnd)) {
+            return Option.of(List.empty());
+        }
+        throw new UnsupportedOperationException();
     }
 }

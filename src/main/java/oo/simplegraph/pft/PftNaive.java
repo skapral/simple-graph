@@ -21,8 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.dijkstra;
+package oo.simplegraph.pft;
 
+import oo.simplegraph.pft.pc.PcEmpty;
+import oo.simplegraph.pft.pc.PathChunk;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
@@ -34,18 +36,34 @@ import oo.simplegraph.graph.ng.NavigableGraph;
  *
  * @author Kapralov Sergey
  */
-public class PftDijkstra<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
+public class PftNaive<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
     private final NavigableGraph<T, ND, ED> graph;
-
-    public PftDijkstra(NavigableGraph<T, ND, ED> graph) {
+    
+    public PftNaive(NavigableGraph<T, ND, ED> graph) {
         this.graph = graph;
     }
-
+    
     @Override
     public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
         if (nodeStart.equals(nodeEnd)) {
             return Option.of(List.empty());
         }
-        throw new UnsupportedOperationException();
+        List<PathChunk<T, ND, ED>> pathChunks = List.of(new PcEmpty<>(nodeStart));
+        while (!pathChunks.isEmpty()) {
+            pathChunks = pathChunks.flatMap(pc -> {
+                ND tail = pc.tail();
+                return List.ofAll(graph.edges(tail))
+                        .map(pc::advance)
+                        .filter(Option::isDefined)
+                        .map(Option::get);
+            });
+            List<PathChunk<T, ND, ED>> potentialResults = pathChunks.filter(pc -> pc.tail().equals(nodeEnd));
+            if(!potentialResults.isEmpty()) {
+                return Option.of(
+                    potentialResults.get(0).path()
+                );
+            }
+        }
+        return Option.none();
     }
 }
