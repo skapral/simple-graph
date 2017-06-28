@@ -23,6 +23,7 @@
  */
 package oo.simplegraph.pft.pc;
 
+import java.util.Objects;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
@@ -66,5 +67,39 @@ public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
         }
         
         return edge.follow(endNode).map(n -> new PcValue<>(startNode, n, edges.append(edge)));
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.startNode, this.endNode, this.edges);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PcValue<?, ?, ?> other = (PcValue<?, ?, ?>) obj;
+        if (!Objects.equals(this.startNode, other.startNode)) {
+            return false;
+        }
+        if (!Objects.equals(this.endNode, other.endNode)) {
+            return false;
+        }
+        if (!Objects.equals(this.edges, other.edges)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PcValue{" + "startNode=" + startNode + ", endNode=" + endNode + ", edges=" + edges + '}';
     }
 }

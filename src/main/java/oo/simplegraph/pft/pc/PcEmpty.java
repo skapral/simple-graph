@@ -23,6 +23,7 @@
  */
 package oo.simplegraph.pft.pc;
 
+import java.util.Objects;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
@@ -58,5 +59,33 @@ public class PcEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
     public final Option<PathChunk<T, ND, ED>> advance(ED edge) {
         return edge.follow(node)
                 .map(n -> new PcValue<>(node, n, List.of(edge)));
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.node);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PcEmpty<?, ?, ?> other = (PcEmpty<?, ?, ?>) obj;
+        if (!Objects.equals(this.node, other.node)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public final String toString() {
+        return "PcEmpty{" + "node=" + node + '}';
     }
 }
