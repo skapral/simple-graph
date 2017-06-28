@@ -26,9 +26,8 @@ package oo.simplegraph.graph.sg;
 import java.util.Objects;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Node;
-import oo.simplegraph.api.StructuredGraph;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.node.Node;
 
 /**
  *

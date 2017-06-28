@@ -23,13 +23,12 @@
  */
 package oo.simplegraph.graph.ng;
 
-import oo.simplegraph.api.Node;
+import oo.simplegraph.node.Node;
 import java.util.Objects;
 import javaslang.collection.List;
 import javaslang.collection.Map;
 import javaslang.collection.Set;
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.NavigableGraph;
+import oo.simplegraph.edge.Edge;
 
 /**
  *

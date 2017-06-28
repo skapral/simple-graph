@@ -25,10 +25,10 @@ package oo.simplegraph.pft.dijkstra;
 
 import javaslang.collection.List;
 import javaslang.control.Option;
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Node;
-import oo.simplegraph.api.PathFindingTask;
-import oo.simplegraph.api.NavigableGraph;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.node.Node;
+import oo.simplegraph.pft.PathFindingTask;
+import oo.simplegraph.graph.ng.NavigableGraph;
 
 /**
  *

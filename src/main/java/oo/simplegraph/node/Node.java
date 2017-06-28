@@ -21,18 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.api;
-
-import javaslang.collection.List;
+package oo.simplegraph.node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface NavigableGraph<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-    interface Inference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-        NavigableGraph<T, ND, ED> graph();
-    }
-    
-    List<ED> edges(ND node);
+public interface Node<V> {
+    V value();
 }

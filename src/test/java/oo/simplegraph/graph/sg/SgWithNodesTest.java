@@ -24,7 +24,6 @@
 package oo.simplegraph.graph.sg;
 
 import javaslang.collection.HashSet;
-import oo.simplegraph.api.StructuredGraph;
 import oo.simplegraph.node.NValue;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;

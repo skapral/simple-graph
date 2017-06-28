@@ -21,17 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.api;
+package oo.simplegraph.pft;
 
-import javaslang.collection.Set;
+import oo.simplegraph.node.Node;
+import oo.simplegraph.edge.Edge;
+import javaslang.collection.List;
 import javaslang.control.Option;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface Edge<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-    Set<ND> nodes();
-    Set<ND> startingNodes();
-    Option<ND> follow(ND node);
+public interface PathFindingTask<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+    Option<List<ED>> path(ND nodeStart, ND nodeEnd);
 }

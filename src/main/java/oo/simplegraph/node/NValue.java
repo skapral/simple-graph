@@ -24,7 +24,6 @@
 package oo.simplegraph.node;
 
 import java.util.Objects;
-import oo.simplegraph.api.Node;
 
 /**
  *

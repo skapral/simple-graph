@@ -23,8 +23,6 @@
  */
 package oo.simplegraph.node;
 
-import oo.simplegraph.api.Node;
-
 /**
  *
  * @author Kapralov Sergey

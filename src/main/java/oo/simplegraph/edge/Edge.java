@@ -21,12 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.api;
+package oo.simplegraph.edge;
+
+import javaslang.collection.Set;
+import javaslang.control.Option;
+import oo.simplegraph.node.Node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface Node<V> {
-    V value();
+public interface Edge<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+    Set<ND> nodes();
+    Set<ND> startingNodes();
+    Option<ND> follow(ND node);
 }

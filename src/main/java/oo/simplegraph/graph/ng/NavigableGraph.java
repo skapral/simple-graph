@@ -21,15 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.api;
+package oo.simplegraph.graph.ng;
 
+import oo.simplegraph.edge.Edge;
 import javaslang.collection.List;
-import javaslang.control.Option;
+import oo.simplegraph.node.Node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface PathFindingTask<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-    Option<List<ED>> path(ND nodeStart, ND nodeEnd);
+public interface NavigableGraph<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+    interface Inference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+        NavigableGraph<T, ND, ED> graph();
+    }
+    
+    List<ED> edges(ND node);
 }

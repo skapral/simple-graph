@@ -21,8 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.api;
+package oo.simplegraph.graph.sg;
 
+import oo.simplegraph.node.Node;
+import oo.simplegraph.edge.Edge;
 import javaslang.collection.Set;
 
 /**

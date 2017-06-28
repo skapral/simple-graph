@@ -29,8 +29,7 @@ import javaslang.collection.HashSet;
 import javaslang.collection.List;
 import javaslang.collection.Set;
 import javaslang.control.Option;
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Node;
+import oo.simplegraph.node.Node;
 
 /**
  *

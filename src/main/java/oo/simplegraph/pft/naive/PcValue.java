@@ -25,8 +25,8 @@ package oo.simplegraph.pft.naive;
 
 import javaslang.collection.List;
 import javaslang.control.Option;
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Node;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.node.Node;
 
 /**
  *

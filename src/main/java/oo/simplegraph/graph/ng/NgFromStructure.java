@@ -24,10 +24,9 @@
 package oo.simplegraph.graph.ng;
 
 import java.util.Objects;
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.NavigableGraph;
-import oo.simplegraph.api.Node;
-import oo.simplegraph.api.StructuredGraph;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.node.Node;
+import oo.simplegraph.graph.sg.StructuredGraph;
 
 /**
  * 
