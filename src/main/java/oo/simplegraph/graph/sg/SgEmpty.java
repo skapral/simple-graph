@@ -21,31 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.dijkstra;
+package oo.simplegraph.graph.sg;
 
+import javaslang.collection.HashSet;
 import javaslang.collection.List;
-import javaslang.control.Option;
+import javaslang.collection.Set;
 import oo.simplegraph.api.Edge;
 import oo.simplegraph.api.Node;
-import oo.simplegraph.api.PathFindingTask;
-import oo.simplegraph.api.NavigableGraph;
+import oo.simplegraph.api.StructuredGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class PftDijkstra<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
-    private final NavigableGraph<T, ND, ED> graph;
-
-    public PftDijkstra(NavigableGraph<T, ND, ED> graph) {
-        this.graph = graph;
-    }
-
-    @Override
-    public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
-        if (nodeStart.equals(nodeEnd)) {
-            return Option.of(List.empty());
-        }
-        throw new UnsupportedOperationException();
+public class SgEmpty<T, N extends Node<T>, E extends Edge<T, N, E>> extends SgSimple<T, N, E> implements StructuredGraph<T, N, E> {
+    public SgEmpty() {
+        super(HashSet.empty(), HashSet.empty());
     }
 }

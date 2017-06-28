@@ -23,17 +23,43 @@
  */
 package oo.simplegraph.main;
 
-import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Graph;
-import oo.simplegraph.api.Node;
 import oo.simplegraph.edge.EDirected;
-import oo.simplegraph.graph.GFromEdges;
 import oo.simplegraph.node.NValue;
 import oo.simplegraph.pft.naive.PftNaive;
+import oo.simplegraph.api.NavigableGraph;
+import oo.simplegraph.api.StructuredGraph;
+import oo.simplegraph.graph.ng.NgFromStructure;
+import oo.simplegraph.graph.sg.SgEmpty;
+import oo.simplegraph.graph.sg.SgWithEdges;
+import oo.simplegraph.graph.sg.SgWithNodes;
 
+
+/**
+ * User-defined node
+ * 
+ * @author Kapralov Sergey
+ */
 class NString extends NValue<String> {
     public NString(String value) {
         super(value);
+    }
+}
+
+/**
+ * User-defined edge
+ * 
+ * @author Kapralov Sergey
+ */
+class EString extends EDirected<String, NString, EString> {
+    public EString(String start, String end) {
+        super(
+                new NString(start),
+                new NString(end)
+        );
+    }
+    
+    public EString(NString start, NString end) {
+        super(start, end);
     }
 }
 
@@ -47,46 +73,47 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        final Node a = new NString("a");
-        final Node a1 = new NString("a1");
-        final Node a2 = new NString("a2");
-        final Node a3 = new NString("a3");
-        final Node b1 = new NString("b1");
-        final Node b2 = new NString("b2");
-        final Node b3 = new NString("b3");
-        final Node b = new NString("b");
-        
-        final Edge aa1 = new  EDirected(a, a1);
-        final Edge aa2 = new  EDirected(a, a2);
-        final Edge aa3 = new  EDirected(a, a3);
-        
-        final Edge a1b1 = new EDirected(a1, b1);
-        final Edge a1b2 = new EDirected(a1, b2);
-        final Edge a2b1 = new EDirected(a2, b1);
-        final Edge a2b3 = new EDirected(a2, b3);
-        final Edge a3b2 = new EDirected(a3, b2);
-        final Edge a3b3 = new EDirected(a3, b3);
-        
-        final Edge b1b = new  EDirected(b1, b);
-        final Edge b2b = new  EDirected(b2, b);
-        final Edge b3b = new  EDirected(b3, b);
-        
-        Graph g = new GFromEdges(
-            aa1, 
-            aa2,
-            aa3,
-            a1b1,
-            a1b2,
-            a2b1,
-            a2b3,
-            a3b2,
-            a3b3,
-            b1b,
-            b2b,
-            b3b
+        // create a graph
+        StructuredGraph sg = new SgEmpty();
+
+        // add nodes
+        sg = new SgWithNodes(
+                sg,
+                new NString("a"),
+                new NString("a1"),
+                new NString("a2"),
+                new NString("a3"),
+                new NString("b1"),
+                new NString("b2"),
+                new NString("b3"),
+                new NString("b")
         );
+        
+        // add edges
+        sg = new SgWithEdges(
+                sg,
+                new EString("a", "a1"),
+                new EString("a", "a2"),
+                new EString("a", "a3"),
+                new EString("a1", "b1"),
+                new EString("a1", "b2"),
+                new EString("a2", "b1"),
+                new EString("a2", "b3"),
+                new EString("a3", "b2"),
+                new EString("a3", "b3"),
+                new EString("b1", "b"),
+                new EString("b2", "b"),
+                new EString("b3", "b")
+        );
+
+        // prepare the graph for path finding
+        NavigableGraph g = new NgFromStructure(sg);
         System.out.println(g);
-        System.out.println(new PftNaive<>(g).path(a, a));
+        
+        // Rock'n'roll!
+        System.out.println(new PftNaive<>(g).path(
+                new NString("a"), 
+                new NString("b2")
+        ));
     }
-    
 }

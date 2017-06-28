@@ -21,31 +21,61 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.dijkstra;
+package oo.simplegraph.graph.ng;
 
-import javaslang.collection.List;
-import javaslang.control.Option;
-import oo.simplegraph.api.Edge;
 import oo.simplegraph.api.Node;
-import oo.simplegraph.api.PathFindingTask;
+import java.util.Objects;
+import javaslang.collection.List;
+import javaslang.collection.Map;
+import javaslang.collection.Set;
+import oo.simplegraph.api.Edge;
 import oo.simplegraph.api.NavigableGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class PftDijkstra<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
-    private final NavigableGraph<T, ND, ED> graph;
+public class NgSimple<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements NavigableGraph<T, ND, ED> {
+    private final Map<Node<T>, Set<ED>> edges;
 
-    public PftDijkstra(NavigableGraph<T, ND, ED> graph) {
-        this.graph = graph;
+    public NgSimple(Map<Node<T>, Set<ED>> edges) {
+        this.edges = edges;
+    }
+    
+    @Override
+    public final List<ED> edges(ND node) {
+        return edges.get(node)
+                .map(Set::toList)
+                .getOrElse(List.empty());
     }
 
     @Override
-    public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
-        if (nodeStart.equals(nodeEnd)) {
-            return Option.of(List.empty());
+    public final int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.edges);
+        return hash;
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
         }
-        throw new UnsupportedOperationException();
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NgSimple<T, ND, ED> other = (NgSimple<T, ND, ED>) obj;
+        if (!Objects.equals(this.edges, other.edges)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public final String toString() {
+        return "NgSimple{" + "edges=" + edges + '}';
     }
 }

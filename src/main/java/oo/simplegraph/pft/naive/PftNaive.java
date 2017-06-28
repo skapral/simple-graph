@@ -26,18 +26,18 @@ package oo.simplegraph.pft.naive;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Graph;
 import oo.simplegraph.api.Node;
 import oo.simplegraph.api.PathFindingTask;
+import oo.simplegraph.api.NavigableGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
 public class PftNaive<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathFindingTask<T, ND, ED> {
-    private final Graph<T, ND, ED> graph;
+    private final NavigableGraph<T, ND, ED> graph;
     
-    public PftNaive(Graph<T, ND, ED> graph) {
+    public PftNaive(NavigableGraph<T, ND, ED> graph) {
         this.graph = graph;
     }
     

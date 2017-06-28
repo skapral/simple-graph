@@ -21,38 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph;
+package oo.simplegraph.graph.sg;
 
-import oo.simplegraph.api.Node;
 import java.util.Objects;
-import javaslang.collection.List;
-import javaslang.collection.Map;
+import javaslang.collection.HashSet;
 import javaslang.collection.Set;
 import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Graph;
+import oo.simplegraph.api.Node;
+import oo.simplegraph.api.StructuredGraph;
 
-/**
- *
- * @author Kapralov Sergey
- */
-public class GSimple<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements Graph<T, ND, ED> {
-    private final Map<Node<T>, Set<ED>> edges;
 
-    public GSimple(Map<Node<T>, Set<ED>> edges) {
-        this.edges = edges;
+class SgWithNodesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements StructuredGraph.Inference<T, ND, ED> {
+    private final StructuredGraph<T, ND, ED> sg;
+    private final Iterable<ND> nodes;
+
+    public SgWithNodesInference(StructuredGraph<T, ND, ED> sg, Iterable<ND> nodes) {
+        this.sg = sg;
+        this.nodes = nodes;
     }
     
     @Override
-    public final List<ED> edges(ND node) {
-        return edges.get(node)
-                .map(Set::toList)
-                .getOrElse(List.empty());
+    public final StructuredGraph<T, ND, ED> graph() {
+        return new SgSimple<>(sg.nodes().addAll(nodes), sg.edges());
     }
 
     @Override
     public final int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.edges);
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.sg);
+        hash = 47 * hash + Objects.hashCode(this.nodes);
         return hash;
     }
 
@@ -67,8 +64,11 @@ public class GSimple<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final GSimple<T, ND, ED> other = (GSimple<T, ND, ED>) obj;
-        if (!Objects.equals(this.edges, other.edges)) {
+        final SgWithNodesInference<?, ?, ?> other = (SgWithNodesInference<?, ?, ?>) obj;
+        if (!Objects.equals(this.sg, other.sg)) {
+            return false;
+        }
+        if (!Objects.equals(this.nodes, other.nodes)) {
             return false;
         }
         return true;
@@ -76,6 +76,24 @@ public class GSimple<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
 
     @Override
     public final String toString() {
-        return "GSimple{" + "edges=" + edges + '}';
+        return "SgWithNodesInference{" + "sg=" + sg + ", nodes=" + nodes + '}';
+    }
+}
+
+/**
+ *
+ * @author Kapralov Sergey
+ */
+public class SgWithNodes<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends SgInferred<T, ND, ED> implements StructuredGraph<T, ND, ED> {
+    public SgWithNodes(StructuredGraph<T, ND, ED> sg, Set<ND> nodes) {
+        super(
+            new SgWithNodesInference<>(
+                sg, nodes
+            )
+        );
+    }
+    
+    public SgWithNodes(StructuredGraph<T, ND, ED> sg, ND... nodes) {
+        this(sg, HashSet.of(nodes));
     }
 }

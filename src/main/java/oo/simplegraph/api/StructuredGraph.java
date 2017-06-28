@@ -23,16 +23,17 @@
  */
 package oo.simplegraph.api;
 
-import javaslang.collection.List;
+import javaslang.collection.Set;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface Graph<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+public interface StructuredGraph<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
     interface Inference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-        Graph<T, ND, ED> graph();
+        StructuredGraph<T, ND, ED> graph();
     }
     
-    List<ED> edges(ND node);
+    Set<ND> nodes();
+    Set<ED> edges();
 }

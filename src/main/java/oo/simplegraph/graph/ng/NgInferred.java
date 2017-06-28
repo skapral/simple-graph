@@ -21,51 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph;
+package oo.simplegraph.graph.ng;
 
-import oo.simplegraph.api.Node;
 import java.util.Objects;
-import javaslang.collection.HashMap;
-import javaslang.collection.HashSet;
 import javaslang.collection.List;
-import javaslang.collection.Map;
-import javaslang.collection.Set;
 import oo.simplegraph.api.Edge;
-import oo.simplegraph.api.Graph;
+import oo.simplegraph.api.Node;
+import oo.simplegraph.api.NavigableGraph;
 
 /**
- * 
+ *
  * @author Kapralov Sergey
- * @param <T>
- * @param <ND>
- * @param <ED> 
  */
-class SimpleGraphInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements Graph.Inference<T, ND, ED> {
-    private final List<ED> edges;
+public class NgInferred<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements NavigableGraph<T, ND, ED> {
+    private final NavigableGraph.Inference<T, ND, ED> graphInference;
 
-    public SimpleGraphInference(List<ED> edges) {
-        this.edges = edges;
+    public NgInferred(Inference<T, ND, ED> graphInference) {
+        this.graphInference = graphInference;
     }
 
     @Override
-    public final Graph<T, ND, ED> graph() {
-        Map<Node<T>, Set<ED>> mappedEdges = HashMap.empty();
-        for (ED edge : edges) {
-            List<ND> nodes = edge.nodes();
-
-            for (ND node : nodes) { //TODO: eliminate this loop when javaslang 2.1.0 is released
-                Set<ED> oldList = mappedEdges.get(node).getOrElse(HashSet.empty());
-                Set<ED> newList = oldList.add(edge);
-                mappedEdges = mappedEdges.put(node, newList);
-            }
-        }
-        return new GSimple<>(mappedEdges);
+    public final List<ED> edges(ND node) {
+        return graphInference.graph().edges(node);
     }
 
     @Override
     public final int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.edges);
+        hash = 97 * hash + Objects.hashCode(this.graphInference);
         return hash;
     }
 
@@ -80,8 +63,8 @@ class SimpleGraphInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SimpleGraphInference<T, ND, ED> other = (SimpleGraphInference<T, ND, ED>) obj;
-        if (!Objects.equals(this.edges, other.edges)) {
+        final NgInferred<T, ND, ED> other = (NgInferred<T, ND, ED>) obj;
+        if (!Objects.equals(this.graphInference, other.graphInference)) {
             return false;
         }
         return true;
@@ -89,22 +72,6 @@ class SimpleGraphInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
 
     @Override
     public final String toString() {
-        return "SimpleGraphInference{" + "edges=" + edges + '}';
-    }
-}
-
-/**
- *
- * @author Kapralov Sergey
- */
-public class GFromEdges<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends GInferred<T, ND, ED> implements Graph<T, ND, ED> {
-    public GFromEdges(ED... edges) {
-        this(List.of(edges));
-    }
-
-    public GFromEdges(List<ED> edges) {
-        super(
-            new SimpleGraphInference<>(edges)
-        );
+        return "NgInferred{" + "graphInference=" + graphInference + '}';
     }
 }
