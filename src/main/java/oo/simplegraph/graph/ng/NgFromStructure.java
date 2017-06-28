@@ -44,7 +44,7 @@ class NgFromStructureInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>
     
     @Override
     public final NavigableGraph<T, ND, ED> graph() {
-        return new NgFromEdges<T, ND, ED>(structuredGraph.edges().toList());
+        return new NgFromEdges<T, ND, ED>(structuredGraph.edges());
     }
 
     @Override

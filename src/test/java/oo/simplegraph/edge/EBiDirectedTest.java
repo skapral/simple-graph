@@ -138,6 +138,18 @@ public class EBiDirectedTest {
     }
     
     @Test
+    public final void prohibitsFollowingToArbitraryNode() {
+        final NUnique a1 = new NUnique();
+        final NUnique a2 = new NUnique();
+        final NUnique a3 = new NUnique();
+        assertThat(
+                new EBiDirected(a1, a2).follow(a3)
+        ).isEqualTo(
+                Option.none()
+        );
+    }
+    
+    @Test
     public final void hasBothNodes() {
         final NUnique a1 = new NUnique();
         final NUnique a2 = new NUnique();

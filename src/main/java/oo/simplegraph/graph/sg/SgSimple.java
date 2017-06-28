@@ -34,7 +34,7 @@ import oo.simplegraph.node.Node;
  * 
  * @author Kapralov Sergey
  */
-class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements StructuredGraph<T, N, E> {
+public class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements StructuredGraph<T, N, E> {
     private final Set<N> nodes;
     private final Set<E> edges;
 
