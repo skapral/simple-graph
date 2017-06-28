@@ -23,7 +23,7 @@
  */
 package oo.simplegraph.api;
 
-import javaslang.collection.List;
+import javaslang.collection.Set;
 import javaslang.control.Option;
 
 /**
@@ -31,6 +31,7 @@ import javaslang.control.Option;
  * @author Kapralov Sergey
  */
 public interface Edge<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-    List<ND> nodes();
+    Set<ND> nodes();
+    Set<ND> startingNodes();
     Option<ND> follow(ND node);
 }

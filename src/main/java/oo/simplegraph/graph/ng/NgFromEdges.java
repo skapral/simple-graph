@@ -51,7 +51,7 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
     public final NavigableGraph<T, ND, ED> graph() {
         Map<Node<T>, Set<ED>> mappedEdges = HashMap.empty();
         for (ED edge : edges) {
-            List<ND> nodes = edge.nodes();
+            Set<ND> nodes = edge.startingNodes();
 
             for (ND node : nodes) { //TODO: eliminate this loop when javaslang 2.1.0 is released
                 Set<ED> oldList = mappedEdges.get(node).getOrElse(HashSet.empty());

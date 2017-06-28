@@ -33,11 +33,9 @@ import oo.simplegraph.api.StructuredGraph;
 /**
  *
  * 
- * TODO: need to do something with this class. It doesn't preserve consistency, and can't be considered safe 
- * for public API
  * @author Kapralov Sergey
  */
-public class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements StructuredGraph<T, N, E> {
+class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements StructuredGraph<T, N, E> {
     private final Set<N> nodes;
     private final Set<E> edges;
 

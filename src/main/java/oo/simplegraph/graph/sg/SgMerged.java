@@ -43,6 +43,7 @@ class SgMergedInference<T, N extends Node<T>, E extends Edge<T, N, E>> implement
                 .foldLeft(HashSet.empty(), (hs, g) -> hs.addAll(g.nodes()));
         HashSet<E> edges = graphs
                 .foldLeft(HashSet.empty(), (hs, g) -> hs.addAll(g.edges()));
+        nodes = nodes.addAll(edges.flatMap(Edge::nodes));
         return new SgSimple<>(nodes, edges);
     }
 

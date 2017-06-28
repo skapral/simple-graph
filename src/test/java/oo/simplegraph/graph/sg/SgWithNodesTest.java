@@ -34,6 +34,7 @@ import org.junit.Test;
  * @author Kapralov Sergey
  */
 public class SgWithNodesTest {
+
     @Test
     public void addsNodestoStructuredGraph() {
         StructuredGraph sg = new SgSimple(
@@ -47,12 +48,10 @@ public class SgWithNodesTest {
         );
         assertThat(
                 sgWithNodes.nodes()
-        ).isEqualTo(
-                HashSet.of(
-                        new NValue<>("1"),
-                        new NValue<>("2"),
-                        new NValue<>("3")
-                )
+        ).containsOnly(
+                new NValue<>("1"),
+                new NValue<>("2"),
+                new NValue<>("3")
         );
     }
 }

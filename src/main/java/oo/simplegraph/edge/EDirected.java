@@ -24,7 +24,9 @@
 package oo.simplegraph.edge;
 
 import java.util.Objects;
+import javaslang.collection.HashSet;
 import javaslang.collection.List;
+import javaslang.collection.Set;
 import javaslang.control.Option;
 import oo.simplegraph.api.Edge;
 import oo.simplegraph.api.Node;
@@ -46,10 +48,15 @@ public class EDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implem
     public final Option<ND> follow(ND node) {
         return node.equals(start) ? Option.of(end) : Option.none();
     }
-
+    
     @Override
-    public final List<ND> nodes() {
-        return List.of(start);
+    public final Set<ND> nodes() {
+        return HashSet.of(start, end);
+    }
+    
+    @Override
+    public final Set<ND> startingNodes() {
+        return HashSet.of(start);
     }
 
     @Override

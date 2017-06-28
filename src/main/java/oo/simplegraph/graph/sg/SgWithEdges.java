@@ -30,7 +30,13 @@ import oo.simplegraph.api.Edge;
 import oo.simplegraph.api.Node;
 import oo.simplegraph.api.StructuredGraph;
 
-
+/**
+ * 
+ * @author Kapralov Sergey
+ * @param <T>
+ * @param <ND>
+ * @param <ED> 
+ */
 class SgWithEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements StructuredGraph.Inference<T, ND, ED> {
     private final StructuredGraph<T, ND, ED> sg;
     private final Set<ED> edges;
@@ -42,7 +48,7 @@ class SgWithEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
     
     @Override
     public final StructuredGraph<T, ND, ED> graph() {
-        return new SgSimple<>(sg.nodes(), sg.edges().addAll(edges));
+        return new SgSimple<>(sg.nodes().addAll(edges.flatMap(Edge::nodes)), sg.edges().addAll(edges));
     }
 
     @Override

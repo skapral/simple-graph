@@ -141,9 +141,9 @@ public class EDirectedTest {
         final NUnique a1 = new NUnique();
         final NUnique a2 = new NUnique();
         assertThat(
-                new EDirected(a1, a2).nodes()
-        ).isEqualTo(
-                List.of(a1)
+                new EDirected(a1, a2).startingNodes()
+        ).containsOnly(
+                a1
         );
     }
 }

@@ -142,7 +142,7 @@ public class EBiDirectedTest {
         final NUnique a1 = new NUnique();
         final NUnique a2 = new NUnique();
         assertThat(
-                new EBiDirected(a1, a2).nodes()
+                new EBiDirected(a1, a2).startingNodes()
         ).containsAll(
                 List.of(a1, a2)
         );

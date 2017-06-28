@@ -57,8 +57,13 @@ public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impl
     }
 
     @Override
-    public final List<ND> nodes() {
-        return HashSet.of(node1, node2).toList();
+    public final Set<ND> nodes() {
+        return HashSet.of(node1, node2);
+    }
+
+    @Override
+    public final Set<ND> startingNodes() {
+        return nodes();
     }
 
     @Override
@@ -82,8 +87,8 @@ public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impl
         }
         final EBiDirected<T, ND, ED> other = (EBiDirected<T, ND, ED>) obj;
         
-        Set<Node<T>> thisNodes = HashSet.of(this.node1, this.node2);
-        Set<Node<T>> otherNodes = HashSet.of(other.node1, other.node2);
+        Set<ND> thisNodes = this.nodes();
+        Set<ND> otherNodes = other.nodes();
         if(!thisNodes.equals(otherNodes)) {
             return false;
         }
