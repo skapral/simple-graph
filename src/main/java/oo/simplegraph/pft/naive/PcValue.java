@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.path.naive;
+package oo.simplegraph.pft.naive;
 
 import javaslang.collection.List;
 import javaslang.control.Option;
@@ -32,31 +32,39 @@ import oo.simplegraph.api.Node;
  *
  * @author Kapralov Sergey
  */
-class PcEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathChunk<T,ND,ED> {
-    private final ND node;
+class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathChunk<T, ND, ED> {
+    private final ND startNode;
+    private final ND endNode;
+    private final List<ED> edges;
 
-    public PcEmpty(ND node) {
-        this.node = node;
+    public PcValue(ND startNode, ND endNode, List<ED> edges) {
+        this.startNode = startNode;
+        this.endNode = endNode;
+        this.edges = edges;
     }
 
     @Override
     public final ND head() {
-        return node;
+        return startNode;
     }
 
     @Override
     public final ND tail() {
-        return node;
+        return endNode;
     }
 
     @Override
     public final List<ED> path() {
-        return List.empty();
+        return edges;
     }
 
     @Override
     public final Option<PathChunk<T, ND, ED>> advance(ED edge) {
-        return edge.follow(node)
-                .map(n -> new PcValue<>(node, n, List.of(edge)));
+        if(edges.contains(edge)) {
+            // We are in a loop. No sense in advancing further
+            return Option.none();
+        }
+        
+        return edge.follow(endNode).map(n -> new PcValue<>(startNode, n, edges.append(edge)));
     }
 }

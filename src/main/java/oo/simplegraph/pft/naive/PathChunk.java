@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.path.naive;
+package oo.simplegraph.pft.naive;
 
 import javaslang.collection.List;
 import javaslang.control.Option;

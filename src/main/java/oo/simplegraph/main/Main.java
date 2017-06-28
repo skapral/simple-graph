@@ -29,7 +29,7 @@ import oo.simplegraph.api.Node;
 import oo.simplegraph.edge.EDirected;
 import oo.simplegraph.graph.GFromEdges;
 import oo.simplegraph.node.NValue;
-import oo.simplegraph.path.naive.PftNaive;
+import oo.simplegraph.pft.naive.PftNaive;
 
 class NString extends NValue<String> {
     public NString(String value) {
