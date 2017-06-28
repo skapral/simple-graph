@@ -35,7 +35,7 @@ import org.junit.Test;
  */
 public class EDirectedTest {
     @Test
-    public final void equality() {
+    public final void basicEquality() {
         final NUnique a1 = new NUnique();
         final NUnique a2 = new NUnique();
         EDirected edge = new EDirected(a1, a2);

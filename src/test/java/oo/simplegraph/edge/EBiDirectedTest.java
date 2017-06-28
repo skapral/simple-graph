@@ -26,8 +26,8 @@ package oo.simplegraph.edge;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.node.NUnique;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
+import static org.assertj.core.api.Assertions.*;
 
 /**
  *
@@ -35,7 +35,7 @@ import org.junit.Test;
  */
 public class EBiDirectedTest {
     @Test
-    public final void equality() {
+    public final void basicEquality() {
         EBiDirected edge = new EBiDirected(
                 new NUnique(), 
                 new NUnique()

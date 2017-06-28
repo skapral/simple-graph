@@ -33,9 +33,9 @@ import oo.simplegraph.api.StructuredGraph;
 
 class SgWithEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements StructuredGraph.Inference<T, ND, ED> {
     private final StructuredGraph<T, ND, ED> sg;
-    private final Iterable<ED> edges;
+    private final Set<ED> edges;
 
-    public SgWithEdgesInference(StructuredGraph<T, ND, ED> sg, Iterable<ED> edges) {
+    public SgWithEdgesInference(StructuredGraph<T, ND, ED> sg, Set<ED> edges) {
         this.sg = sg;
         this.edges = edges;
     }
