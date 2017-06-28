@@ -86,7 +86,11 @@ THE SOFTWARE.
                             </execution>
                         </executions>
                         <configuration>
-                            <excludedMethods>toString,equals,hashCode</excludedMethods> <!-- TODO: later to think more about how to simplify tests mutation coverage of these methods -->
+                            <excludedMethods> <!-- TODO: later to think more about how to simplify tests mutation coverage of these methods -->
+                                <param>toString</param>
+                                <param>equals</param>
+                                <param>hashCode</param>
+                            </excludedMethods>
                             <timestampedReports>false</timestampedReports>
                         </configuration>
                     </plugin>
