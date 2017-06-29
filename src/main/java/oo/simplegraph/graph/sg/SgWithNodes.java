@@ -51,23 +51,13 @@ class SgWithNodesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof SgWithNodesInference) {
+            final SgWithNodesInference<T, ND, ED> other = (SgWithNodesInference<T, ND, ED>) obj;
+            return Objects.equals(this.sg, other.sg) &&
+                   Objects.equals(this.nodes, other.nodes);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SgWithNodesInference<?, ?, ?> other = (SgWithNodesInference<?, ?, ?>) obj;
-        if (!Objects.equals(this.sg, other.sg)) {
-            return false;
-        }
-        if (!Objects.equals(this.nodes, other.nodes)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

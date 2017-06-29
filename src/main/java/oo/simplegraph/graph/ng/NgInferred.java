@@ -51,20 +51,12 @@ public class NgInferred<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> imple
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof NgInferred) {
+            final NgInferred<T, ND, ED> other = (NgInferred<T, ND, ED>) obj;
+            return Objects.equals(this.graphInference, other.graphInference);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NgInferred<T, ND, ED> other = (NgInferred<T, ND, ED>) obj;
-        if (!Objects.equals(this.graphInference, other.graphInference)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

@@ -56,20 +56,12 @@ public class SgInferred<T, N extends Node<T>, E extends Edge<T, N, E>> implement
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof SgInferred) {
+            final SgInferred<T, N, E> other = (SgInferred<T, N, E>) obj;
+            return Objects.equals(this.inference, other.inference);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SgInferred<?, ?, ?> other = (SgInferred<?, ?, ?>) obj;
-        if (!Objects.equals(this.inference, other.inference)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

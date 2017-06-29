@@ -23,7 +23,6 @@
  */
 package oo.simplegraph.edge;
 
-
 import java.util.Objects;
 import javaslang.collection.HashSet;
 import javaslang.collection.List;
@@ -36,6 +35,7 @@ import oo.simplegraph.node.Node;
  * @author Kapralov Sergey
  */
 public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements Edge<T, ND, ED> {
+
     private final ND node1;
     private final ND node2;
 
@@ -43,12 +43,12 @@ public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impl
         this.node1 = node1;
         this.node2 = node2;
     }
-    
+
     @Override
     public final Option<ND> follow(ND node) {
-        if(node.equals(node1)) {
+        if (node.equals(node1)) {
             return Option.of(node2);
-        } else if(node.equals(node2)) {
+        } else if (node.equals(node2)) {
             return Option.of(node1);
         } else {
             return Option.none();
@@ -75,24 +75,12 @@ public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impl
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof EBiDirected) {
+            final EBiDirected<T, ND, ED> other = (EBiDirected<T, ND, ED>) obj;
+            return Objects.equals(this.nodes(), other.nodes());
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EBiDirected<T, ND, ED> other = (EBiDirected<T, ND, ED>) obj;
-        
-        Set<ND> thisNodes = this.nodes();
-        Set<ND> otherNodes = other.nodes();
-        if(!thisNodes.equals(otherNodes)) {
-            return false;
-        }
-        
-        return true;
     }
 
     @Override

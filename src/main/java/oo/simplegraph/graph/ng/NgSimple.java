@@ -55,20 +55,12 @@ public class NgSimple<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impleme
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof NgSimple) {
+            final NgSimple<T, ND, ED> other = (NgSimple<T, ND, ED>) obj;
+            return Objects.equals(this.edges, other.edges);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NgSimple<T, ND, ED> other = (NgSimple<T, ND, ED>) obj;
-        if (!Objects.equals(this.edges, other.edges)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

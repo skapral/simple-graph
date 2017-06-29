@@ -25,7 +25,6 @@ package oo.simplegraph.edge;
 
 import java.util.Objects;
 import javaslang.collection.HashSet;
-import javaslang.collection.List;
 import javaslang.collection.Set;
 import javaslang.control.Option;
 import oo.simplegraph.node.Node;
@@ -68,23 +67,13 @@ public class EDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implem
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof EDirected) {
+            final EDirected<T, ND, ED> other = (EDirected<T, ND, ED>) obj;
+            return Objects.equals(this.start, other.start) &&
+                    Objects.equals(this.end, other.end);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EDirected<T, ND, ED> other = (EDirected<T, ND, ED>) obj;
-        if (!Objects.equals(this.start, other.start)) {
-            return false;
-        }
-        if (!Objects.equals(this.end, other.end)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

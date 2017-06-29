@@ -23,6 +23,8 @@
  */
 package oo.simplegraph.node;
 
+import java.util.Objects;
+
 /**
  *
  * @author Kapralov Sergey
@@ -46,20 +48,12 @@ public class NReference<T> implements Node<T> {
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof NReference) {
+            final NReference<?> other = (NReference<?>) obj;
+            return this.value == other.value;
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NReference<?> other = (NReference<?>) obj;
-        if (this.value != other.value) {
-            return false;
-        }
-        return true;
     }
 
     @Override

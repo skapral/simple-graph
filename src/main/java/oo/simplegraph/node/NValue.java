@@ -48,20 +48,12 @@ public class NValue<T> implements Node<T> {
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof NValue) {
+            NValue<T> other = (NValue<T>) obj;
+            return Objects.equals(this.value, other.value);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NValue<?> other = (NValue<?>) obj;
-        if (!Objects.equals(this.value, other.value)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

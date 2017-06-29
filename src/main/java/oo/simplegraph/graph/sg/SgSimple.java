@@ -72,23 +72,13 @@ public class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements 
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof SgSimple) {
+            final SgSimple<T, N, E> other = (SgSimple<T, N, E>) obj;
+            return Objects.equals(this.nodes, other.nodes) &&
+                   Objects.equals(this.edges, other.edges);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SgSimple<?, ?, ?> other = (SgSimple<?, ?, ?>) obj;
-        if (!Objects.equals(this.nodes, other.nodes)) {
-            return false;
-        }
-        if (!Objects.equals(this.edges, other.edges)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

@@ -27,19 +27,19 @@ import oo.simplegraph.node.Node;
 import java.util.Objects;
 import javaslang.collection.HashMap;
 import javaslang.collection.HashSet;
-import javaslang.collection.List;
 import javaslang.collection.Map;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 
 /**
- * 
+ *
  * @author Kapralov Sergey
  * @param <T>
  * @param <ND>
- * @param <ED> 
+ * @param <ED>
  */
 class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements NavigableGraph.Inference<T, ND, ED> {
+
     private final Set<ED> edges;
 
     public NgFromEdgesInference(Set<ED> edges) {
@@ -68,20 +68,12 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof NgFromEdgesInference) {
+            final NgFromEdgesInference<T, ND, ED> other = (NgFromEdgesInference<T, ND, ED>) obj;
+            return Objects.equals(this.edges, other.edges);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NgFromEdgesInference<T, ND, ED> other = (NgFromEdgesInference<T, ND, ED>) obj;
-        if (!Objects.equals(this.edges, other.edges)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -95,6 +87,7 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
  * @author Kapralov Sergey
  */
 public class NgFromEdges<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends NgInferred<T, ND, ED> implements NavigableGraph<T, ND, ED> {
+
     public NgFromEdges(ED... edges) {
         this(HashSet.of(edges));
     }

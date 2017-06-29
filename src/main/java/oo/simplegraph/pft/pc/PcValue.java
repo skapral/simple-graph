@@ -76,26 +76,14 @@ public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof PcValue) {
+            final PcValue<T, ND, ED> other = (PcValue<T, ND, ED>) obj;
+            return Objects.equals(this.startNode, other.startNode) &&
+                    Objects.equals(this.endNode, other.endNode) &&
+                    Objects.equals(this.edges, other.edges);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PcValue<?, ?, ?> other = (PcValue<?, ?, ?>) obj;
-        if (!Objects.equals(this.startNode, other.startNode)) {
-            return false;
-        }
-        if (!Objects.equals(this.endNode, other.endNode)) {
-            return false;
-        }
-        if (!Objects.equals(this.edges, other.edges)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

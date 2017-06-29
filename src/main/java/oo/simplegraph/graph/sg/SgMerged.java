@@ -53,20 +53,12 @@ class SgMergedInference<T, N extends Node<T>, E extends Edge<T, N, E>> implement
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof SgMergedInference) {
+            final SgMergedInference<?, ?, ?> other = (SgMergedInference<?, ?, ?>) obj;
+            return Objects.equals(this.graphs, other.graphs);
+        } else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SgMergedInference<?, ?, ?> other = (SgMergedInference<?, ?, ?>) obj;
-        if (!Objects.equals(this.graphs, other.graphs)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

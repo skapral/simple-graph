@@ -54,20 +54,12 @@ class NgFromStructureInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>
 
     @Override
     public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (obj instanceof NgFromStructureInference) {
+            final NgFromStructureInference<?, ?, ?> other = (NgFromStructureInference<?, ?, ?>) obj;
+            return Objects.equals(this.structuredGraph, other.structuredGraph);
+        }else {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NgFromStructureInference<?, ?, ?> other = (NgFromStructureInference<?, ?, ?>) obj;
-        if (!Objects.equals(this.structuredGraph, other.structuredGraph)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
