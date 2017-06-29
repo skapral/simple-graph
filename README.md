@@ -4,6 +4,14 @@
 
 Simple graph library
 
+## How to build
+
+Simply clone the repository and run Maven from its root:
+
+```bash
+  $ mvn clean install
+``` 
+
 ## Quick start
 
 1. Define your node type
@@ -98,3 +106,7 @@ Simple graph library
               new NString("b2")
       ).get();
 ```
+
+## Need more info?
+
+TODO: place link to the user manual
