@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.main;
+package oo.simplegraph.example;
 
 import oo.simplegraph.edge.EDirected;
 import oo.simplegraph.node.NValue;
@@ -32,6 +32,8 @@ import oo.simplegraph.graph.ng.NgFromStructure;
 import oo.simplegraph.graph.sg.SgEmpty;
 import oo.simplegraph.graph.sg.SgWithEdges;
 import oo.simplegraph.graph.sg.SgWithNodes;
+import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 
 /**
@@ -51,15 +53,21 @@ class NString extends NValue<String> {
  * @author Kapralov Sergey
  */
 class EString extends EDirected<String, NString, EString> {
+    public EString(NString start, NString end) {
+        super(start, end);
+    }
+    
+    /**
+     * You can define more constructors for convenience
+     * 
+     * @param start
+     * @param end 
+     */
     public EString(String start, String end) {
         super(
                 new NString(start),
                 new NString(end)
         );
-    }
-    
-    public EString(NString start, NString end) {
-        super(start, end);
     }
 }
 
@@ -67,17 +75,14 @@ class EString extends EDirected<String, NString, EString> {
  *
  * @author Kapralov Sergey
  */
-public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+public class ExampleTest {
+    @Test
+    public void example() {
         // create a graph
-        StructuredGraph sg = new SgEmpty();
+        StructuredGraph<String, NString, EString> sg = new SgEmpty<>();
 
         // add nodes
-        sg = new SgWithNodes(
+        sg = new SgWithNodes<>(
                 sg,
                 new NString("a"),
                 new NString("a1"),
@@ -88,9 +93,9 @@ public class Main {
                 new NString("b3"),
                 new NString("b")
         );
-        
+
         // add edges
-        sg = new SgWithEdges(
+        sg = new SgWithEdges<>(
                 sg,
                 new EString("a", "a1"),
                 new EString("a", "a2"),
@@ -107,13 +112,17 @@ public class Main {
         );
 
         // prepare the graph for path finding
-        NavigableGraph g = new NgFromStructure(sg);
-        System.out.println(g);
-        
+        NavigableGraph<String, NString, EString> g = new NgFromStructure<>(sg);
+
         // Rock'n'roll!
-        System.out.println(new PftNaive<>(g).path(
-                new NString("a"), 
-                new NString("b2")
-        ));
+        assertThat(
+            new PftNaive<>(g).path(
+                    new NString("a"), 
+                    new NString("b2")
+            ).get()
+        ).containsExactly(
+                new EString("a", "a1"),
+                new EString("a1", "b2")
+        );
     }
 }
