@@ -26,6 +26,7 @@ package oo.simplegraph.pft.pc;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.EDirected;
+import oo.simplegraph.node.NUnique;
 import oo.simplegraph.node.NValue;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
@@ -35,50 +36,73 @@ import org.junit.Test;
  * @author Kapralov Sergey
  */
 public class PcEmptyTest {
+
     @Test
     public final void canAdvanceInRightDirection() {
         PathChunk pc = new PcEmpty(
-            new NValue<>(1)
+                new NValue<>(1)
         );
         Option<PathChunk> pcAdvanced = pc.advance(
-            new EDirected(
-                new NValue<>(1),
-                new NValue<>(2)
-            )
+                new EDirected(
+                        new NValue<>(1),
+                        new NValue<>(2)
+                )
         );
         assertThat(
                 pcAdvanced
         ).isEqualTo(
-            Option.of(
-                new PcValue<>(
-                    new NValue<>(1),
-                    new NValue<>(2),
-                    List.of(
-                        new EDirected(
-                            new NValue<>(1),
-                            new NValue<>(2)
+                Option.of(
+                        new PcValue<>(
+                                new NValue<>(1),
+                                new NValue<>(2),
+                                List.of(
+                                        new EDirected(
+                                                new NValue<>(1),
+                                                new NValue<>(2)
+                                        )
+                                )
                         )
-                    )
                 )
-            )
+        );
+    }
+
+    @Test
+    public final void cannotAdvanceInWrongDirection() {
+        PathChunk pc = new PcEmpty(
+                new NValue<>(1)
+        );
+        Option<PathChunk> pcAdvanced = pc.advance(
+                new EDirected(
+                        new NValue<>(2),
+                        new NValue<>(1)
+                )
+        );
+        assertThat(
+                pcAdvanced
+        ).isEqualTo(
+                Option.none()
+        );
+    }
+
+    @Test
+    public final void hasHeadAndTailInOnePlace() {
+        PathChunk pc = new PcEmpty(
+                new NUnique()
+        );
+        assertThat(
+                pc.head()
+        ).isEqualTo(
+                pc.tail()
         );
     }
     
     @Test
-    public final void cannotAdvanceInWrongDirection() {
+    public final void hasNoPath() {
         PathChunk pc = new PcEmpty(
-            new NValue<>(1)
-        );
-        Option<PathChunk> pcAdvanced = pc.advance(
-            new EDirected(
-                new NValue<>(2),
-                new NValue<>(1)
-            )
+                new NUnique()
         );
         assertThat(
-                pcAdvanced
-        ).isEqualTo(
-            Option.none()
-        );
+                pc.path()
+        ).isEmpty();
     }
 }

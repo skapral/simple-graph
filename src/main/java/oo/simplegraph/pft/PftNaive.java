@@ -45,7 +45,7 @@ public class PftNaive<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impleme
     
     @Override
     public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
-        if (nodeStart.equals(nodeEnd)) {
+        if (nodeStart.equals(nodeEnd) && !graph.edges(nodeStart).isEmpty()) {
             return Option.of(List.empty());
         }
         List<PathChunk<T, ND, ED>> pathChunks = List.of(new PcEmpty<>(nodeStart));

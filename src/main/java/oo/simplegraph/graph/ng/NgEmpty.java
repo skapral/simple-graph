@@ -21,11 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.pft.pc;
+package oo.simplegraph.graph.ng;
 
-import java.util.Objects;
-import javaslang.collection.List;
-import javaslang.control.Option;
+import javaslang.collection.HashMap;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
@@ -33,8 +31,10 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class PcEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends PcValue<T, ND, ED> implements PathChunk<T,ND,ED> {
-    public PcEmpty(ND node) {
-        super(node, node, List.empty());
+public class NgEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends NgSimple<T, ND, ED> implements NavigableGraph<T, ND, ED> {
+    public NgEmpty() {
+        super(
+                HashMap.empty()
+        );
     }
 }

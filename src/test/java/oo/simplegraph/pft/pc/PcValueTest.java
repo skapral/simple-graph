@@ -37,128 +37,135 @@ import org.junit.Test;
  * @author Kapralov Sergey
  */
 public class PcValueTest {
+
     @Test
     public final void canAdvanceInRightDirection() {
         PathChunk pc = new PcValue(
-            new NValue<>(1),
-            new NValue<>(2),
-            List.of(
-                new EDirected<>(
-                    new NValue<>(1), 
-                    new NValue<>(2)
-                )
-            )
-        );
-        Option<PathChunk> pcAdvanced = pc.advance(
-            new EDirected(
+                new NValue<>(1),
                 new NValue<>(2),
-                new NValue<>(3)
-            )
+                List.of(
+                        new EDirected<>(
+                                new NValue<>(1),
+                                new NValue<>(2)
+                        )
+                )
+        );
+        Option<PathChunk> pcAdvancedOption = pc.advance(
+                new EDirected(
+                        new NValue<>(2),
+                        new NValue<>(3)
+                )
         );
         assertThat(
-                pcAdvanced
+                pcAdvancedOption.isEmpty()
+        ).isFalse();
+        PathChunk pcAdvanced = pcAdvancedOption.get();
+        assertThat(
+                pcAdvanced.head()
         ).isEqualTo(
-            Option.of(
-                new PcValue<>(
-                    new NValue<>(1),
-                    new NValue<>(3),
-                    List.of(
-                        new EDirected(
-                            new NValue<>(1),
-                            new NValue<>(2)
-                        ),
-                        new EDirected(
-                            new NValue<>(2),
-                            new NValue<>(3)
-                        )
-                    )
+                new NValue<>(1)
+        );
+        assertThat(
+                pcAdvanced.tail()
+        ).isEqualTo(
+                new NValue<>(3)
+        );
+        assertThat(
+                pcAdvanced.path()
+        ).containsExactly(
+                new EDirected<>(
+                        new NValue<>(1),
+                        new NValue<>(2)
+                ),
+                new EDirected(
+                        new NValue<>(2),
+                        new NValue<>(3)
                 )
-            )
         );
     }
-    
+
     @Test
     public final void cannotAdvanceInWrongDirection() {
         PathChunk pc = new PcValue(
-            new NValue<>(1),
-            new NValue<>(2),
-            List.of(
-                new EDirected<>(
-                    new NValue<>(1), 
-                    new NValue<>(2)
+                new NValue<>(1),
+                new NValue<>(2),
+                List.of(
+                        new EDirected<>(
+                                new NValue<>(1),
+                                new NValue<>(2)
+                        )
                 )
-            )
         );
         Option<PathChunk> pcAdvanced = pc.advance(
-            new EDirected(
-                new NValue<>(3),
-                new NValue<>(2)
-            )
+                new EDirected(
+                        new NValue<>(3),
+                        new NValue<>(2)
+                )
         );
         assertThat(
                 pcAdvanced
         ).isEqualTo(
-            Option.none()
+                Option.none()
         );
     }
-    
+
     @Test
     @Ignore // TODO: need to think more about this case
     public final void canEliminateLoopsWithBiDirectedEdges() {
         PathChunk pc = new PcValue(
-            new NValue<>(1),
-            new NValue<>(3),
-            List.of(
-                new EBiDirected<>(
-                    new NValue<>(1), 
-                    new NValue<>(2)
-                ),
-                new EBiDirected<>(
-                    new NValue<>(2), 
-                    new NValue<>(3)
+                new NValue<>(1),
+                new NValue<>(3),
+                List.of(
+                        new EBiDirected<>(
+                                new NValue<>(1),
+                                new NValue<>(2)
+                        ),
+                        new EBiDirected<>(
+                                new NValue<>(2),
+                                new NValue<>(3)
+                        )
                 )
-            )
         );
         Option<PathChunk> pcAdvanced = pc.advance(
-            new EBiDirected(
-                new NValue<>(3),
-                new NValue<>(1)
-            )
+                new EBiDirected(
+                        new NValue<>(3),
+                        new NValue<>(1)
+                )
         );
         assertThat(
                 pcAdvanced
         ).isEqualTo(
-            Option.none()
+                Option.none()
         );
     }
-    
+
     @Test
     @Ignore // TODO: need to think more about this case
     public final void canEliminateLoopsWithDirectedEdges() {
         PathChunk pc = new PcValue(
-            new NValue<>(1),
-            new NValue<>(3),
-            List.of(
-                new EDirected<>(
-                    new NValue<>(1), 
-                    new NValue<>(2)
-                ),
-                new EDirected<>(
-                    new NValue<>(2), 
-                    new NValue<>(3)
+                new NValue<>(1),
+                new NValue<>(3),
+                List.of(
+                        new EDirected<>(
+                                new NValue<>(1),
+                                new NValue<>(2)
+                        ),
+                        new EDirected<>(
+                                new NValue<>(2),
+                                new NValue<>(3)
+                        )
                 )
-            )
         );
         Option<PathChunk> pcAdvanced = pc.advance(
-            new EDirected(
-                new NValue<>(3),
-                new NValue<>(1)
-            )
+                new EDirected(
+                        new NValue<>(3),
+                        new NValue<>(1)
+                )
         );
         assertThat(
                 pcAdvanced
         ).isEqualTo(
-            Option.none()
+                Option.none()
         );
     }
 }
