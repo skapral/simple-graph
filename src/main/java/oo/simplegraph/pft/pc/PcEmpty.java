@@ -23,9 +23,7 @@
  */
 package oo.simplegraph.pft.pc;
 
-import java.util.Objects;
 import javaslang.collection.List;
-import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
@@ -33,7 +31,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class PcEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends PcValue<T, ND, ED> implements PathChunk<T,ND,ED> {
+public class PcEmpty<ND extends Node<?>, ED extends Edge<ND, ED>> extends PcValue<ND, ED> implements PathChunk<ND, ED> {
     public PcEmpty(ND node) {
         super(node, node, List.empty());
     }

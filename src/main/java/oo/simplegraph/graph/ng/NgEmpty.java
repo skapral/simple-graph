@@ -31,7 +31,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class NgEmpty<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends NgSimple<T, ND, ED> implements NavigableGraph<T, ND, ED> {
+public class NgEmpty<ND extends Node<?>, ED extends Edge<ND, ED>> extends NgSimple<ND, ED> implements NavigableGraph<ND, ED> {
     public NgEmpty() {
         super(
                 HashMap.empty()

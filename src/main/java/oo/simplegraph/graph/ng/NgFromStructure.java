@@ -35,16 +35,16 @@ import oo.simplegraph.graph.sg.StructuredGraph;
  * @param <ND>
  * @param <ED> 
  */
-class NgFromStructureInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements NavigableGraph.Inference<T, ND, ED> {
-    private final StructuredGraph<T, ND, ED> structuredGraph;
+class NgFromStructureInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements NavigableGraph.Inference<ND, ED> {
+    private final StructuredGraph<ND, ED> structuredGraph;
 
-    public NgFromStructureInference(StructuredGraph<T, ND, ED> structuredGraph) {
+    public NgFromStructureInference(StructuredGraph<ND, ED> structuredGraph) {
         this.structuredGraph = structuredGraph;
     }
     
     @Override
-    public final NavigableGraph<T, ND, ED> graph() {
-        return new NgFromEdges<T, ND, ED>(structuredGraph.edges());
+    public final NavigableGraph<ND, ED> graph() {
+        return new NgFromEdges<ND, ED>(structuredGraph.edges());
     }
 
     @Override
@@ -55,7 +55,7 @@ class NgFromStructureInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof NgFromStructureInference) {
-            final NgFromStructureInference<?, ?, ?> other = (NgFromStructureInference<?, ?, ?>) obj;
+            final NgFromStructureInference<?, ?> other = (NgFromStructureInference<?, ?>) obj;
             return Objects.equals(this.structuredGraph, other.structuredGraph);
         }else {
             return false;
@@ -72,8 +72,8 @@ class NgFromStructureInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>
  *
  * @author Kapralov Sergey
  */
-public class NgFromStructure<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends NgInferred<T, ND, ED> implements NavigableGraph<T, ND, ED> {
-    public NgFromStructure(StructuredGraph<T, ND, ED> sg) {
+public class NgFromStructure<ND extends Node<?>, ED extends Edge<ND, ED>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
+    public NgFromStructure(StructuredGraph<ND, ED> sg) {
         super(
                 new NgFromStructureInference<>(sg)
         );

@@ -38,7 +38,7 @@ import oo.simplegraph.edge.Edge;
  * @param <ND>
  * @param <ED>
  */
-class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements NavigableGraph.Inference<T, ND, ED> {
+class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements NavigableGraph.Inference<ND, ED> {
 
     private final Set<ED> edges;
 
@@ -47,8 +47,8 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
     }
 
     @Override
-    public final NavigableGraph<T, ND, ED> graph() {
-        Map<Node<T>, Set<ED>> mappedEdges = HashMap.empty();
+    public final NavigableGraph<ND, ED> graph() {
+        Map<ND, Set<ED>> mappedEdges = HashMap.empty();
         for (ED edge : edges) {
             Set<ND> nodes = edge.startingNodes();
 
@@ -69,7 +69,7 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof NgFromEdgesInference) {
-            final NgFromEdgesInference<T, ND, ED> other = (NgFromEdgesInference<T, ND, ED>) obj;
+            final NgFromEdgesInference<ND, ED> other = (NgFromEdgesInference<ND, ED>) obj;
             return Objects.equals(this.edges, other.edges);
         } else {
             return false;
@@ -86,7 +86,7 @@ class NgFromEdgesInference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> im
  *
  * @author Kapralov Sergey
  */
-public class NgFromEdges<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> extends NgInferred<T, ND, ED> implements NavigableGraph<T, ND, ED> {
+public class NgFromEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
 
     public NgFromEdges(ED... edges) {
         this(HashSet.of(edges));

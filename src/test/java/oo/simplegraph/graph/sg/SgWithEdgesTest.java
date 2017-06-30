@@ -40,7 +40,8 @@ public class SgWithEdgesTest {
         StructuredGraph sg = new SgSimple(
                 HashSet.of(
                         new NValue<>("1"),
-                        new NValue<>("2")
+                        new NValue<>("2"),
+                        new NValue<>("3")
                 ),
                 HashSet.of(
                         new EDirected<>(
@@ -66,6 +67,41 @@ public class SgWithEdgesTest {
                 new EDirected<>(
                         new NValue<>("1"),
                         new NValue<>("2")
+                )
+        );
+    }
+
+    @Test
+    public final void mergesNodesIfTheyAreNotInGraph() {
+        StructuredGraph sg = new SgSimple(
+                HashSet.of(
+                        new NValue<>("1"),
+                        new NValue<>("2")
+                ),
+                HashSet.of(
+                        new EDirected<>(
+                                new NValue<>("1"),
+                                new NValue<>("2")
+                        )
+                )
+        );
+        StructuredGraph sgWithEdges = new SgWithEdges(
+                sg,
+                new EDirected<>(
+                        new NValue<>("2"),
+                        new NValue<>("3")
+                )
+        );
+        assertThat(
+                sgWithEdges.edges()
+        ).containsOnly(
+                new EDirected<>(
+                        new NValue<>("1"),
+                        new NValue<>("2")
+                ),
+                new EDirected<>(
+                        new NValue<>("2"),
+                        new NValue<>("3")
                 )
         );
     }
@@ -97,6 +133,30 @@ public class SgWithEdgesTest {
                 new NValue<>("1"),
                 new NValue<>("2"),
                 new NValue<>("3")
+        );
+    }
+
+    @Test
+    public void addsEdgesAfterNewNodesAdded() {
+        StructuredGraph sg = new SgWithNodes(
+                new SgEmpty(),
+                new NValue(1),
+                new NValue(2),
+                new NValue(3)
+        );
+        assertThat(
+                new SgWithEdges(
+                        sg,
+                        new EDirected(
+                                new NValue(1),
+                                new NValue(2)
+                        )
+                ).edges()
+        ).containsOnly(
+                new EDirected(
+                        new NValue(1),
+                        new NValue(2)
+                )
         );
     }
 }

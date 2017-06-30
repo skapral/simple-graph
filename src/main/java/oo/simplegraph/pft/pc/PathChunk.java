@@ -32,9 +32,9 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public interface PathChunk<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
+public interface PathChunk<ND extends Node<?>, ED extends Edge<ND, ED>> {
     ND head();
     ND tail();
     List<ED> path();
-    Option<PathChunk<T, ND, ED>> advance(ED edge);
+    Option<PathChunk<ND, ED>> advance(ED edge);
 }

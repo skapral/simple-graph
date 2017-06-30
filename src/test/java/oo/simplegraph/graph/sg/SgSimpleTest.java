@@ -25,10 +25,8 @@ package oo.simplegraph.graph.sg;
 
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
-import oo.simplegraph.edge.EBiDirected;
 import oo.simplegraph.edge.EDirected;
 import oo.simplegraph.node.NUnique;
-import oo.simplegraph.node.NValue;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
@@ -39,7 +37,7 @@ import static org.assertj.core.api.Assertions.*;
 public class SgSimpleTest {
     @Test
     public final void basicEquality() {
-        SgSimple sg = new SgSimple();
+        SgSimple sg = new SgEmpty();
         
         assertThat(
                 sg

@@ -33,7 +33,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class EDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements Edge<T, ND, ED> {
+public class EDirected<ND extends Node<?>, ED extends Edge<ND, ED>> implements Edge<ND, ED> {
     private final ND start;
     private final ND end;
 
@@ -68,7 +68,7 @@ public class EDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implem
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof EDirected) {
-            final EDirected<T, ND, ED> other = (EDirected<T, ND, ED>) obj;
+            final EDirected<ND, ED> other = (EDirected<ND, ED>) obj;
             return Objects.equals(this.start, other.start) &&
                     Objects.equals(this.end, other.end);
         } else {

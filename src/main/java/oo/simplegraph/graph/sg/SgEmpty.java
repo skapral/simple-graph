@@ -31,7 +31,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgEmpty<T, N extends Node<T>, E extends Edge<T, N, E>> extends SgSimple<T, N, E> implements StructuredGraph<T, N, E> {
+public class SgEmpty<N extends Node<?>, E extends Edge<N, E>> extends SgSimple<N, E> implements StructuredGraph<N, E> {
     public SgEmpty() {
         super(HashSet.empty(), HashSet.empty());
     }

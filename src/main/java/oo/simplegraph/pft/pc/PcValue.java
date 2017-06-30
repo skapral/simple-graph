@@ -33,7 +33,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements PathChunk<T, ND, ED> {
+public class PcValue<ND extends Node<?>, ED extends Edge<ND, ED>> implements PathChunk<ND, ED> {
     private final ND startNode;
     private final ND endNode;
     private final List<ED> edges;
@@ -60,7 +60,7 @@ public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
     }
 
     @Override
-    public final Option<PathChunk<T, ND, ED>> advance(ED edge) {
+    public final Option<PathChunk<ND, ED>> advance(ED edge) {
         if(edges.contains(edge)) {
             // We are in a loop. No sense in advancing further
             return Option.none();
@@ -77,7 +77,7 @@ public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof PcValue) {
-            final PcValue<T, ND, ED> other = (PcValue<T, ND, ED>) obj;
+            final PcValue<ND, ED> other = (PcValue<ND, ED>) obj;
             return Objects.equals(this.startNode, other.startNode) &&
                     Objects.equals(this.endNode, other.endNode) &&
                     Objects.equals(this.edges, other.edges);
@@ -87,7 +87,7 @@ public class PcValue<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implemen
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "PcValue{" + "startNode=" + startNode + ", endNode=" + endNode + ", edges=" + edges + '}';
     }
 }

@@ -29,21 +29,25 @@ import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
-class SgMergedInference<T, N extends Node<T>, E extends Edge<T, N, E>> implements StructuredGraph.Inference<T, N, E> {
-    private final Set<StructuredGraph<T, N, E>> graphs;
+class SgMergedInference<N extends Node<?>, E extends Edge<N, E>> implements StructuredGraph.Inference<N, E> {
 
-    public SgMergedInference(Set<StructuredGraph<T, N, E>> graphs) {
+    private final Set<StructuredGraph<N, E>> graphs;
+
+    public SgMergedInference(Set<StructuredGraph<N, E>> graphs) {
         this.graphs = graphs;
     }
-    
+
     @Override
-    public final StructuredGraph<T, N, E> graph() {
-        HashSet<N> nodes = graphs
-                .foldLeft(HashSet.empty(), (hs, g) -> hs.addAll(g.nodes()));
-        HashSet<E> edges = graphs
-                .foldLeft(HashSet.empty(), (hs, g) -> hs.addAll(g.edges()));
-        nodes = nodes.addAll(edges.flatMap(Edge::nodes));
-        return new SgSimple<>(nodes, edges);
+    public final StructuredGraph<N, E> graph() {
+        return graphs.fold(new SgEmpty<N, E>(), (g, g2) -> {
+            return new SgWithEdges<>(
+                    new SgWithNodes<>(
+                            g,
+                            g2.nodes()
+                    ),
+                    g2.edges()
+            );
+        });
     }
 
     @Override
@@ -54,7 +58,7 @@ class SgMergedInference<T, N extends Node<T>, E extends Edge<T, N, E>> implement
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof SgMergedInference) {
-            final SgMergedInference<?, ?, ?> other = (SgMergedInference<?, ?, ?>) obj;
+            final SgMergedInference<?, ?> other = (SgMergedInference<?, ?>) obj;
             return Objects.equals(this.graphs, other.graphs);
         } else {
             return false;
@@ -71,12 +75,13 @@ class SgMergedInference<T, N extends Node<T>, E extends Edge<T, N, E>> implement
  *
  * @author Kapralov Sergey
  */
-public class SgMerged<T, N extends Node<T>, E extends Edge<T, N, E>> extends SgInferred<T, N, E> implements StructuredGraph<T, N, E> {
-    public SgMerged(StructuredGraph<T, N, E>... graphs) {
+public class SgMerged<N extends Node<?>, E extends Edge<N, E>> extends SgInferred<N, E> implements StructuredGraph<N, E> {
+
+    public SgMerged(StructuredGraph<N, E>... graphs) {
         this(HashSet.of(graphs));
     }
-    
-    public SgMerged(Set<StructuredGraph<T, N, E>> graphs) {
+
+    public SgMerged(Set<StructuredGraph<N, E>> graphs) {
         super(new SgMergedInference<>(graphs));
     }
 }

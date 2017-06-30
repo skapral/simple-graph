@@ -25,7 +25,6 @@ package oo.simplegraph.edge;
 
 import java.util.Objects;
 import javaslang.collection.HashSet;
-import javaslang.collection.List;
 import javaslang.collection.Set;
 import javaslang.control.Option;
 import oo.simplegraph.node.Node;
@@ -34,7 +33,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> implements Edge<T, ND, ED> {
+public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ED>> implements Edge<ND, ED> {
 
     private final ND node1;
     private final ND node2;
@@ -76,7 +75,7 @@ public class EBiDirected<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> impl
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof EBiDirected) {
-            final EBiDirected<T, ND, ED> other = (EBiDirected<T, ND, ED>) obj;
+            final EBiDirected<ND, ED> other = (EBiDirected<ND, ED>) obj;
             return Objects.equals(this.nodes(), other.nodes());
         } else {
             return false;

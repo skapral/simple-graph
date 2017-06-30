@@ -52,7 +52,7 @@ class NString extends NValue<String> {
  * 
  * @author Kapralov Sergey
  */
-class EString extends EDirected<String, NString, EString> {
+class EString extends EDirected<NString, EString> {
     public EString(NString start, NString end) {
         super(start, end);
     }
@@ -79,7 +79,7 @@ public class ExampleTest {
     @Test
     public void example() {
         // create a graph
-        StructuredGraph<String, NString, EString> sg = new SgEmpty<>();
+        StructuredGraph<NString, EString> sg = new SgEmpty<>();
 
         // add nodes
         sg = new SgWithNodes<>(
@@ -112,7 +112,7 @@ public class ExampleTest {
         );
 
         // prepare the graph for path finding
-        NavigableGraph<String, NString, EString> g = new NgFromStructure<>(sg);
+        NavigableGraph<NString, EString> g = new NgFromStructure<>(sg);
 
         // Rock'n'roll!
         assertThat(

@@ -31,9 +31,9 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public interface NavigableGraph<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-    interface Inference<T, ND extends Node<T>, ED extends Edge<T, ND, ED>> {
-        NavigableGraph<T, ND, ED> graph();
+public interface NavigableGraph<ND extends Node<?>, ED extends Edge<ND, ED>> {
+    interface Inference<ND extends Node<?>, ED extends Edge<ND, ED>> {
+        NavigableGraph<ND, ED> graph();
     }
     
     List<ED> edges(ND node);

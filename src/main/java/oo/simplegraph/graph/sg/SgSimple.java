@@ -24,7 +24,6 @@
 package oo.simplegraph.graph.sg;
 
 import java.util.Objects;
-import javaslang.collection.HashSet;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
@@ -34,22 +33,10 @@ import oo.simplegraph.node.Node;
  * 
  * @author Kapralov Sergey
  */
-public class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements StructuredGraph<T, N, E> {
+public class SgSimple<N extends Node<?>, E extends Edge<N, E>> implements StructuredGraph<N, E> {
     private final Set<N> nodes;
     private final Set<E> edges;
 
-    public SgSimple() {
-        this(
-            HashSet.empty(),
-            HashSet.empty()
-        );
-    }
-    
-    /**
-     * 
-     * @param nodes
-     * @param edges 
-     */
     public SgSimple(Set<N> nodes, Set<E> edges) {
         this.nodes = nodes;
         this.edges = edges;
@@ -73,7 +60,7 @@ public class SgSimple<T, N extends Node<T>, E extends Edge<T, N, E>> implements 
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof SgSimple) {
-            final SgSimple<T, N, E> other = (SgSimple<T, N, E>) obj;
+            final SgSimple<N, E> other = (SgSimple<N, E>) obj;
             return Objects.equals(this.nodes, other.nodes) &&
                    Objects.equals(this.edges, other.edges);
         } else {

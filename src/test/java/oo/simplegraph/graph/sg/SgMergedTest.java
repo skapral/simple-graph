@@ -34,6 +34,7 @@ import org.junit.Test;
  * @author Kapralov Sergey
  */
 public class SgMergedTest {
+
     @Test
     public final void mergesSeveralGraphsTogether() {
         StructuredGraph graph1 = new SgSimple(

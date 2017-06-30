@@ -26,6 +26,7 @@ package oo.simplegraph.edge;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.node.NUnique;
+import oo.simplegraph.node.NValue;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 
@@ -73,7 +74,7 @@ public class EDirectedTest {
                 new EDirected(o1, o2).hashCode()
         );
     }
-
+    
     @Test
     public final void comparesNodesBySystemIdentity2() {
         final NUnique o1 = new NUnique();
