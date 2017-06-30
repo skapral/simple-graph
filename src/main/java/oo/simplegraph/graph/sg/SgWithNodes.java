@@ -30,52 +30,16 @@ import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
 
-class SgWithNodesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements StructuredGraph.Inference<ND, ED> {
-    private final StructuredGraph<ND, ED> sg;
-    private final Set<ND> nodes;
-
-    public SgWithNodesInference(StructuredGraph<ND, ED> sg, Set<ND> nodes) {
-        this.sg = sg;
-        this.nodes = nodes;
-    }
-    
-    @Override
-    public final StructuredGraph<ND, ED> graph() {
-        return new SgSimple<>(sg.nodes().addAll(nodes), sg.edges());
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(this.sg, this.nodes);
-    }
-
-    @Override
-    public final boolean equals(Object obj) {
-        if (obj instanceof SgWithNodesInference) {
-            final SgWithNodesInference<ND, ED> other = (SgWithNodesInference<ND, ED>) obj;
-            return Objects.equals(this.sg, other.sg) &&
-                   Objects.equals(this.nodes, other.nodes);
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public final String toString() {
-        return "SgWithNodesInference{" + "sg=" + sg + ", nodes=" + nodes + '}';
-    }
-}
-
 /**
  *
  * @author Kapralov Sergey
  */
-public class SgWithNodes<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgInferred<ND, ED> implements StructuredGraph<ND, ED> {
+public class SgWithNodes<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgWithNodesAndEdges<ND, ED> implements StructuredGraph<ND, ED> {
     public SgWithNodes(StructuredGraph<ND, ED> sg, Set<ND> nodes) {
         super(
-            new SgWithNodesInference<>(
-                sg, nodes
-            )
+            sg,
+            nodes,
+            HashSet.empty()
         );
     }
     

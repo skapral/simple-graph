@@ -25,7 +25,8 @@ package oo.simplegraph.graph.ng;
 
 import javaslang.collection.HashSet;
 import oo.simplegraph.edge.EDirected;
-import oo.simplegraph.graph.sg.SgSimple;
+import oo.simplegraph.graph.sg.SgEmpty;
+import oo.simplegraph.graph.sg.SgWithEdges;
 import oo.simplegraph.node.NValue;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
@@ -38,12 +39,8 @@ public class NgFromStructureTest {
     @Test
     public final void producesNavigableGraphFromSetOfEdges() {
         NavigableGraph ngraph = new NgFromStructure(
-            new SgSimple(
-                HashSet.of(
-                    new NValue<>(1),
-                    new NValue<>(2),
-                    new NValue<>(3)
-                ),
+            new SgWithEdges(
+                new SgEmpty(),
                 HashSet.of(
                     new EDirected<>(
                         new NValue<>(1),

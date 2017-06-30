@@ -23,68 +23,25 @@
  */
 package oo.simplegraph.graph.sg;
 
-import java.util.Objects;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
 /**
- * 
- * @author Kapralov Sergey
- * @param <T>
- * @param <ND>
- * @param <ED> 
- */
-class SgWithEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements StructuredGraph.Inference<ND, ED> {
-    private final StructuredGraph<ND, ED> sg;
-    private final Set<ED> edges;
-
-    public SgWithEdgesInference(StructuredGraph<ND, ED> sg, Set<ED> edges) {
-        this.sg = sg;
-        this.edges = edges;
-    }
-    
-    @Override
-    public final StructuredGraph<ND, ED> graph() {
-        return new SgSimple<>(sg.nodes().addAll(edges.flatMap(Edge::nodes)), sg.edges().addAll(edges));
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(this.sg, this.edges);
-    }
-
-    @Override
-    public final boolean equals(Object obj) {
-        if (obj instanceof SgWithEdgesInference) {
-            final SgWithEdgesInference<ND, ED> other = (SgWithEdgesInference<ND, ED>) obj;
-            return Objects.equals(this.sg, other.sg) &&
-                   Objects.equals(this.edges, other.edges);
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public final String toString() {
-        return "SgWithEdgesInference{" + "sg=" + sg + ", edges=" + edges + '}';
-    }
-}
-
-/**
  *
  * @author Kapralov Sergey
  */
-public class SgWithEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgInferred<ND, ED> implements StructuredGraph<ND, ED> {
+public class SgWithEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgWithNodesAndEdges<ND, ED> implements StructuredGraph<ND, ED> {
+
     public SgWithEdges(StructuredGraph<ND, ED> sg, Set<ED> edges) {
         super(
-            new SgWithEdgesInference<>(
-                sg, edges
-            )
+                sg,
+                HashSet.empty(),
+                edges
         );
     }
-    
+
     public SgWithEdges(StructuredGraph<ND, ED> sg, ED... edges) {
         this(sg, HashSet.of(edges));
     }

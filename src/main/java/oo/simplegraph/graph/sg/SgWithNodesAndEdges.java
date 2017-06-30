@@ -28,40 +28,45 @@ import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
-/**
- *
- * 
- * @author Kapralov Sergey
- */
-public class SgSimple<N extends Node<?>, E extends Edge<N, E>> implements StructuredGraph<N, E> {
-    private final Set<N> nodes;
-    private final Set<E> edges;
 
-    public SgSimple(Set<N> nodes, Set<E> edges) {
+
+class SgWithNodesAndEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements StructuredGraph.Inference<ND, ED> {
+    private final StructuredGraph<ND, ED> sg;
+    private final Set<ND> nodes;
+    private final Set<ED> edges;
+
+    public SgWithNodesAndEdgesInference(StructuredGraph<ND, ED> sg, Set<ND> nodes, Set<ED> edges) {
+        this.sg = sg;
         this.nodes = nodes;
         this.edges = edges;
     }
 
     @Override
-    public final Set<N> nodes() {
-        return nodes;
-    }
+    public StructuredGraph<ND, ED> graph() {
+        return new StructuredGraph<ND, ED>() {
+            @Override
+            public Set<ND> nodes() {
+                return sg.nodes().addAll(nodes).addAll(edges.flatMap(Edge::nodes));
+            }
 
-    @Override
-    public final Set<E> edges() {
-        return edges;
+            @Override
+            public Set<ED> edges() {
+                return sg.edges().addAll(edges);
+            }
+        };
     }
-
+    
     @Override
     public final int hashCode() {
-        return Objects.hash(this.nodes, this.edges);
+        return Objects.hash(this.sg, this.nodes, this.edges);
     }
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof SgSimple) {
-            final SgSimple<N, E> other = (SgSimple<N, E>) obj;
-            return Objects.equals(this.nodes, other.nodes) &&
+        if (obj instanceof SgWithNodesAndEdgesInference) {
+            final SgWithNodesAndEdgesInference<ND, ED> other = (SgWithNodesAndEdgesInference<ND, ED>) obj;
+            return Objects.equals(this.sg, other.sg) &&
+                   Objects.equals(this.nodes, other.nodes) &&
                    Objects.equals(this.edges, other.edges);
         } else {
             return false;
@@ -70,6 +75,17 @@ public class SgSimple<N extends Node<?>, E extends Edge<N, E>> implements Struct
 
     @Override
     public final String toString() {
-        return "SgSimple{" + "nodes=" + nodes + ", edges=" + edges + '}';
+        return "SgWithNodesAndEdgesInference{" + "sg=" + sg + ", nodes=" + nodes + ", edges=" + edges + '}';
+    }
+}
+
+
+/**
+ *
+ * @author Kapralov Sergey
+ */
+public class SgWithNodesAndEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgInferred<ND, ED> implements StructuredGraph<ND, ED> {
+    public SgWithNodesAndEdges(StructuredGraph<ND, ED> sg, Set<ND> nodes, Set<ED> edges) {
+        super(new SgWithNodesAndEdgesInference<>(sg, nodes, edges));
     }
 }

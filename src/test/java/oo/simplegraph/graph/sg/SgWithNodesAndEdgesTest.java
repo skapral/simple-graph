@@ -33,11 +33,31 @@ import org.junit.Test;
  *
  * @author Kapralov Sergey
  */
-public class SgWithEdgesTest {
-
+public class SgWithNodesAndEdgesTest {
+    @Test
+    public void addsNodestoStructuredGraph() {
+        StructuredGraph sg = new SgWithNodes(
+                new SgEmpty(),
+                new NValue<>("1")
+        );
+        StructuredGraph sgWithNodes = new SgWithNodes(
+                sg,
+                new NValue<>("2"),
+                new NValue<>("3")
+        );
+        assertThat(
+                sgWithNodes.nodes()
+        ).containsOnly(
+                new NValue<>("1"),
+                new NValue<>("2"),
+                new NValue<>("3")
+        );
+    }
+    
     @Test
     public final void addsEdgesToGraphStructure() {
-        StructuredGraph sg = new SgSimple(
+        StructuredGraph sg = new SgWithNodesAndEdges(
+                new SgEmpty(),
                 HashSet.of(
                         new NValue<>("1"),
                         new NValue<>("2"),
@@ -73,7 +93,8 @@ public class SgWithEdgesTest {
 
     @Test
     public final void mergesNodesIfTheyAreNotInGraph() {
-        StructuredGraph sg = new SgSimple(
+        StructuredGraph sg = new SgWithNodesAndEdges(
+                new SgEmpty(),
                 HashSet.of(
                         new NValue<>("1"),
                         new NValue<>("2")
@@ -108,7 +129,8 @@ public class SgWithEdgesTest {
 
     @Test
     public final void missingNodesAreAddedFromEdges() {
-        StructuredGraph sg = new SgSimple(
+        StructuredGraph sg = new SgWithNodesAndEdges(
+                new SgEmpty(),
                 HashSet.of(
                         new NValue<>("1"),
                         new NValue<>("2")

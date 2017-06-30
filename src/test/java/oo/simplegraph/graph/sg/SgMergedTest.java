@@ -37,8 +37,8 @@ public class SgMergedTest {
 
     @Test
     public final void mergesSeveralGraphsTogether() {
-        StructuredGraph graph1 = new SgSimple(
-                HashSet.of(new NValue<>(1), new NValue<>(2)),
+        StructuredGraph graph1 = new SgWithEdges(
+                new SgEmpty(),
                 HashSet.of(
                         new EBiDirected<>(
                                 new NValue<>(1),
@@ -46,8 +46,8 @@ public class SgMergedTest {
                         )
                 )
         );
-        StructuredGraph graph2 = new SgSimple(
-                HashSet.of(new NValue<>(2), new NValue<>(3)),
+        StructuredGraph graph2 = new SgWithEdges(
+                new SgEmpty(),
                 HashSet.of(
                         new EBiDirected<>(
                                 new NValue<>(2),
@@ -55,8 +55,8 @@ public class SgMergedTest {
                         )
                 )
         );
-        StructuredGraph graph3 = new SgSimple(
-                HashSet.of(new NValue<>(1), new NValue<>(3)),
+        StructuredGraph graph3 = new SgWithEdges(
+                new SgEmpty(),
                 HashSet.of(
                         new EBiDirected<>(
                                 new NValue<>(1),
