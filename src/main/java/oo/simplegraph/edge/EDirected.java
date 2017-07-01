@@ -33,27 +33,27 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class EDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements Edge<ND, ED> {
-    private final ND start;
-    private final ND end;
+public class EDirected<V> implements Edge<V> {
+    private final Node<V> start;
+    private final Node<V> end;
 
-    public EDirected(ND start, ND end) {
+    public EDirected(Node<V> start, Node<V> end) {
         this.start = start;
         this.end = end;
     }
 
     @Override
-    public final Option<ND> follow(ND node) {
+    public final Option<Node<V>> follow(Node<V> node) {
         return node.equals(start) ? Option.of(end) : Option.none();
     }
     
     @Override
-    public final Set<ND> nodes() {
+    public final Set<Node<V>> nodes() {
         return HashSet.of(start, end);
     }
     
     @Override
-    public final Set<ND> startingNodes() {
+    public final Set<Node<V>> startingNodes() {
         return HashSet.of(start);
     }
 
@@ -68,7 +68,7 @@ public class EDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements Ed
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof EDirected) {
-            final EDirected<ND, ED> other = (EDirected<ND, ED>) obj;
+            final EDirected other = (EDirected) obj;
             return Objects.equals(this.start, other.start) &&
                     Objects.equals(this.end, other.end);
         } else {

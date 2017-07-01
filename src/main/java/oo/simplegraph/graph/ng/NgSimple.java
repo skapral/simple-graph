@@ -34,15 +34,15 @@ import oo.simplegraph.edge.Edge;
  *
  * @author Kapralov Sergey
  */
-public class NgSimple<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph<ND, ED> {
-    private final Map<ND, Set<ED>> edges;
+public class NgSimple<T> implements NavigableGraph<T> {
+    private final Map<Node<T>, Set<Edge<T>>> edges;
 
-    public NgSimple(Map<ND, Set<ED>> edges) {
+    public NgSimple(Map<Node<T>, Set<Edge<T>>> edges) {
         this.edges = edges;
     }
     
     @Override
-    public final List<ED> edges(ND node) {
+    public final List<Edge<T>> edges(Node<T> node) {
         return edges.get(node)
                 .map(Set::toList)
                 .getOrElse(List.empty());
@@ -56,7 +56,7 @@ public class NgSimple<ND extends Node<?>, ED extends Edge<ND, ?>> implements Nav
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof NgSimple) {
-            final NgSimple<ND, ED> other = (NgSimple<ND, ED>) obj;
+            final NgSimple other = (NgSimple) obj;
             return Objects.equals(this.edges, other.edges);
         } else {
             return false;

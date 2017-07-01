@@ -34,15 +34,15 @@ import oo.simplegraph.graph.ng.NavigableGraph;
  *
  * @author Kapralov Sergey
  */
-public class PftDijkstra<ND extends Node<?>, ED extends Edge<ND, ?>> implements PathFindingTask<ND, ED> {
-    private final NavigableGraph<ND, ED> graph;
+public class PftDijkstra<T> implements PathFindingTask<T> {
+    private final NavigableGraph<T> graph;
 
-    public PftDijkstra(NavigableGraph<ND, ED> graph) {
+    public PftDijkstra(NavigableGraph<T> graph) {
         this.graph = graph;
     }
 
     @Override
-    public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
+    public final Option<List<Edge<T>>> path(Node<T> nodeStart, Node<T> nodeEnd) {
         if (nodeStart.equals(nodeEnd)) {
             return Option.of(List.empty());
         }

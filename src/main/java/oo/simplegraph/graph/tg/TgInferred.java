@@ -32,30 +32,30 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class TgInferred<NS extends Node<?>, ES extends Edge<NS, ?>, ND extends Node<?>, ED extends Edge<ND, ED>> implements TraversableGraph<NS, ES> {
-    private final Inference<NS, ES> inference;
+public class TgInferred<T> implements TraversableGraph<T> {
+    private final Inference<T> inference;
 
-    public TgInferred(Inference<NS, ES> inference) {
+    public TgInferred(Inference<T> inference) {
         this.inference = inference;
     }
 
     @Override
-    public final Set<NS> traverseNodes() {
+    public final Set<Node<T>> traverseNodes() {
         return inference.graph().traverseNodes();
     }
 
     @Override
-    public final Set<ES> traversedEdges() {
+    public final Set<Edge<T>> traversedEdges() {
         return inference.graph().traversedEdges();
     }
 
     @Override
-    public final TraversableGraph<NS, ES> nextIteration() {
+    public final TraversableGraph<T> nextIteration() {
         return inference.graph().nextIteration();
     }
     
     @Override
-    public final TraversableGraph<NS, ES> previousIteration() {
+    public final TraversableGraph<T> previousIteration() {
         return inference.graph().previousIteration();
     }
 

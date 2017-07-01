@@ -32,20 +32,20 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgInferred<N extends Node<?>, E extends Edge<N, ?>> implements StructuredGraph<N, E> {
-    private final StructuredGraph.Inference<N, E> inference;
+public class SgInferred<T> implements StructuredGraph<T> {
+    private final StructuredGraph.Inference<T> inference;
 
-    public SgInferred(Inference<N, E> inference) {
+    public SgInferred(Inference<T> inference) {
         this.inference = inference;
     }
 
     @Override
-    public final Set<N> nodes() {
+    public final Set<Node<T>> nodes() {
         return inference.graph().nodes();
     }
 
     @Override
-    public final Set<E> edges() {
+    public final Set<Edge<T>> edges() {
         return inference.graph().edges();
     }
 
@@ -57,7 +57,7 @@ public class SgInferred<N extends Node<?>, E extends Edge<N, ?>> implements Stru
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof SgInferred) {
-            final SgInferred<N, E> other = (SgInferred<N, E>) obj;
+            final SgInferred other = (SgInferred) obj;
             return Objects.equals(this.inference, other.inference);
         } else {
             return false;

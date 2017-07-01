@@ -30,7 +30,7 @@ import oo.simplegraph.edge.EDirected;
  *
  * @author Kapralov Sergey
  */
-class EStringDirected extends EDirected<NString, EStringDirected> {
+class EStringDirected extends EDirected<String> {
 
     public EStringDirected(NString start, NString end) {
         super(start, end);

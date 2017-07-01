@@ -33,18 +33,15 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgEmpty<N extends Node<?>, E extends Edge<N, ?>>  implements StructuredGraph<N, E> {
-    public SgEmpty() {
-    }
-    
+public class SgEmpty<T>  implements StructuredGraph<T> {
     @Override
-    public final Set<N> nodes() {
-        return HashSet.<N>empty();
+    public final Set<Node<T>> nodes() {
+        return HashSet.<Node<T>>empty();
     }
 
     @Override
-    public final Set<E> edges() {
-        return HashSet.<E>empty();
+    public final Set<Edge<T>> edges() {
+        return HashSet.<Edge<T>>empty();
     }
 
     @Override

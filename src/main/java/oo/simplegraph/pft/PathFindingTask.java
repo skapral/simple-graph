@@ -32,6 +32,6 @@ import javaslang.control.Option;
  *
  * @author Kapralov Sergey
  */
-public interface PathFindingTask<ND extends Node<?>, ED extends Edge<ND, ?>> {
-    Option<List<ED>> path(ND nodeStart, ND nodeEnd);
+public interface PathFindingTask<T> {
+    Option<List<Edge<T>>> path(Node<T> nodeStart, Node<T> nodeEnd);
 }

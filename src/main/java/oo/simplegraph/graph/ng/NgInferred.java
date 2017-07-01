@@ -32,15 +32,15 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class NgInferred<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph<ND, ED> {
-    private final NavigableGraph.Inference<ND, ED> graphInference;
+public class NgInferred<T> implements NavigableGraph<T> {
+    private final NavigableGraph.Inference<T> graphInference;
 
-    public NgInferred(Inference<ND, ED> graphInference) {
+    public NgInferred(Inference<T> graphInference) {
         this.graphInference = graphInference;
     }
 
     @Override
-    public final List<ED> edges(ND node) {
+    public final List<Edge<T>> edges(Node<T> node) {
         return graphInference.graph().edges(node);
     }
 
@@ -52,7 +52,7 @@ public class NgInferred<ND extends Node<?>, ED extends Edge<ND, ?>> implements N
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof NgInferred) {
-            final NgInferred<ND, ED> other = (NgInferred<ND, ED>) obj;
+            final NgInferred other = (NgInferred) obj;
             return Objects.equals(this.graphInference, other.graphInference);
         } else {
             return false;

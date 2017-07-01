@@ -26,20 +26,18 @@ package oo.simplegraph.graph.sg;
 import java.util.Objects;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
-import oo.simplegraph.edge.Edge;
-import oo.simplegraph.node.Node;
 
-class SgMergedInference<N extends Node<?>, E extends Edge<N, ?>> implements StructuredGraph.Inference<N, E> {
+class SgMergedInference<T> implements StructuredGraph.Inference<T> {
 
-    private final Set<StructuredGraph<N, E>> graphs;
+    private final Set<StructuredGraph<T>> graphs;
 
-    public SgMergedInference(Set<StructuredGraph<N, E>> graphs) {
+    public SgMergedInference(Set<StructuredGraph<T>> graphs) {
         this.graphs = graphs;
     }
 
     @Override
-    public final StructuredGraph<N, E> graph() {
-        return graphs.fold(new SgEmpty<N, E>(), (g, g2) -> {
+    public final StructuredGraph<T> graph() {
+        return graphs.fold(new SgEmpty<T>(), (g, g2) -> {
             return new SgWithEdges<>(
                     new SgWithNodes<>(
                             g,
@@ -58,7 +56,7 @@ class SgMergedInference<N extends Node<?>, E extends Edge<N, ?>> implements Stru
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof SgMergedInference) {
-            final SgMergedInference<?, ?> other = (SgMergedInference<?, ?>) obj;
+            final SgMergedInference other = (SgMergedInference) obj;
             return Objects.equals(this.graphs, other.graphs);
         } else {
             return false;
@@ -75,13 +73,13 @@ class SgMergedInference<N extends Node<?>, E extends Edge<N, ?>> implements Stru
  *
  * @author Kapralov Sergey
  */
-public class SgMerged<N extends Node<?>, E extends Edge<N, E>> extends SgInferred<N, E> implements StructuredGraph<N, E> {
+public class SgMerged<T> extends SgInferred<T> implements StructuredGraph<T> {
 
-    public SgMerged(StructuredGraph<N, E>... graphs) {
+    public SgMerged(StructuredGraph<T>... graphs) {
         this(HashSet.of(graphs));
     }
 
-    public SgMerged(Set<StructuredGraph<N, E>> graphs) {
+    public SgMerged(Set<StructuredGraph<T>> graphs) {
         super(new SgMergedInference<>(graphs));
     }
 }

@@ -30,31 +30,31 @@ import oo.simplegraph.graph.tg.TraversableGraph;
 import oo.simplegraph.node.Node;
 
 
-class SgFromTraversableGraphInference<N extends Node<?>, E extends Edge<N, ?>> implements StructuredGraph.Inference<N, E> {
-    private final TraversableGraph<N, E> tg;
+class SgFromTraversableGraphInference<T> implements StructuredGraph.Inference<T> {
+    private final TraversableGraph<T> tg;
 
-    public SgFromTraversableGraphInference(TraversableGraph<N, E> tg) {
+    public SgFromTraversableGraphInference(TraversableGraph<T> tg) {
         this.tg = tg;
     }
     
     @Override
-    public final StructuredGraph<N, E> graph() {
-        TraversableGraph<N, E> tgn;
+    public final StructuredGraph<T> graph() {
+        TraversableGraph<T> tgn;
         for(
                 tgn = tg;
                 !tgn.traverseNodes().isEmpty();
                 tgn = tgn.nextIteration()
         ) {}
-        Set<E> edges = tgn.traversedEdges();
+        Set<Edge<T>> edges = tgn.traversedEdges();
         
-        return new StructuredGraph<N, E>() {
+        return new StructuredGraph<T>() {
             @Override
-            public Set<N> nodes() {
+            public Set<Node<T>> nodes() {
                 return edges.flatMap(Edge::nodes);
             }
 
             @Override
-            public Set<E> edges() {
+            public Set<Edge<T>> edges() {
                 return edges;
             }
         };
@@ -86,8 +86,8 @@ class SgFromTraversableGraphInference<N extends Node<?>, E extends Edge<N, ?>> i
  *
  * @author Kapralov Sergey
  */
-public class SgFromTraversableGraph<N extends Node<?>, E extends Edge<N, ?>> extends SgInferred<N, E> implements StructuredGraph<N, E> {
-    public SgFromTraversableGraph(TraversableGraph<N, E> tg) {
+public class SgFromTraversableGraph<T> extends SgInferred<T> implements StructuredGraph<T> {
+    public SgFromTraversableGraph(TraversableGraph<T> tg) {
         super(
                 new SgFromTraversableGraphInference<>(tg)
         );

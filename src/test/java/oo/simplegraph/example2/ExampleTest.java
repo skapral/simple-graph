@@ -47,7 +47,7 @@ public class ExampleTest {
     @Test
     public void example() {
         // create a graph
-        StructuredGraph<NString, EString> sg = new SgEmpty<>();
+        StructuredGraph<String> sg = new SgEmpty<>();
 
         // add nodes
         sg = new SgWithNodes<>(
@@ -80,10 +80,10 @@ public class ExampleTest {
         );
 
         // prepare the graph for path finding
-        NavigableGraph<NString, EString> g = new NgFromStructure<>(sg);
+        NavigableGraph<String> g = new NgFromStructure<>(sg);
         
         
-        TraversableGraph<NString, EString> tsg = new TgFromNavigableGraph<>(g, new NString("a"));
+        TraversableGraph<String> tsg = new TgFromNavigableGraph<>(g, new NString("a"));
         sg = new SgFromTraversableGraph<>(tsg);
         
 

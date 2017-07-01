@@ -33,34 +33,34 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class PcValue<ND extends Node<?>, ED extends Edge<ND, ?>> implements PathChunk<ND, ED> {
-    private final ND startNode;
-    private final ND endNode;
-    private final List<ED> edges;
+public class PcValue<T> implements PathChunk<T> {
+    private final Node<T> startNode;
+    private final Node<T> endNode;
+    private final List<Edge<T>> edges;
 
-    public PcValue(ND startNode, ND endNode, List<ED> edges) {
+    public PcValue(Node<T> startNode, Node<T> endNode, List<Edge<T>> edges) {
         this.startNode = startNode;
         this.endNode = endNode;
         this.edges = edges;
     }
 
     @Override
-    public final ND head() {
+    public final Node<T> head() {
         return startNode;
     }
 
     @Override
-    public final ND tail() {
+    public final Node<T> tail() {
         return endNode;
     }
 
     @Override
-    public final List<ED> path() {
+    public final List<Edge<T>> path() {
         return edges;
     }
 
     @Override
-    public final Option<PathChunk<ND, ED>> advance(ED edge) {
+    public final Option<PathChunk<T>> advance(Edge<T> edge) {
         if(edges.contains(edge)) {
             // We are in a loop. No sense in advancing further
             return Option.none();
@@ -77,7 +77,7 @@ public class PcValue<ND extends Node<?>, ED extends Edge<ND, ?>> implements Path
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof PcValue) {
-            final PcValue<ND, ED> other = (PcValue<ND, ED>) obj;
+            final PcValue other = (PcValue) obj;
             return Objects.equals(this.startNode, other.startNode) &&
                     Objects.equals(this.endNode, other.endNode) &&
                     Objects.equals(this.edges, other.edges);

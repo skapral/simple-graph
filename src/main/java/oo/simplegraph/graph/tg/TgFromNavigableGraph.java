@@ -34,20 +34,20 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class TgFromNavigableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> implements TraversableGraph<NS, ES> {
-    private final NavigableGraph<NS, ES> graph;
-    private final TraversableGraph<NS, ES> previousIteration;
-    private final Set<NS> traverseNodes;
-    private final Set<ES> traversedEdges;
+public class TgFromNavigableGraph<T> implements TraversableGraph<T> {
+    private final NavigableGraph<T> graph;
+    private final TraversableGraph<T> previousIteration;
+    private final Set<Node<T>> traverseNodes;
+    private final Set<Edge<T>> traversedEdges;
 
-    public TgFromNavigableGraph(NavigableGraph<NS, ES> graph, TraversableGraph<NS, ES> previousIteration, Set<NS> traverseNodes, Set<ES> traversedEdges) {
+    public TgFromNavigableGraph(NavigableGraph<T> graph, TraversableGraph<T> previousIteration, Set<Node<T>> traverseNodes, Set<Edge<T>> traversedEdges) {
         this.graph = graph;
         this.previousIteration = previousIteration;
         this.traverseNodes = traverseNodes;
         this.traversedEdges = traversedEdges;
     }
     
-    public TgFromNavigableGraph(NavigableGraph<NS, ES> graph, Set<NS> startingNodes) {
+    public TgFromNavigableGraph(NavigableGraph<T> graph, Set<Node<T>> startingNodes) {
         this(
                 graph,
                 new TgNull<>(),
@@ -57,7 +57,7 @@ public class TgFromNavigableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> im
     }
     
     
-    public TgFromNavigableGraph(NavigableGraph<NS, ES> graph, NS... startingNodes) {
+    public TgFromNavigableGraph(NavigableGraph<T> graph, Node<T>... startingNodes) {
         this(
                 graph,
                 HashSet.of(startingNodes)
@@ -65,24 +65,24 @@ public class TgFromNavigableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> im
     }
     
     @Override
-    public final Set<NS> traverseNodes() {
+    public final Set<Node<T>> traverseNodes() {
         return traverseNodes;
     }
 
     @Override
-    public final Set<ES> traversedEdges() {
+    public final Set<Edge<T>> traversedEdges() {
         return traversedEdges;
     }
     
     @Override
-    public final TraversableGraph<NS, ES> previousIteration() {
+    public final TraversableGraph<T> previousIteration() {
         return previousIteration;
     }
 
     @Override
-    public final TraversableGraph<NS, ES> nextIteration() {
-        final Set<ES> newPassedEdges = traverseNodes.flatMap(n -> graph.edges(n)).removeAll(traversedEdges);
-        final Set<NS> newStartingNodes = newPassedEdges.flatMap(
+    public final TraversableGraph<T> nextIteration() {
+        final Set<Edge<T>> newPassedEdges = traverseNodes.flatMap(n -> graph.edges(n)).removeAll(traversedEdges);
+        final Set<Node<T>> newStartingNodes = newPassedEdges.flatMap(
                 e -> traverseNodes.flatMap(n -> e.follow(n))
         );
         
@@ -107,7 +107,7 @@ public class TgFromNavigableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> im
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof TgFromNavigableGraph) {
-            final TgFromNavigableGraph<?, ?> other = (TgFromNavigableGraph<?, ?>) obj;
+            final TgFromNavigableGraph other = (TgFromNavigableGraph) obj;
             return Objects.equals(this.graph, other.graph) &&
                    Objects.equals(this.previousIteration, other.previousIteration) &&
                    Objects.equals(this.traverseNodes, other.traverseNodes) &&

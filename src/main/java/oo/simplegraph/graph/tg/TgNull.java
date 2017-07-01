@@ -31,24 +31,24 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class TgNull<NS extends Node<?>, ES extends Edge<NS, ?>> implements TraversableGraph<NS, ES> {
+public class TgNull<T> implements TraversableGraph<T> {
     @Override
-    public final Set<NS> traverseNodes() {
+    public final Set<Node<T>> traverseNodes() {
         throw new NullPointerException("attempt to access Null traversable graph"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public final Set<ES> traversedEdges() {
+    public final Set<Edge<T>> traversedEdges() {
         throw new NullPointerException("attempt to access Null traversable graph"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public final TraversableGraph<NS, ES> previousIteration() {
+    public final TraversableGraph<T> previousIteration() {
         throw new NullPointerException("attempt to access Null traversable graph"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public final TraversableGraph<NS, ES> nextIteration() {
+    public final TraversableGraph<T> nextIteration() {
         throw new NullPointerException("attempt to access Null traversable graph"); //To change body of generated methods, choose Tools | Templates.
     }
 

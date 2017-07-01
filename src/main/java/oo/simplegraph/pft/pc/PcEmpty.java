@@ -24,15 +24,14 @@
 package oo.simplegraph.pft.pc;
 
 import javaslang.collection.List;
-import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class PcEmpty<ND extends Node<?>, ED extends Edge<ND, ?>> extends PcValue<ND, ED> implements PathChunk<ND, ED> {
-    public PcEmpty(ND node) {
+public class PcEmpty<T> extends PcValue<T> implements PathChunk<T> {
+    public PcEmpty(Node<T> node) {
         super(node, node, List.empty());
     }
 }

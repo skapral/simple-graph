@@ -13,9 +13,9 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * THE SOFTWARE IS PROVIDEdge<Node<T>, ?> "AS IS", WITHOUT WARRANTY OF ANY KINode<T>, EXPRESS OR
+ * IMPLIEdge<Node<T>, ?>, INCLUDING BUT NOT LIMITEdge<Node<T>, ?> TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE ANode<T> NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
@@ -35,26 +35,26 @@ import oo.simplegraph.edge.Edge;
  *
  * @author Kapralov Sergey
  * @param <T>
- * @param <ND>
- * @param <ED>
+ * @param <Node<T>>
+ * @param <Edge<Node<T>, ?>>
  */
-class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph.Inference<ND, ED> {
+class NgFromEdgesInference<T> implements NavigableGraph.Inference<T> {
 
-    private final Set<ED> edges;
+    private final Set<Edge<T>> edges;
 
-    public NgFromEdgesInference(Set<ED> edges) {
+    public NgFromEdgesInference(Set<Edge<T>> edges) {
         this.edges = edges;
     }
 
     @Override
-    public final NavigableGraph<ND, ED> graph() {
-        Map<ND, Set<ED>> mappedEdges = HashMap.empty();
-        for (ED edge : edges) {
-            Set<ND> nodes = edge.startingNodes();
+    public final NavigableGraph<T> graph() {
+        Map<Node<T>, Set<Edge<T>>> mappedEdges = HashMap.empty();
+        for (Edge<T> edge : edges) {
+            Set<Node<T>> nodes = edge.startingNodes();
 
-            for (ND node : nodes) { //TODO: eliminate this loop when javaslang 2.1.0 is released
-                Set<ED> oldList = mappedEdges.get(node).getOrElse(HashSet.empty());
-                Set<ED> newList = oldList.add(edge);
+            for (Node<T> node : nodes) { //TODO: eliminate this loop when javaslang 2.1.0 is released
+                Set<Edge<T>> oldList = mappedEdges.get(node).getOrElse(HashSet.empty());
+                Set<Edge<T>> newList = oldList.add(edge);
                 mappedEdges = mappedEdges.put(node, newList);
             }
         }
@@ -69,7 +69,7 @@ class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ?>> implement
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof NgFromEdgesInference) {
-            final NgFromEdgesInference<ND, ED> other = (NgFromEdgesInference<ND, ED>) obj;
+            final NgFromEdgesInference other = (NgFromEdgesInference) obj;
             return Objects.equals(this.edges, other.edges);
         } else {
             return false;
@@ -86,13 +86,13 @@ class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ?>> implement
  *
  * @author Kapralov Sergey
  */
-public class NgFromEdges<ND extends Node<?>, ED extends Edge<ND, ?>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
+public class NgFromEdges<T> extends NgInferred<T> implements NavigableGraph<T> {
 
-    public NgFromEdges(ED... edges) {
+    public NgFromEdges(Edge<T>... edges) {
         this(HashSet.of(edges));
     }
 
-    public NgFromEdges(Set<ED> edges) {
+    public NgFromEdges(Set<Edge<T>> edges) {
         super(new NgFromEdgesInference<>(edges));
     }
 }

@@ -23,10 +23,8 @@
  */
 package oo.simplegraph.graph.sg;
 
-import java.util.Objects;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
-import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
 
@@ -34,8 +32,8 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgWithNodes<ND extends Node<?>, ED extends Edge<ND, ?>> extends SgWithNodesAndEdges<ND, ED> implements StructuredGraph<ND, ED> {
-    public SgWithNodes(StructuredGraph<ND, ED> sg, Set<ND> nodes) {
+public class SgWithNodes<T> extends SgWithNodesAndEdges<T> implements StructuredGraph<T> {
+    public SgWithNodes(StructuredGraph<T> sg, Set<Node<T>> nodes) {
         super(
             sg,
             nodes,
@@ -43,7 +41,7 @@ public class SgWithNodes<ND extends Node<?>, ED extends Edge<ND, ?>> extends SgW
         );
     }
     
-    public SgWithNodes(StructuredGraph<ND, ED> sg, ND... nodes) {
+    public SgWithNodes(StructuredGraph<T> sg, Node<T>... nodes) {
         this(sg, HashSet.of(nodes));
     }
 }

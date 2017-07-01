@@ -26,15 +26,14 @@ package oo.simplegraph.graph.sg;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
-import oo.simplegraph.node.Node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class SgWithEdges<ND extends Node<?>, ED extends Edge<ND, ?>> extends SgWithNodesAndEdges<ND, ED> implements StructuredGraph<ND, ED> {
+public class SgWithEdges<T> extends SgWithNodesAndEdges<T> implements StructuredGraph<T> {
 
-    public SgWithEdges(StructuredGraph<ND, ED> sg, Set<ED> edges) {
+    public SgWithEdges(StructuredGraph<T> sg, Set<Edge<T>> edges) {
         super(
                 sg,
                 HashSet.empty(),
@@ -42,7 +41,7 @@ public class SgWithEdges<ND extends Node<?>, ED extends Edge<ND, ?>> extends SgW
         );
     }
 
-    public SgWithEdges(StructuredGraph<ND, ED> sg, ED... edges) {
+    public SgWithEdges(StructuredGraph<T> sg, Edge<T>... edges) {
         this(sg, HashSet.of(edges));
     }
 }

@@ -31,11 +31,11 @@ import javaslang.collection.Set;
  *
  * @author Kapralov Sergey
  */
-public interface StructuredGraph<ND extends Node<?>, ED extends Edge<ND, ?>> {
-    interface Inference<ND extends Node<?>, ED extends Edge<ND, ?>> {
-        StructuredGraph<ND, ED> graph();
+public interface StructuredGraph<T> {
+    interface Inference<T> {
+        StructuredGraph<T> graph();
     }
     
-    Set<ND> nodes();
-    Set<ED> edges();
+    Set<Node<T>> nodes();
+    Set<Edge<T>> edges();
 }

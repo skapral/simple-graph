@@ -33,18 +33,18 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements Edge<ND, ED> {
+public class EBiDirected<V> implements Edge<V> {
 
-    private final ND node1;
-    private final ND node2;
+    private final Node<V> node1;
+    private final Node<V> node2;
 
-    public EBiDirected(ND node1, ND node2) {
+    public EBiDirected(Node<V> node1, Node<V> node2) {
         this.node1 = node1;
         this.node2 = node2;
     }
 
     @Override
-    public final Option<ND> follow(ND node) {
+    public final Option<Node<V>> follow(Node<V> node) {
         if (node.equals(node1)) {
             return Option.of(node2);
         } else if (node.equals(node2)) {
@@ -55,12 +55,12 @@ public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements 
     }
 
     @Override
-    public final Set<ND> nodes() {
+    public final Set<Node<V>> nodes() {
         return HashSet.of(node1, node2);
     }
 
     @Override
-    public final Set<ND> startingNodes() {
+    public final Set<Node<V>> startingNodes() {
         return nodes();
     }
 
@@ -75,7 +75,7 @@ public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements 
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof EBiDirected) {
-            final EBiDirected<ND, ED> other = (EBiDirected<ND, ED>) obj;
+            final EBiDirected other = (EBiDirected) obj;
             return Objects.equals(this.nodes(), other.nodes());
         } else {
             return false;

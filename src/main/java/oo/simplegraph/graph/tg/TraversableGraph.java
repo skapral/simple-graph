@@ -31,13 +31,13 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public interface TraversableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> {
-    interface Inference<NS extends Node<?>, ES extends Edge<NS, ?>> {
-        TraversableGraph<NS, ES> graph();
+public interface TraversableGraph<T> {
+    interface Inference<T> {
+        TraversableGraph<T> graph();
     }
     
-    Set<NS> traverseNodes();
-    Set<ES> traversedEdges();
-    TraversableGraph<NS, ES> previousIteration();
-    TraversableGraph<NS, ES> nextIteration();
+    Set<Node<T>> traverseNodes();
+    Set<Edge<T>> traversedEdges();
+    TraversableGraph<T> previousIteration();
+    TraversableGraph<T> nextIteration();
 }

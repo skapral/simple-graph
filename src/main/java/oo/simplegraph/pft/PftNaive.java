@@ -36,28 +36,28 @@ import oo.simplegraph.graph.ng.NavigableGraph;
  *
  * @author Kapralov Sergey
  */
-public class PftNaive<T, ND extends Node<?>, ED extends Edge<ND, ?>> implements PathFindingTask<ND, ED> {
-    private final NavigableGraph<ND, ED> graph;
+public class PftNaive<T> implements PathFindingTask<T> {
+    private final NavigableGraph<T> graph;
     
-    public PftNaive(NavigableGraph<ND, ED> graph) {
+    public PftNaive(NavigableGraph<T> graph) {
         this.graph = graph;
     }
     
     @Override
-    public final Option<List<ED>> path(ND nodeStart, ND nodeEnd) {
+    public final Option<List<Edge<T>>> path(Node<T> nodeStart, Node<T> nodeEnd) {
         if (nodeStart.equals(nodeEnd) && !graph.edges(nodeStart).isEmpty()) {
             return Option.of(List.empty());
         }
-        List<PathChunk<ND, ED>> pathChunks = List.of(new PcEmpty<>(nodeStart));
+        List<PathChunk<T>> pathChunks = List.of(new PcEmpty<>(nodeStart));
         while (!pathChunks.isEmpty()) {
             pathChunks = pathChunks.flatMap(pc -> {
-                ND tail = pc.tail();
+                Node<T> tail = pc.tail();
                 return List.ofAll(graph.edges(tail))
                         .map(pc::advance)
                         .filter(Option::isDefined)
                         .map(Option::get);
             });
-            List<PathChunk<ND, ED>> potentialResults = pathChunks.filter(pc -> pc.tail().equals(nodeEnd));
+            List<PathChunk<T>> potentialResults = pathChunks.filter(pc -> pc.tail().equals(nodeEnd));
             if(!potentialResults.isEmpty()) {
                 return Option.of(
                     potentialResults.get(0).path()

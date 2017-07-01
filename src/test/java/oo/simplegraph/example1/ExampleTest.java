@@ -48,7 +48,7 @@ public class ExampleTest {
     @Test
     public void example() {
         // create a graph
-        StructuredGraph<Node<String>, Edge<Node<String>, ?>> sg = new SgEmpty<>();
+        StructuredGraph<String> sg = new SgEmpty<>();
 
         // add nodes
         sg = new SgWithNodes<>(
@@ -84,7 +84,7 @@ public class ExampleTest {
         );
 
         // prepare the graph for path finding
-        NavigableGraph<Node<String>, Edge<Node<String>, ?>> g = new NgFromStructure<>(sg);
+        NavigableGraph<String> g = new NgFromStructure<>(sg);
 
         // Rock'n'roll!
         assertThat(
