@@ -32,7 +32,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgWithEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgWithNodesAndEdges<ND, ED> implements StructuredGraph<ND, ED> {
+public class SgWithEdges<ND extends Node<?>, ED extends Edge<ND, ?>> extends SgWithNodesAndEdges<ND, ED> implements StructuredGraph<ND, ED> {
 
     public SgWithEdges(StructuredGraph<ND, ED> sg, Set<ED> edges) {
         super(

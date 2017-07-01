@@ -31,7 +31,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class TgNull<NS extends Node<?>, ES extends Edge<NS, ES>> implements TraversableGraph<NS, ES> {
+public class TgNull<NS extends Node<?>, ES extends Edge<NS, ?>> implements TraversableGraph<NS, ES> {
     @Override
     public final Set<NS> traverseNodes() {
         throw new NullPointerException("attempt to access Null traversable graph"); //To change body of generated methods, choose Tools | Templates.

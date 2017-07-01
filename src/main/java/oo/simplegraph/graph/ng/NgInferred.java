@@ -32,7 +32,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class NgInferred<ND extends Node<?>, ED extends Edge<ND, ED>> implements NavigableGraph<ND, ED> {
+public class NgInferred<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph<ND, ED> {
     private final NavigableGraph.Inference<ND, ED> graphInference;
 
     public NgInferred(Inference<ND, ED> graphInference) {

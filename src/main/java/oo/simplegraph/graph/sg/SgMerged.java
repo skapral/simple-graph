@@ -29,7 +29,7 @@ import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.node.Node;
 
-class SgMergedInference<N extends Node<?>, E extends Edge<N, E>> implements StructuredGraph.Inference<N, E> {
+class SgMergedInference<N extends Node<?>, E extends Edge<N, ?>> implements StructuredGraph.Inference<N, E> {
 
     private final Set<StructuredGraph<N, E>> graphs;
 

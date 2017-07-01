@@ -35,7 +35,7 @@ import oo.simplegraph.graph.sg.StructuredGraph;
  * @param <ND>
  * @param <ED> 
  */
-class NgFromStructureInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements NavigableGraph.Inference<ND, ED> {
+class NgFromStructureInference<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph.Inference<ND, ED> {
     private final StructuredGraph<ND, ED> structuredGraph;
 
     public NgFromStructureInference(StructuredGraph<ND, ED> structuredGraph) {
@@ -72,7 +72,7 @@ class NgFromStructureInference<ND extends Node<?>, ED extends Edge<ND, ED>> impl
  *
  * @author Kapralov Sergey
  */
-public class NgFromStructure<ND extends Node<?>, ED extends Edge<ND, ED>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
+public class NgFromStructure<ND extends Node<?>, ED extends Edge<ND, ?>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
     public NgFromStructure(StructuredGraph<ND, ED> sg) {
         super(
                 new NgFromStructureInference<>(sg)

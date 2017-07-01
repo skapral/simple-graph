@@ -30,7 +30,7 @@ import oo.simplegraph.node.Node;
 
 
 
-class SgWithNodesAndEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements StructuredGraph.Inference<ND, ED> {
+class SgWithNodesAndEdgesInference<ND extends Node<?>, ED extends Edge<ND, ?>> implements StructuredGraph.Inference<ND, ED> {
     private final StructuredGraph<ND, ED> sg;
     private final Set<ND> nodes;
     private final Set<ED> edges;
@@ -84,7 +84,7 @@ class SgWithNodesAndEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> 
  *
  * @author Kapralov Sergey
  */
-public class SgWithNodesAndEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends SgInferred<ND, ED> implements StructuredGraph<ND, ED> {
+public class SgWithNodesAndEdges<ND extends Node<?>, ED extends Edge<ND, ?>> extends SgInferred<ND, ED> implements StructuredGraph<ND, ED> {
     public SgWithNodesAndEdges(StructuredGraph<ND, ED> sg, Set<ND> nodes, Set<ED> edges) {
         super(new SgWithNodesAndEdgesInference<>(sg, nodes, edges));
     }

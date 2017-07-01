@@ -38,7 +38,7 @@ import oo.simplegraph.edge.Edge;
  * @param <ND>
  * @param <ED>
  */
-class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implements NavigableGraph.Inference<ND, ED> {
+class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph.Inference<ND, ED> {
 
     private final Set<ED> edges;
 
@@ -86,7 +86,7 @@ class NgFromEdgesInference<ND extends Node<?>, ED extends Edge<ND, ED>> implemen
  *
  * @author Kapralov Sergey
  */
-public class NgFromEdges<ND extends Node<?>, ED extends Edge<ND, ED>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
+public class NgFromEdges<ND extends Node<?>, ED extends Edge<ND, ?>> extends NgInferred<ND, ED> implements NavigableGraph<ND, ED> {
 
     public NgFromEdges(ED... edges) {
         this(HashSet.of(edges));

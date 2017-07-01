@@ -32,7 +32,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgInferred<N extends Node<?>, E extends Edge<N, E>> implements StructuredGraph<N, E> {
+public class SgInferred<N extends Node<?>, E extends Edge<N, ?>> implements StructuredGraph<N, E> {
     private final StructuredGraph.Inference<N, E> inference;
 
     public SgInferred(Inference<N, E> inference) {

@@ -32,7 +32,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class TgInferred<NS extends Node<?>, ES extends Edge<NS, ES>, ND extends Node<?>, ED extends Edge<ND, ED>> implements TraversableGraph<NS, ES> {
+public class TgInferred<NS extends Node<?>, ES extends Edge<NS, ?>, ND extends Node<?>, ED extends Edge<ND, ED>> implements TraversableGraph<NS, ES> {
     private final Inference<NS, ES> inference;
 
     public TgInferred(Inference<NS, ES> inference) {

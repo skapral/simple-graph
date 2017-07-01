@@ -24,7 +24,6 @@
 package oo.simplegraph.graph.sg;
 
 import java.util.Objects;
-import java.util.function.Function;
 import javaslang.collection.HashSet;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
@@ -34,41 +33,23 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class SgEmpty<N extends Node<?>, E extends Edge<N, E>>  implements StructuredGraph<N, E> {
-    private final Function<? super N, ?> nodesIdentitySpec;
-    private final Function<? super E, ?> edgesIdentitySpec;
-
+public class SgEmpty<N extends Node<?>, E extends Edge<N, ?>>  implements StructuredGraph<N, E> {
     public SgEmpty() {
-        this(
-                n->n,
-                e->e
-        );
-    }
-    
-    public SgEmpty(Function<? super N, ?> nodesIdentitySpec, Function<? super E, ?> edgesIdentitySpec) {
-        this.nodesIdentitySpec = nodesIdentitySpec;
-        this.edgesIdentitySpec = edgesIdentitySpec;
     }
     
     @Override
     public final Set<N> nodes() {
-        return HashSet.<N>empty().distinctBy(nodesIdentitySpec);
+        return HashSet.<N>empty();
     }
 
     @Override
     public final Set<E> edges() {
-        return HashSet.<E>empty().distinctBy(edgesIdentitySpec);
+        return HashSet.<E>empty();
     }
 
     @Override
     public final boolean equals(Object obj) {
-        if(obj instanceof SgEmpty) {
-            SgEmpty other = (SgEmpty) obj;
-            return Objects.equals(this.nodesIdentitySpec, other.nodesIdentitySpec) &&
-                   Objects.equals(this.edgesIdentitySpec, other.edgesIdentitySpec);
-        } else {
-            return false;
-        }
+        return obj instanceof SgEmpty;
     }
 
     @Override

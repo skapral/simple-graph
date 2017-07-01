@@ -34,7 +34,7 @@ import oo.simplegraph.edge.Edge;
  *
  * @author Kapralov Sergey
  */
-public class NgSimple<ND extends Node<?>, ED extends Edge<ND, ED>> implements NavigableGraph<ND, ED> {
+public class NgSimple<ND extends Node<?>, ED extends Edge<ND, ?>> implements NavigableGraph<ND, ED> {
     private final Map<ND, Set<ED>> edges;
 
     public NgSimple(Map<ND, Set<ED>> edges) {

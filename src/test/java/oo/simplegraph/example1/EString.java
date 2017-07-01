@@ -24,13 +24,15 @@
 package oo.simplegraph.example1;
 
 import oo.simplegraph.edge.EDirected;
+import oo.simplegraph.node.NValue;
+import oo.simplegraph.node.Node;
 
 /**
  * User-defined edge
  *
  * @author Kapralov Sergey
  */
-class EString extends EDirected<NString, EString> {
+class EString extends EDirected<Node<String>, EString> {
 
     public EString(NString start, NString end) {
         super(start, end);

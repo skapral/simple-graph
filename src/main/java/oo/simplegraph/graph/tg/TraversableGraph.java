@@ -31,8 +31,8 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public interface TraversableGraph<NS extends Node<?>, ES extends Edge<NS, ES>> {
-    interface Inference<NS extends Node<?>, ES extends Edge<NS, ES>> {
+public interface TraversableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> {
+    interface Inference<NS extends Node<?>, ES extends Edge<NS, ?>> {
         TraversableGraph<NS, ES> graph();
     }
     

@@ -30,7 +30,7 @@ import oo.simplegraph.graph.tg.TraversableGraph;
 import oo.simplegraph.node.Node;
 
 
-class SgFromTraversableGraphInference<N extends Node<?>, E extends Edge<N, E>> implements StructuredGraph.Inference<N, E> {
+class SgFromTraversableGraphInference<N extends Node<?>, E extends Edge<N, ?>> implements StructuredGraph.Inference<N, E> {
     private final TraversableGraph<N, E> tg;
 
     public SgFromTraversableGraphInference(TraversableGraph<N, E> tg) {
@@ -86,7 +86,7 @@ class SgFromTraversableGraphInference<N extends Node<?>, E extends Edge<N, E>> i
  *
  * @author Kapralov Sergey
  */
-public class SgFromTraversableGraph<N extends Node<?>, E extends Edge<N, E>> extends SgInferred<N, E> implements StructuredGraph<N, E> {
+public class SgFromTraversableGraph<N extends Node<?>, E extends Edge<N, ?>> extends SgInferred<N, E> implements StructuredGraph<N, E> {
     public SgFromTraversableGraph(TraversableGraph<N, E> tg) {
         super(
                 new SgFromTraversableGraphInference<>(tg)

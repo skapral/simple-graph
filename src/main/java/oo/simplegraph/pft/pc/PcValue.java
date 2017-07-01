@@ -33,7 +33,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class PcValue<ND extends Node<?>, ED extends Edge<ND, ED>> implements PathChunk<ND, ED> {
+public class PcValue<ND extends Node<?>, ED extends Edge<ND, ?>> implements PathChunk<ND, ED> {
     private final ND startNode;
     private final ND endNode;
     private final List<ED> edges;

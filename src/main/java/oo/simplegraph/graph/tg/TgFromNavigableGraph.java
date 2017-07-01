@@ -34,7 +34,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class TgFromNavigableGraph<NS extends Node<?>, ES extends Edge<NS, ES>> implements TraversableGraph<NS, ES> {
+public class TgFromNavigableGraph<NS extends Node<?>, ES extends Edge<NS, ?>> implements TraversableGraph<NS, ES> {
     private final NavigableGraph<NS, ES> graph;
     private final TraversableGraph<NS, ES> previousIteration;
     private final Set<NS> traverseNodes;

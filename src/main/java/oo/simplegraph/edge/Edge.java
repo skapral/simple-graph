@@ -31,7 +31,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public interface Edge<ND extends Node<?>, ED extends Edge<ND, ED>> {
+public interface Edge<ND extends Node<?>, ED extends Edge<ND, ?>> {
     Set<ND> nodes();
     Set<ND> startingNodes();
     Option<ND> follow(ND node);

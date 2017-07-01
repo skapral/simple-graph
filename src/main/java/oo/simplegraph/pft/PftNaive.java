@@ -36,7 +36,7 @@ import oo.simplegraph.graph.ng.NavigableGraph;
  *
  * @author Kapralov Sergey
  */
-public class PftNaive<T, ND extends Node<?>, ED extends Edge<ND, ED>> implements PathFindingTask<ND, ED> {
+public class PftNaive<T, ND extends Node<?>, ED extends Edge<ND, ?>> implements PathFindingTask<ND, ED> {
     private final NavigableGraph<ND, ED> graph;
     
     public PftNaive(NavigableGraph<ND, ED> graph) {

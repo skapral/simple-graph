@@ -33,7 +33,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ED>> implements Edge<ND, ED> {
+public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements Edge<ND, ED> {
 
     private final ND node1;
     private final ND node2;

@@ -33,7 +33,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class EDirected<ND extends Node<?>, ED extends Edge<ND, ED>> implements Edge<ND, ED> {
+public class EDirected<ND extends Node<?>, ED extends Edge<ND, ?>> implements Edge<ND, ED> {
     private final ND start;
     private final ND end;
 

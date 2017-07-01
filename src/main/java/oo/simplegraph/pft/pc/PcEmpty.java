@@ -31,7 +31,7 @@ import oo.simplegraph.node.Node;
  *
  * @author Kapralov Sergey
  */
-public class PcEmpty<ND extends Node<?>, ED extends Edge<ND, ED>> extends PcValue<ND, ED> implements PathChunk<ND, ED> {
+public class PcEmpty<ND extends Node<?>, ED extends Edge<ND, ?>> extends PcValue<ND, ED> implements PathChunk<ND, ED> {
     public PcEmpty(ND node) {
         super(node, node, List.empty());
     }

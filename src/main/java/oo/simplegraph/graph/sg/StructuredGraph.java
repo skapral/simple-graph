@@ -31,8 +31,8 @@ import javaslang.collection.Set;
  *
  * @author Kapralov Sergey
  */
-public interface StructuredGraph<ND extends Node<?>, ED extends Edge<ND, ED>> {
-    interface Inference<ND extends Node<?>, ED extends Edge<ND, ED>> {
+public interface StructuredGraph<ND extends Node<?>, ED extends Edge<ND, ?>> {
+    interface Inference<ND extends Node<?>, ED extends Edge<ND, ?>> {
         StructuredGraph<ND, ED> graph();
     }
     

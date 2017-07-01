@@ -23,6 +23,8 @@
  */
 package oo.simplegraph.example1;
 
+import oo.simplegraph.edge.EDirected;
+import oo.simplegraph.edge.Edge;
 import oo.simplegraph.pft.PftNaive;
 import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
@@ -30,6 +32,8 @@ import oo.simplegraph.graph.ng.NgFromStructure;
 import oo.simplegraph.graph.sg.SgEmpty;
 import oo.simplegraph.graph.sg.SgWithEdges;
 import oo.simplegraph.graph.sg.SgWithNodes;
+import oo.simplegraph.node.NValue;
+import oo.simplegraph.node.Node;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 
@@ -44,7 +48,7 @@ public class ExampleTest {
     @Test
     public void example() {
         // create a graph
-        StructuredGraph<NString, EString> sg = new SgEmpty<>();
+        StructuredGraph<Node<String>, Edge<Node<String>, ?>> sg = new SgEmpty<>();
 
         // add nodes
         sg = new SgWithNodes<>(
@@ -52,7 +56,7 @@ public class ExampleTest {
                 new NString("a"),
                 new NString("a1"),
                 new NString("a2"),
-                new NString("a3"),
+                new NValue<>("a3"),
                 new NString("b1"),
                 new NString("b2"),
                 new NString("b3"),
@@ -67,7 +71,10 @@ public class ExampleTest {
                 new EString("a", "a3"),
                 new EString("a1", "b1"),
                 new EString("a1", "b2"),
-                new EString("a2", "b1"),
+                new EDirected<>(
+                        new NValue<>("a2"), 
+                        new NValue<>("b1")
+                ),
                 new EString("a2", "b3"),
                 new EString("a3", "b2"),
                 new EString("a3", "b3"),
@@ -77,7 +84,7 @@ public class ExampleTest {
         );
 
         // prepare the graph for path finding
-        NavigableGraph<NString, EString> g = new NgFromStructure<>(sg);
+        NavigableGraph<Node<String>, Edge<Node<String>, ?>> g = new NgFromStructure<>(sg);
 
         // Rock'n'roll!
         assertThat(
