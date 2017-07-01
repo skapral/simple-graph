@@ -21,10 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.example;
+package oo.simplegraph.example1;
 
-import oo.simplegraph.edge.EDirected;
-import oo.simplegraph.node.NValue;
 import oo.simplegraph.pft.PftNaive;
 import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
@@ -36,40 +34,7 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 
 
-/**
- * User-defined node
- * 
- * @author Kapralov Sergey
- */
-class NString extends NValue<String> {
-    public NString(String value) {
-        super(value);
-    }
-}
 
-/**
- * User-defined edge
- * 
- * @author Kapralov Sergey
- */
-class EString extends EDirected<NString, EString> {
-    public EString(NString start, NString end) {
-        super(start, end);
-    }
-    
-    /**
-     * You can define more constructors for convenience
-     * 
-     * @param start
-     * @param end 
-     */
-    public EString(String start, String end) {
-        super(
-                new NString(start),
-                new NString(end)
-        );
-    }
-}
 
 /**
  *
