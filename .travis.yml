@@ -1,5 +1,6 @@
 language: java
 sudo: false
+dist: trusty 
 cache:
   directories:
     - $HOME/.m2
@@ -7,4 +8,4 @@ script:
   - set -e
   - mvn clean package --errors --batch-mode
 jdk:
- - oraclejdk8
+ - openjdk8

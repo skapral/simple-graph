@@ -84,6 +84,6 @@ public class EBiDirected<ND extends Node<?>, ED extends Edge<ND, ED>> implements
 
     @Override
     public final String toString() {
-        return "EBiDirected{" + HashSet.of(this.node1, this.node2).map(Node::value) + '}';
+        return "EBiDirected{" + HashSet.of(this.node1, this.node2) + '}';
     }
 }
