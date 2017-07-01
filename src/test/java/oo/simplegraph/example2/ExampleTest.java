@@ -27,10 +27,11 @@ import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.graph.ng.NgFromStructure;
 import oo.simplegraph.graph.sg.SgEmpty;
-import oo.simplegraph.graph.sg.SgTraversed;
+import oo.simplegraph.graph.sg.SgFromTraversableGraph;
 import oo.simplegraph.graph.sg.SgWithEdges;
 import oo.simplegraph.graph.sg.SgWithNodes;
-import oo.simplegraph.graph.tt.TtOrient;
+import oo.simplegraph.graph.tg.TgFromNavigableGraph;
+import oo.simplegraph.graph.tg.TraversableGraph;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 
@@ -67,12 +68,12 @@ public class ExampleTest {
                 new EString("a", "a1"),
                 new EString("a", "a2"),
                 new EString("a", "a3"),
-                new EString("a1", "b1"),
+                /*new EString("a1", "b1"),
                 new EString("a1", "b2"),
                 new EString("a2", "b1"),
                 new EString("a2", "b3"),
                 new EString("a3", "b2"),
-                new EString("a3", "b3"),
+                new EString("a3", "b3"),*/
                 new EString("b1", "b"),
                 new EString("b2", "b"),
                 new EString("b3", "b")
@@ -82,25 +83,25 @@ public class ExampleTest {
         NavigableGraph<NString, EString> g = new NgFromStructure<>(sg);
         
         
-        StructuredGraph<NString, EStringDirected> tsg = new SgTraversed(g, new NString("a"), new TtOrient<>());
+        TraversableGraph<NString, EString> tsg = new TgFromNavigableGraph<>(g, new NString("a"));
+        sg = new SgFromTraversableGraph<>(tsg);
         
 
         // Rock'n'roll!
         assertThat(
-            tsg.edges()
+            sg.nodes()
         ).containsOnly(
-                new EStringDirected("a", "a1"),
-                new EStringDirected("a", "a2"),
-                new EStringDirected("a", "a3"),
-                new EStringDirected("a1", "b1"),
-                new EStringDirected("a1", "b2"),
-                new EStringDirected("a2", "b1"),
-                new EStringDirected("a2", "b3"),
-                new EStringDirected("a3", "b2"),
-                new EStringDirected("a3", "b3"),
-                new EStringDirected("b1", "b"),
-                new EStringDirected("b2", "b"),
-                new EStringDirected("b3", "b")
+                new NString("a"),
+                new NString("a1"),
+                new NString("a2"),
+                new NString("a3")
+        );
+        assertThat(
+            sg.edges()
+        ).containsOnly(
+                new EString("a", "a1"),
+                new EString("a", "a2"),
+                new EString("a", "a3")
         );
     }
 }
