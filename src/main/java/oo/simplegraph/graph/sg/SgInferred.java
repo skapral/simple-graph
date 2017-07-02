@@ -26,16 +26,18 @@ package oo.simplegraph.graph.sg;
 import java.util.Objects;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
+import oo.simplegraph.edge.meta.EdgeMeta;
 import oo.simplegraph.node.Node;
+import oo.simplegraph.node.meta.NodeMeta;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class SgInferred<T> implements StructuredGraph<T> {
-    private final StructuredGraph.Inference<T> inference;
+public class SgInferred<T, M> implements StructuredGraph<T, M> {
+    private final StructuredGraph.Inference<T, M> inference;
 
-    public SgInferred(Inference<T> inference) {
+    public SgInferred(Inference<T, M> inference) {
         this.inference = inference;
     }
 
@@ -49,6 +51,16 @@ public class SgInferred<T> implements StructuredGraph<T> {
         return inference.graph().edges();
     }
 
+    @Override
+    public NodeMeta<T, M> nodeMeta() {
+        return inference.graph().nodeMeta();
+    }
+
+    @Override
+    public EdgeMeta<T, M> edgeMeta() {
+        return inference.graph().edgeMeta();
+    }
+    
     @Override
     public final int hashCode() {
         return Objects.hash(this.inference);

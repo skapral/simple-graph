@@ -23,12 +23,13 @@
  */
 package oo.simplegraph.graph.cg;
 
+import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface ConstructedGraph<T> {
-    StructuredGraph<T> result();
+public interface ConstructedGraph<T, M> {
+    StructuredGraph<T, M> result();
 }

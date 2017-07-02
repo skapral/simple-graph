@@ -24,8 +24,8 @@
 package oo.simplegraph.example1;
 
 import oo.simplegraph.edge.EBiDirected;
-import oo.simplegraph.graph.csg.CsgBase;
-import oo.simplegraph.graph.csg.CsgBiDirected;
+import oo.simplegraph.graph.cpgwnm.CpgwnmBiDirected;
+import oo.simplegraph.graph.cpgwnm.CpgwnmDirected;
 import oo.simplegraph.pft.PftNaive;
 import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
@@ -45,7 +45,7 @@ public class ExampleTest {
     @Test
     public void example() {
         // create a graph
-        StructuredGraph<String> sg = new CsgBiDirected<String>()
+        StructuredGraph<String, Void> sg = new CpgwnmBiDirected<String>()
                 // add nodes
             .withNode(new NValue<>("a"))
             .withNode(new NValue<>("a1"))
@@ -71,7 +71,7 @@ public class ExampleTest {
             .result();
 
         // prepare the graph for path finding
-        NavigableGraph<String> g = new NgFromStructure<>(sg);
+        NavigableGraph<String, Void> g = new NgFromStructure<>(sg);
 
         // Rock'n'roll!
         assertThat(

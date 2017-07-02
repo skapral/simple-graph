@@ -36,10 +36,10 @@ import oo.simplegraph.graph.ng.NavigableGraph;
  *
  * @author Kapralov Sergey
  */
-public class PftNaive<T> implements PathFindingTask<T> {
-    private final NavigableGraph<T> graph;
+public class PftNaive<T, M> implements PathFindingTask<T, M> {
+    private final NavigableGraph<T, M> graph;
     
-    public PftNaive(NavigableGraph<T> graph) {
+    public PftNaive(NavigableGraph<T, M> graph) {
         this.graph = graph;
     }
     

@@ -25,16 +25,20 @@ package oo.simplegraph.graph.ng;
 
 import oo.simplegraph.edge.Edge;
 import javaslang.collection.List;
+import oo.simplegraph.edge.meta.EdgeMeta;
 import oo.simplegraph.node.Node;
+import oo.simplegraph.node.meta.NodeMeta;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface NavigableGraph<T> {
-    interface Inference<T> {
-        NavigableGraph<T> graph();
+public interface NavigableGraph<T, M> {
+    interface Inference<T, M> {
+        NavigableGraph<T, M> graph();
     }
     
     List<Edge<T>> edges(Node<T> node);
+    NodeMeta<T, M> nodeMeta();
+    EdgeMeta<T, M> edgeMeta();
 }

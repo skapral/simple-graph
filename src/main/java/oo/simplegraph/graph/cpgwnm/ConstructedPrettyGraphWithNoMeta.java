@@ -21,25 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.sg;
+package oo.simplegraph.graph.cpgwnm;
 
-import javaslang.collection.HashSet;
-import oo.simplegraph.edge.meta.EmEmpty;
-import oo.simplegraph.node.meta.NmEmpty;
+import oo.simplegraph.graph.cpgwm.*;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.graph.cg.ConstructedGraph;
+import oo.simplegraph.node.Node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class SgEmpty<T, M> extends SgSimple<T, M> implements StructuredGraph<T, M> {
-
-    public SgEmpty() {
-        super(
-                HashSet.empty(), 
-                HashSet.empty(), 
-                new NmEmpty<>(),
-                new EmEmpty<>()
-        );
-    }
-
+public interface ConstructedPrettyGraphWithNoMeta<T> extends ConstructedGraph<T, Void> {
+    ConstructedPrettyGraphWithNoMeta<T> withNode(Node<T> node);
+    ConstructedPrettyGraphWithNoMeta<T> withEdge(Node<T> node1, Node<T> node2);
 }

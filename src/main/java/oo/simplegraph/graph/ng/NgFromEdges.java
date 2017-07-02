@@ -30,6 +30,10 @@ import javaslang.collection.HashSet;
 import javaslang.collection.Map;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
+import oo.simplegraph.edge.meta.EdgeMeta;
+import oo.simplegraph.edge.meta.EmEmpty;
+import oo.simplegraph.node.meta.NmEmpty;
+import oo.simplegraph.node.meta.NodeMeta;
 
 /**
  *
@@ -38,16 +42,20 @@ import oo.simplegraph.edge.Edge;
  * @param <Node<T>>
  * @param <Edge<Node<T>, ?>>
  */
-class NgFromEdgesInference<T> implements NavigableGraph.Inference<T> {
+class NgFromEdgesInference<T, M> implements NavigableGraph.Inference<T, M> {
 
     private final Set<Edge<T>> edges;
+    private final NodeMeta<T, M> nodeMeta;
+    private final EdgeMeta<T, M> edgeMeta;
 
-    public NgFromEdgesInference(Set<Edge<T>> edges) {
+    public NgFromEdgesInference(Set<Edge<T>> edges, NodeMeta<T, M> nodeMeta, EdgeMeta<T, M> edgeMeta) {
         this.edges = edges;
+        this.nodeMeta = nodeMeta;
+        this.edgeMeta = edgeMeta;
     }
 
     @Override
-    public final NavigableGraph<T> graph() {
+    public final NavigableGraph<T, M> graph() {
         Map<Node<T>, Set<Edge<T>>> mappedEdges = HashMap.empty();
         for (Edge<T> edge : edges) {
             Set<Node<T>> nodes = edge.startingNodes();
@@ -58,7 +66,7 @@ class NgFromEdgesInference<T> implements NavigableGraph.Inference<T> {
                 mappedEdges = mappedEdges.put(node, newList);
             }
         }
-        return new NgSimple<>(mappedEdges);
+        return new NgSimple<>(mappedEdges, nodeMeta, edgeMeta);
     }
 
     @Override
@@ -86,13 +94,21 @@ class NgFromEdgesInference<T> implements NavigableGraph.Inference<T> {
  *
  * @author Kapralov Sergey
  */
-public class NgFromEdges<T> extends NgInferred<T> implements NavigableGraph<T> {
+public class NgFromEdges<T, M> extends NgInferred<T, M> implements NavigableGraph<T, M> {
 
     public NgFromEdges(Edge<T>... edges) {
         this(HashSet.of(edges));
     }
 
     public NgFromEdges(Set<Edge<T>> edges) {
-        super(new NgFromEdgesInference<>(edges));
+        this(
+                edges,
+                new NmEmpty<>(),
+                new EmEmpty<>()
+        );
+    }
+    
+    public NgFromEdges(Set<Edge<T>> edges, NodeMeta<T, M> nodeMeta, EdgeMeta<T, M> edgeMeta) {
+        super(new NgFromEdgesInference<>(edges, nodeMeta, edgeMeta));
     }
 }

@@ -26,16 +26,18 @@ package oo.simplegraph.graph.ng;
 import java.util.Objects;
 import javaslang.collection.List;
 import oo.simplegraph.edge.Edge;
+import oo.simplegraph.edge.meta.EdgeMeta;
 import oo.simplegraph.node.Node;
+import oo.simplegraph.node.meta.NodeMeta;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class NgInferred<T> implements NavigableGraph<T> {
-    private final NavigableGraph.Inference<T> graphInference;
+public class NgInferred<T, M> implements NavigableGraph<T, M> {
+    private final NavigableGraph.Inference<T, M> graphInference;
 
-    public NgInferred(Inference<T> graphInference) {
+    public NgInferred(Inference<T, M> graphInference) {
         this.graphInference = graphInference;
     }
 
@@ -44,6 +46,16 @@ public class NgInferred<T> implements NavigableGraph<T> {
         return graphInference.graph().edges(node);
     }
 
+    @Override
+    public final NodeMeta<T, M> nodeMeta() {
+        return graphInference.graph().nodeMeta();
+    }
+
+    @Override
+    public final EdgeMeta<T, M> edgeMeta() {
+        return graphInference.graph().edgeMeta();
+    }
+    
     @Override
     public final int hashCode() {
         return Objects.hash(this.graphInference);

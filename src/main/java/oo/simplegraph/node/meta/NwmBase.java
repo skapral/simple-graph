@@ -21,59 +21,52 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.ng;
+package oo.simplegraph.node.meta;
 
 import java.util.Objects;
-import oo.simplegraph.graph.sg.StructuredGraph;
+import oo.simplegraph.node.Node;
 
 /**
- * 
+ *
  * @author Kapralov Sergey
- * @param <T, M>
- * @param <ND>
- * @param <ED> 
  */
-class NgFromStructureInference<T, M> implements NavigableGraph.Inference<T, M> {
-    private final StructuredGraph<T, M> structuredGraph;
+public class NwmBase<T, M> implements NodeWithMeta<T, M>{
+    private final Node<T> node;
+    private final M meta;
 
-    public NgFromStructureInference(StructuredGraph<T, M> structuredGraph) {
-        this.structuredGraph = structuredGraph;
+    public NwmBase(Node<T> node, M meta) {
+        this.node = node;
+        this.meta = meta;
     }
-    
+
     @Override
-    public final NavigableGraph<T, M> graph() {
-        return new NgFromEdges<T, M>(structuredGraph.edges());
+    public final Node<T> node() {
+        return node;
+    }
+
+    @Override
+    public final M meta() {
+        return meta;
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(structuredGraph);
+        return Objects.hash(node, meta);
     }
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof NgFromStructureInference) {
-            final NgFromStructureInference other = (NgFromStructureInference) obj;
-            return Objects.equals(this.structuredGraph, other.structuredGraph);
-        }else {
+        if (obj instanceof NwmBase) {
+            final NwmBase<?, ?> other = (NwmBase<?, ?>) obj;
+            return Objects.equals(this.node, other.node) &&
+                   Objects.equals(this.meta, other.meta);
+        } else {
             return false;
         }
     }
 
     @Override
     public final String toString() {
-        return "NgFromStructureInference{" + "structuredGraph=" + structuredGraph + '}';
-    }
-}
-
-/**
- *
- * @author Kapralov Sergey
- */
-public class NgFromStructure<T, M> extends NgInferred<T, M> implements NavigableGraph<T, M> {
-    public NgFromStructure(StructuredGraph<T, M> sg) {
-        super(
-                new NgFromStructureInference<>(sg)
-        );
+        return "NwmBase{" + "node=" + node + ", meta=" + meta + '}';
     }
 }

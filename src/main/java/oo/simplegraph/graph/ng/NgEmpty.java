@@ -24,15 +24,19 @@
 package oo.simplegraph.graph.ng;
 
 import javaslang.collection.HashMap;
+import oo.simplegraph.edge.meta.EmEmpty;
+import oo.simplegraph.node.meta.NmEmpty;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class NgEmpty<T> extends NgSimple<T> implements NavigableGraph<T> {
+public class NgEmpty<T, M> extends NgSimple<T, M> implements NavigableGraph<T, M> {
     public NgEmpty() {
         super(
-                HashMap.empty()
+                HashMap.empty(),
+                new NmEmpty<>(),
+                new EmEmpty<>()
         );
     }
 }

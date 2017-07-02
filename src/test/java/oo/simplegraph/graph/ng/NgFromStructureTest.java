@@ -26,7 +26,8 @@ package oo.simplegraph.graph.ng;
 import javaslang.collection.HashSet;
 import oo.simplegraph.edge.EDirected;
 import oo.simplegraph.graph.sg.SgEmpty;
-import oo.simplegraph.graph.sg.SgWithEdges;
+import oo.simplegraph.graph.sg.SgNoMeta;
+import oo.simplegraph.graph.sg.SgSimple;
 import oo.simplegraph.node.NValue;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
@@ -36,40 +37,45 @@ import org.junit.Test;
  * @author Kapralov Sergey
  */
 public class NgFromStructureTest {
+
     @Test
     public final void producesNavigableGraphFromSetOfEdges() {
         NavigableGraph ngraph = new NgFromStructure(
-            new SgWithEdges(
-                new SgEmpty(),
-                HashSet.of(
-                    new EDirected<>(
-                        new NValue<>(1),
-                        new NValue<>(2)
-                    ),
-                    new EDirected<>(
-                        new NValue<>(1),
-                        new NValue<>(3)
-                    ),
-                    new EDirected<>(
-                        new NValue<>(2),
-                        new NValue<>(3)
-                    )
+                new SgNoMeta<>(
+                        HashSet.of(
+                                new NValue<>(1),
+                                new NValue<>(2),
+                                new NValue<>(3)
+                        ),
+                        HashSet.of(
+                                new EDirected<>(
+                                        new NValue<>(1),
+                                        new NValue<>(2)
+                                ),
+                                new EDirected<>(
+                                        new NValue<>(1),
+                                        new NValue<>(3)
+                                ),
+                                new EDirected<>(
+                                        new NValue<>(2),
+                                        new NValue<>(3)
+                                )
+                        )
                 )
-            )
         );
         assertThat(
-            ngraph.edges(
-                new NValue(1)
-            )
+                ngraph.edges(
+                        new NValue(1)
+                )
         ).containsOnly(
-            new EDirected<>(
-                new NValue<>(1),
-                new NValue<>(2)
-            ),
-            new EDirected<>(
-                new NValue<>(1),
-                new NValue<>(3)
-            )
+                new EDirected<>(
+                        new NValue<>(1),
+                        new NValue<>(2)
+                ),
+                new EDirected<>(
+                        new NValue<>(1),
+                        new NValue<>(3)
+                )
         );
     }
 }

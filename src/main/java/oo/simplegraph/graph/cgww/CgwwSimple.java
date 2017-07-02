@@ -21,25 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.sg;
+package oo.simplegraph.graph.cgww;
 
-import javaslang.collection.HashSet;
-import oo.simplegraph.edge.meta.EmEmpty;
-import oo.simplegraph.node.meta.NmEmpty;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.graph.cgwm.ConstructedGraphWithMeta;
+import oo.simplegraph.graph.sg.StructuredGraph;
+import oo.simplegraph.node.Node;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class SgEmpty<T, M> extends SgSimple<T, M> implements StructuredGraph<T, M> {
+public class CgwwSimple<T> implements ConstructedGraphWithWeights<T> {
+    private final ConstructedGraphWithMeta<T, Integer> cg;
 
-    public SgEmpty() {
-        super(
-                HashSet.empty(), 
-                HashSet.empty(), 
-                new NmEmpty<>(),
-                new EmEmpty<>()
-        );
+    public CgwwSimple(ConstructedGraphWithMeta<T, Integer> cg) {
+        this.cg = cg;
     }
 
+    @Override
+    public final ConstructedGraphWithWeights<T> withNode(Node<T> node, Integer meta) {
+        return new CgwwSimple<>(cg.withNode(node, meta));
+    }
+
+    @Override
+    public final ConstructedGraphWithWeights<T> withEdge(Edge<T> edge, Integer meta) {
+        return new CgwwSimple<>(cg.withEdge(edge, meta));
+    }
+
+    @Override
+    public final StructuredGraph<T, Integer> result() {
+        return cg.result();
+    }
 }

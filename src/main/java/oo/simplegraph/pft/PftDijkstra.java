@@ -34,10 +34,10 @@ import oo.simplegraph.graph.ng.NavigableGraph;
  *
  * @author Kapralov Sergey
  */
-public class PftDijkstra<T> implements PathFindingTask<T> {
-    private final NavigableGraph<T> graph;
+public class PftDijkstra<T, M> implements PathFindingTask<T, M> {
+    private final NavigableGraph<T, M> graph;
 
-    public PftDijkstra(NavigableGraph<T> graph) {
+    public PftDijkstra(NavigableGraph<T, M> graph) {
         this.graph = graph;
     }
 

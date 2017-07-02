@@ -23,19 +23,23 @@
  */
 package oo.simplegraph.graph.sg;
 
-import oo.simplegraph.node.Node;
-import oo.simplegraph.edge.Edge;
 import javaslang.collection.Set;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.edge.meta.EdgeMeta;
+import oo.simplegraph.node.Node;
+import oo.simplegraph.node.meta.NodeMeta;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface StructuredGraph<T> {
-    interface Inference<T> {
-        StructuredGraph<T> graph();
+public interface StructuredGraph<T, M> {
+    interface Inference<T, M> {
+        StructuredGraph<T, M> graph();
     }
     
     Set<Node<T>> nodes();
     Set<Edge<T>> edges();
+    NodeMeta<T, M> nodeMeta();
+    EdgeMeta<T, M> edgeMeta();
 }

@@ -23,23 +23,25 @@
  */
 package oo.simplegraph.graph.sg;
 
-import javaslang.collection.HashSet;
+import javaslang.collection.Set;
+import oo.simplegraph.edge.Edge;
 import oo.simplegraph.edge.meta.EmEmpty;
+import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NmEmpty;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class SgEmpty<T, M> extends SgSimple<T, M> implements StructuredGraph<T, M> {
-
-    public SgEmpty() {
+public class SgNoMeta<T> extends SgSimple<T, Void> {
+    
+    public SgNoMeta(Set<Node<T>> nodes, Set<Edge<T>> edges) {
         super(
-                HashSet.empty(), 
-                HashSet.empty(), 
+                nodes, 
+                edges, 
                 new NmEmpty<>(),
                 new EmEmpty<>()
         );
     }
-
+    
 }

@@ -21,59 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.ng;
+package oo.simplegraph.edge.meta;
 
 import java.util.Objects;
-import oo.simplegraph.graph.sg.StructuredGraph;
+import javaslang.collection.Map;
+import oo.simplegraph.edge.Edge;
 
 /**
- * 
+ *
  * @author Kapralov Sergey
- * @param <T, M>
- * @param <ND>
- * @param <ED> 
  */
-class NgFromStructureInference<T, M> implements NavigableGraph.Inference<T, M> {
-    private final StructuredGraph<T, M> structuredGraph;
+public class EmStatic<T, M> implements EdgeMeta<T, M> {
+    private final Map<Edge<T>, M> edgesMeta;
 
-    public NgFromStructureInference(StructuredGraph<T, M> structuredGraph) {
-        this.structuredGraph = structuredGraph;
+    public EmStatic(Map<Edge<T>, M> edgesMeta) {
+        this.edgesMeta = edgesMeta;
     }
     
     @Override
-    public final NavigableGraph<T, M> graph() {
-        return new NgFromEdges<T, M>(structuredGraph.edges());
+    public final M metaForEdge(Edge<T> edge) {
+        return edgesMeta.get(edge).getOrElseThrow(NullPointerException::new);
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(structuredGraph);
+        return Objects.hash(edgesMeta);
     }
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof NgFromStructureInference) {
-            final NgFromStructureInference other = (NgFromStructureInference) obj;
-            return Objects.equals(this.structuredGraph, other.structuredGraph);
-        }else {
+        if (obj instanceof EmStatic) {
+            final EmStatic other = (EmStatic) obj;
+            return Objects.equals(this.edgesMeta, other.edgesMeta);
+        } else {
             return false;
         }
     }
 
     @Override
     public final String toString() {
-        return "NgFromStructureInference{" + "structuredGraph=" + structuredGraph + '}';
-    }
-}
-
-/**
- *
- * @author Kapralov Sergey
- */
-public class NgFromStructure<T, M> extends NgInferred<T, M> implements NavigableGraph<T, M> {
-    public NgFromStructure(StructuredGraph<T, M> sg) {
-        super(
-                new NgFromStructureInference<>(sg)
-        );
+        return "EmStatic{" + "edgesMeta=" + edgesMeta + '}';
     }
 }
