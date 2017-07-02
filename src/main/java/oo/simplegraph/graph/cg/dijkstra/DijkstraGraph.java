@@ -21,35 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.ng;
+package oo.simplegraph.graph.cg.dijkstra;
 
-import javaslang.collection.Array;
-import oo.simplegraph.edge.Edge;
-import javaslang.collection.List;
-import javaslang.control.Option;
-import oo.simplegraph.edge.meta.EdgeMeta;
-import oo.simplegraph.node.Node;
-import oo.simplegraph.node.meta.NodeMeta;
+import oo.simplegraph.graph.cg.ConstructedGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public interface NavigableGraph<T, M> {
-    interface Inference<T, M> {
-        NavigableGraph<T, M> graph();
-    }
-    
-    List<Edge<T>> adjacentEdges(Node<T> node);
-    default Option<Edge<T>> findEdge(Node<T> node, Node<T> node2) {
-        return Option.sequence(
-                Array.of(
-                    adjacentEdges(node).filter(e -> e.follow(node).equals(node2)).headOption(),
-                    adjacentEdges(node2).filter(e -> e.follow(node).equals(node)).headOption()
-                )
-        ).flatMap(list -> list.headOption());
-    }
-    
-    NodeMeta<T, M> nodeMeta();
-    EdgeMeta<T, M> edgeMeta();
+public interface DijkstraGraph<T> extends ConstructedGraph<T, Integer> {
 }

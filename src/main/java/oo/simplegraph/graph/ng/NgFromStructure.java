@@ -42,7 +42,7 @@ class NgFromStructureInference<T, M> implements NavigableGraph.Inference<T, M> {
     
     @Override
     public final NavigableGraph<T, M> graph() {
-        return new NgFromEdges<T, M>(structuredGraph.edges());
+        return new NgFromEdges<T, M>(structuredGraph.edges(), structuredGraph.nodeMeta(), structuredGraph.edgeMeta());
     }
 
     @Override

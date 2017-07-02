@@ -26,26 +26,36 @@ package oo.simplegraph.pft;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
+import oo.simplegraph.graph.cg.dijkstra.DgImplementation;
 import oo.simplegraph.node.Node;
 import oo.simplegraph.pft.PathFindingTask;
 import oo.simplegraph.graph.ng.NavigableGraph;
+import oo.simplegraph.graph.ng.NgFromStructure;
+import oo.simplegraph.graph.sg.SgFromConstructedGraph;
 
 /**
  *
  * @author Kapralov Sergey
  */
-public class PftDijkstra<T, M> implements PathFindingTask<T, M> {
-    private final NavigableGraph<T, M> graph;
+public class PftDijkstra<T> implements PathFindingTask<T, Integer> {
+    private final NavigableGraph<T, Integer> graph;
 
-    public PftDijkstra(NavigableGraph<T, M> graph) {
+    public PftDijkstra(NavigableGraph<T, Integer> graph) {
         this.graph = graph;
     }
 
     @Override
     public final Option<List<Edge<T>>> path(Node<T> nodeStart, Node<T> nodeEnd) {
-        if (nodeStart.equals(nodeEnd)) {
-            return Option.of(List.empty());
-        }
-        throw new UnsupportedOperationException();
+        NavigableGraph<T, Integer> dijkstraGraph = new NgFromStructure<>(
+                new SgFromConstructedGraph<>(
+                        new DgImplementation<T>(
+                                graph,
+                                nodeStart
+                        )
+                )
+        );
+
+        // TODO: get rid of PftNaive here
+        return new PftNaive<>(dijkstraGraph).path(nodeStart, nodeEnd); 
     }
 }

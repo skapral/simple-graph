@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.ng;
+package oo.simplegraph.graph.cg.dijkstra;
 
-import javaslang.Tuple2;
-import javaslang.collection.HashMap;
-import javaslang.collection.HashSet;
-import oo.simplegraph.edge.EDirected;
+import oo.simplegraph.edge.EBiDirected;
+import oo.simplegraph.graph.cpgwm.CpgwmBiDirectedGraph;
+import oo.simplegraph.graph.ng.NgFromStructure;
+import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.node.NValue;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
@@ -35,37 +35,30 @@ import org.junit.Test;
  *
  * @author Kapralov Sergey
  */
-public class NgFromEdgesTest {
-
+public class DgImplementationTest {
     @Test
-    public final void producesNavigableGraphFromSetOfEdges() {
-        NavigableGraph ngraph = new NgFromEdges(
-                new EDirected<>(
-                        new NValue<>(1),
-                        new NValue<>(2)
-                ),
-                new EDirected<>(
-                        new NValue<>(1),
-                        new NValue<>(3)
-                ),
-                new EDirected<>(
-                        new NValue<>(2),
-                        new NValue<>(3)
-                )
-        );
+    public void test1() {
+        StructuredGraph<String, Integer> sg = new CpgwmBiDirectedGraph<String, Integer>()
+                // add nodes
+            .withNode(new NValue<>("a"),  0)
+            .withNode(new NValue<>("a1"), 0)
+            .withNode(new NValue<>("a2"), 0)
+            .withNode(new NValue<>("b"), 0)
+            .withEdge(new NValue<>("a"), new NValue<>("a1"), 1)
+            .withEdge(new NValue<>("a"), new NValue<>("a2"), 1)
+            .withEdge(new NValue<>("a1"), new NValue<>("b"), 1)
+            .withEdge(new NValue<>("a2"), new NValue<>("b"), 1)
+            .result();
+        
         assertThat(
-                ngraph.adjacentEdges(
-                        new NValue(1)
-                )
+                new DgImplementation(
+                        new NgFromStructure(sg),
+                        new NValue<>("a") 
+                ).result().edges()
         ).containsOnly(
-                new EDirected<>(
-                        new NValue<>(1),
-                        new NValue<>(2)
-                ),
-                new EDirected<>(
-                        new NValue<>(1),
-                        new NValue<>(3)
-                )
+                new EBiDirected<>(new NValue<>("a"), new NValue<>("a1")),
+                new EBiDirected<>(new NValue<>("a1"), new NValue<>("b")),
+                new EBiDirected<>(new NValue<>("a"), new NValue<>("a2"))
         );
     }
 }

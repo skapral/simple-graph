@@ -45,14 +45,14 @@ public class PftNaive<T, M> implements PathFindingTask<T, M> {
     
     @Override
     public final Option<List<Edge<T>>> path(Node<T> nodeStart, Node<T> nodeEnd) {
-        if (nodeStart.equals(nodeEnd) && !graph.edges(nodeStart).isEmpty()) {
+        if (nodeStart.equals(nodeEnd) && !graph.adjacentEdges(nodeStart).isEmpty()) {
             return Option.of(List.empty());
         }
         List<PathChunk<T>> pathChunks = List.of(new PcEmpty<>(nodeStart));
         while (!pathChunks.isEmpty()) {
             pathChunks = pathChunks.flatMap(pc -> {
                 Node<T> tail = pc.tail();
-                return List.ofAll(graph.edges(tail))
+                return List.ofAll(graph.adjacentEdges(tail))
                         .map(pc::advance)
                         .filter(Option::isDefined)
                         .map(Option::get);

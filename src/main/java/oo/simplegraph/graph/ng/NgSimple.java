@@ -58,7 +58,7 @@ public class NgSimple<T, M> implements NavigableGraph<T, M> {
     }
     
     @Override
-    public final List<Edge<T>> edges(Node<T> node) {
+    public final List<Edge<T>> adjacentEdges(Node<T> node) {
         return edges.get(node)
                 .map(Set::toList)
                 .getOrElse(List.empty());

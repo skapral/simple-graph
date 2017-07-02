@@ -21,12 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.graph.ng;
+package oo.simplegraph.graph.tg;
 
-import java.util.Objects;
-import javaslang.collection.List;
+import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
-import oo.simplegraph.edge.meta.EdgeMeta;
 import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NodeMeta;
 
@@ -34,45 +32,11 @@ import oo.simplegraph.node.meta.NodeMeta;
  *
  * @author Kapralov Sergey
  */
-public class NgInferred<T, M> implements NavigableGraph<T, M> {
-    private final NavigableGraph.Inference<T, M> graphInference;
-
-    public NgInferred(Inference<T, M> graphInference) {
-        this.graphInference = graphInference;
-    }
-
-    @Override
-    public final List<Edge<T>> adjacentEdges(Node<T> node) {
-        return graphInference.graph().adjacentEdges(node);
-    }
-
-    @Override
-    public final NodeMeta<T, M> nodeMeta() {
-        return graphInference.graph().nodeMeta();
-    }
-
-    @Override
-    public final EdgeMeta<T, M> edgeMeta() {
-        return graphInference.graph().edgeMeta();
-    }
-    
-    @Override
-    public final int hashCode() {
-        return Objects.hash(this.graphInference);
-    }
-
-    @Override
-    public final boolean equals(Object obj) {
-        if (obj instanceof NgInferred) {
-            final NgInferred other = (NgInferred) obj;
-            return Objects.equals(this.graphInference, other.graphInference);
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public final String toString() {
-        return "NgInferred{" + "graphInference=" + graphInference + '}';
-    }
+public interface TraversableGraph<T, M> {
+    Set<Node<T>> openedNodes();
+    Set<Node<T>> closedNodes();
+    Set<Edge<T>> closedEdges();
+    TraversableGraph<T, M> traverseFrom(Node<T> node);
+    NodeMeta<T, M> nodeMeta();
+    NodeMeta<T, M> edgeMeta();
 }

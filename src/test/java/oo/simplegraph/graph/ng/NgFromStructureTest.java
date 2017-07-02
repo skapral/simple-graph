@@ -64,7 +64,7 @@ public class NgFromStructureTest {
                 )
         );
         assertThat(
-                ngraph.edges(
+                ngraph.adjacentEdges(
                         new NValue(1)
                 )
         ).containsOnly(
