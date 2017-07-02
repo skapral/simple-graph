@@ -21,19 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.example1;
+package oo.simplegraph.graph.cdg;
 
-import oo.simplegraph.node.NValue;
+import oo.simplegraph.edge.Edge;
+import oo.simplegraph.graph.cg.ConstructedGraph;
+import oo.simplegraph.node.Node;
 
 /**
- * User-defined node
  *
  * @author Kapralov Sergey
  */
-class NString extends NValue<String> {
-
-    public NString(String value) {
-        super(value);
-    }
-    
+public interface ConstructedDirectGraph<T> extends ConstructedGraph<T> {
+    ConstructedDirectGraph<T> withNode(Node<T> node);
+    ConstructedDirectGraph<T> withEdge(Edge<T> edge);
 }

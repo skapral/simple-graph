@@ -21,29 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package oo.simplegraph.example1;
-
-import oo.simplegraph.edge.EDirected;
+package oo.simplegraph.edge;
 
 /**
- * User-defined edge
  *
  * @author Kapralov Sergey
  */
-class EString extends EDirected<String> {
-
-    public EString(NString start, NString end) {
-        super(start, end);
-    }
-
-    /**
-     * You can define more constructors for convenience
-     *
-     * @param start
-     * @param end
-     */
-    public EString(String start, String end) {
-        super(new NString(start), new NString(end));
-    }
-    
+public interface EdgeWeighted<T> extends Edge<T> {
+    int weight();
 }

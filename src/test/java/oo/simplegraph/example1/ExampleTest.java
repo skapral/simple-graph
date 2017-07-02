@@ -23,17 +23,14 @@
  */
 package oo.simplegraph.example1;
 
-import oo.simplegraph.edge.EDirected;
-import oo.simplegraph.edge.Edge;
+import oo.simplegraph.edge.EBiDirected;
+import oo.simplegraph.graph.csg.CsgBase;
+import oo.simplegraph.graph.csg.CsgBiDirected;
 import oo.simplegraph.pft.PftNaive;
 import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.graph.ng.NgFromStructure;
-import oo.simplegraph.graph.sg.SgEmpty;
-import oo.simplegraph.graph.sg.SgWithEdges;
-import oo.simplegraph.graph.sg.SgWithNodes;
 import oo.simplegraph.node.NValue;
-import oo.simplegraph.node.Node;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 
@@ -48,40 +45,30 @@ public class ExampleTest {
     @Test
     public void example() {
         // create a graph
-        StructuredGraph<String> sg = new SgEmpty<>();
-
-        // add nodes
-        sg = new SgWithNodes<>(
-                sg,
-                new NString("a"),
-                new NString("a1"),
-                new NString("a2"),
-                new NValue<>("a3"),
-                new NString("b1"),
-                new NString("b2"),
-                new NString("b3"),
-                new NString("b")
-        );
-
-        // add edges
-        sg = new SgWithEdges<>(
-                sg,
-                new EString("a", "a1"),
-                new EString("a", "a2"),
-                new EString("a", "a3"),
-                new EString("a1", "b1"),
-                new EString("a1", "b2"),
-                new EDirected<>(
-                        new NValue<>("a2"), 
-                        new NValue<>("b1")
-                ),
-                new EString("a2", "b3"),
-                new EString("a3", "b2"),
-                new EString("a3", "b3"),
-                new EString("b1", "b"),
-                new EString("b2", "b"),
-                new EString("b3", "b")
-        );
+        StructuredGraph<String> sg = new CsgBiDirected<String>()
+                // add nodes
+            .withNode(new NValue<>("a"))
+            .withNode(new NValue<>("a1"))
+            .withNode(new NValue<>("a2"))
+            .withNode(new NValue<>("a3"))
+            .withNode(new NValue<>("b1"))
+            .withNode(new NValue<>("b2"))
+            .withNode(new NValue<>("b3"))
+            .withNode(new NValue<>("b"))
+                // add edges
+            .withEdge(new NValue<>("a"), new NValue<>("a1"))
+            .withEdge(new NValue<>("a"), new NValue<>("a2"))
+            .withEdge(new NValue<>("a"), new NValue<>("a3"))
+            .withEdge(new NValue<>("a1"), new NValue<>("b1"))
+            .withEdge(new NValue<>("a1"), new NValue<>("b2"))
+            .withEdge(new NValue<>("a2"), new NValue<>("b1"))
+            .withEdge(new NValue<>("a2"), new NValue<>("b2"))
+            .withEdge(new NValue<>("a3"), new NValue<>("b2"))
+            .withEdge(new NValue<>("a3"), new NValue<>("b3"))
+            .withEdge(new NValue<>("b1"), new NValue<>("b"))
+            .withEdge(new NValue<>("b2"), new NValue<>("b"))
+            .withEdge(new NValue<>("b3"), new NValue<>("b"))
+            .result();
 
         // prepare the graph for path finding
         NavigableGraph<String> g = new NgFromStructure<>(sg);
@@ -89,12 +76,18 @@ public class ExampleTest {
         // Rock'n'roll!
         assertThat(
             new PftNaive<>(g).path(
-                    new NString("a"), 
-                    new NString("b2")
+                    new NValue<>("a"), 
+                    new NValue<>("b2")
             ).get()
         ).containsExactly(
-                new EString("a", "a1"),
-                new EString("a1", "b2")
+                new EBiDirected<>(
+                        new NValue<>("a"),
+                        new NValue<>("a1")
+                ),
+                new EBiDirected<>(
+                        new NValue<>("a1"),
+                        new NValue<>("b2")
+                )
         );
     }
 }
