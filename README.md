@@ -48,12 +48,12 @@ Simply clone the repository and run Maven from its root:
 
 ```java
       // prepare the graph for path finding
-      NavigableGraph<String, NString, EString> g = new NgFromStructure<>(sg);
+      NavigableGraph<String, Integer> g = new NgFromStructure<>(sg);
 
       // Rock'n'roll!
-      List<EString> path = new PftDijkstra<>(g).path(
-              new NString("a"), 
-              new NString("b2")
+      List<Edge<String>> path = new PftDijkstra<>(g).path(
+                    new NValue<>("a"), 
+                    new NValue<>("b2")
       ).get();
 ```
 
