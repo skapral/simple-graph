@@ -44,7 +44,7 @@ Simply clone the repository and run Maven from its root:
             .result();
 ```
 
-4. Start working with graph
+2. Start working with graph
 
 ```java
       // prepare the graph for path finding
