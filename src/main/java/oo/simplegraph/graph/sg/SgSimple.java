@@ -31,7 +31,8 @@ import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NodeMeta;
 
 /**
- *
+ * A basic implementation of {@link StructuredGraph}
+ * 
  * @author Kapralov Sergey
  */
 public class SgSimple<T, M> implements StructuredGraph<T, M> {

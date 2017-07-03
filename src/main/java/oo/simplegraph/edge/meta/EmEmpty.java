@@ -26,7 +26,9 @@ package oo.simplegraph.edge.meta;
 import javaslang.collection.HashMap;
 
 /**
- *
+ * Empty meta-information table. For each edge, 
+ * throws NullPointerException
+ * 
  * @author Kapralov Sergey
  */
 public class EmEmpty<T, M> extends EmStatic<T, M> {

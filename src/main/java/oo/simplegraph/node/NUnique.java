@@ -24,7 +24,8 @@
 package oo.simplegraph.node;
 
 /**
- *
+ * A unique {@Node} implementation. Two unique nodes are never the same.
+ * 
  * @author Kapralov Sergey
  */
 public class NUnique extends NReference<Object> {

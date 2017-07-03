@@ -26,7 +26,9 @@ package oo.simplegraph.node;
 import java.util.Objects;
 
 /**
- *
+ * A {@Node} implementation, which defined identity semantics by value of user defined data
+ * Two nodes are considered the same, if their data comparison by equals is positive
+ * 
  * @author Kapralov Sergey
  */
 public class NValue<T> implements Node<T> {

@@ -30,10 +30,17 @@ import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NodeMeta;
 
 /**
- *
+ * A graph representation, which presents the graph's structure
+ * 
  * @author Kapralov Sergey
  */
 public interface StructuredGraph<T, M> {
+    /**
+     * StructuredGraph's inference
+     * 
+     * @param <T>
+     * @param <M> 
+     */
     interface Inference<T, M> {
         StructuredGraph<T, M> graph();
     }

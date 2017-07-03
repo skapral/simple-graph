@@ -28,10 +28,27 @@ import oo.simplegraph.graph.cg.ConstructedGraph;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * Constructs a graph from passed nodes
+ * 
  * @author Kapralov Sergey
  */
 public interface ConstructedPrettyGraphWithMeta<T, M> extends ConstructedGraph<T, M> {
+    /**
+     * Adds new node to the graph
+     * 
+     * @param node
+     * @param meta
+     * @return 
+     */
     ConstructedPrettyGraphWithMeta<T, M> withNode(Node<T> node, M meta);
+    
+    /**
+     * Adds new edge to the graph
+     * 
+     * @param node1
+     * @param node2
+     * @param meta
+     * @return 
+     */
     ConstructedPrettyGraphWithMeta<T, M> withEdge(Node<T> node1, Node<T> node2, M meta);
 }

@@ -26,6 +26,7 @@ package oo.simplegraph.graph.cg.dijkstra;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 import javaslang.collection.HashSet;
 import javaslang.collection.List;
@@ -37,7 +38,8 @@ import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * Constructed Dijkstra tree graph implementation
+ * 
  * @author Kapralov Sergey
  */
 public class DgImplementation<T> implements DijkstraGraph<T> {
@@ -92,5 +94,26 @@ public class DgImplementation<T> implements DijkstraGraph<T> {
                 graph.nodeMeta(),
                 graph.edgeMeta()
         );
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(graph, source);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj instanceof DgImplementation) {
+            final DgImplementation<?> other = (DgImplementation<?>) obj;
+            return Objects.equals(this.graph, other.graph) &&
+                   Objects.equals(this.source, other.source);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public final String toString() {
+        return "DgImplementation{" + "graph=" + graph + ", source=" + source + '}';
     }
 }

@@ -24,22 +24,20 @@
 package oo.simplegraph.graph.cgwm;
 
 import java.util.Objects;
-import java.util.function.Function;
 import javaslang.collection.HashMap;
 import javaslang.collection.HashSet;
 import javaslang.collection.Map;
 import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.edge.meta.EmStatic;
-import oo.simplegraph.graph.sg.SgEmpty;
 import oo.simplegraph.graph.sg.SgSimple;
 import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NmStatic;
-import oo.simplegraph.node.meta.NodeMeta;
 
 /**
- *
+ * Basic implementation of {@link ConstructedGraphWithMeta}
+ * 
  * @author Kapralov Sergey
  */
 public class CgwmSimple<T, M> implements ConstructedGraphWithMeta<T, M> {

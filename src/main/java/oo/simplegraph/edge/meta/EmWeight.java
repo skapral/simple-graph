@@ -27,7 +27,8 @@ import javaslang.collection.Map;
 import oo.simplegraph.edge.Edge;
 
 /**
- *
+ * A table, containing weights of edges
+ * 
  * @author Kapralov Sergey
  */
 public class EmWeight<T> extends EmStatic<T, Integer> {

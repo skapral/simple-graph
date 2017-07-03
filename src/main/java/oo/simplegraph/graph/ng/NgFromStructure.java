@@ -67,7 +67,8 @@ class NgFromStructureInference<T, M> implements NavigableGraph.Inference<T, M> {
 }
 
 /**
- *
+ * Navigable graph from structured graph
+ * 
  * @author Kapralov Sergey
  */
 public class NgFromStructure<T, M> extends NgInferred<T, M> implements NavigableGraph<T, M> {

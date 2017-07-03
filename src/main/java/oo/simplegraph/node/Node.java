@@ -24,9 +24,13 @@
 package oo.simplegraph.node;
 
 /**
- *
+ * A graph node. Holds user-defined data
+ * 
  * @author Kapralov Sergey
  */
 public interface Node<V> {
+    /**
+     * @return node's data
+     */
     V value();
 }

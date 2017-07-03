@@ -26,7 +26,9 @@ package oo.simplegraph.node;
 import java.util.Objects;
 
 /**
- *
+ * A {@Node} implementation, which defines identity semantics by reference of user defined data
+ * Two nodes are considered the same, if their data comparison by == operator is positive
+ * 
  * @author Kapralov Sergey
  */
 public class NReference<T> implements Node<T> {

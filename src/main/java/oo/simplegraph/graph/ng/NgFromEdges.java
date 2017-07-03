@@ -35,13 +35,6 @@ import oo.simplegraph.edge.meta.EmEmpty;
 import oo.simplegraph.node.meta.NmEmpty;
 import oo.simplegraph.node.meta.NodeMeta;
 
-/**
- *
- * @author Kapralov Sergey
- * @param <T>
- * @param <Node<T>>
- * @param <Edge<Node<T>, ?>>
- */
 class NgFromEdgesInference<T, M> implements NavigableGraph.Inference<T, M> {
 
     private final Set<Edge<T>> edges;
@@ -91,8 +84,11 @@ class NgFromEdgesInference<T, M> implements NavigableGraph.Inference<T, M> {
 }
 
 /**
- *
+ * Navigable graph from edges.
+ * 
  * @author Kapralov Sergey
+ * @param <T>
+ * @param <M>
  */
 public class NgFromEdges<T, M> extends NgInferred<T, M> implements NavigableGraph<T, M> {
 

@@ -27,9 +27,15 @@ import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.sg.StructuredGraph;
 
 /**
- *
+ * A graph representation, responsible for building a new graph. 
+ * 
  * @author Kapralov Sergey
  */
 public interface ConstructedGraph<T, M> {
+    /**
+     * Constructs a new graph
+     * 
+     * @return 
+     */
     StructuredGraph<T, M> result();
 }

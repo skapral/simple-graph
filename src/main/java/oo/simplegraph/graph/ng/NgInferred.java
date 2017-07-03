@@ -31,7 +31,8 @@ import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NodeMeta;
 
 /**
- *
+ * Inferred navigable graph
+ * 
  * @author Kapralov Sergey
  */
 public class NgInferred<T, M> implements NavigableGraph<T, M> {

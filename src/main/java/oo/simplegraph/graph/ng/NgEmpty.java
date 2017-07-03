@@ -28,7 +28,8 @@ import oo.simplegraph.edge.meta.EmEmpty;
 import oo.simplegraph.node.meta.NmEmpty;
 
 /**
- *
+ * Empty graph
+ * 
  * @author Kapralov Sergey
  */
 public class NgEmpty<T, M> extends NgSimple<T, M> implements NavigableGraph<T, M> {

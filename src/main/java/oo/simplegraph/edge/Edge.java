@@ -28,11 +28,32 @@ import javaslang.control.Option;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * Graph's edge
+ * 
  * @author Kapralov Sergey
+ * @param <V> type of nodes this edge references to
  */
 public interface Edge<V> {
+    /**
+     * The nodes, this edge is references
+     * 
+     * @return the two nodes
+     */
     Set<Node<V>> nodes();
+    
+    /**
+     * The starting nodes of the edge. For each node returned, 
+     * {@link Edge::follow} returns non-empty option
+     * 
+     * @return 
+     */
     Set<Node<V>> startingNodes();
+    
+    /**
+     * Try to follow the edge's direction, starting from node passed.
+     * 
+     * @param node
+     * @return optional adjacent node, or empty in case of wrong direction
+     */
     Option<Node<V>> follow(Node<V> node);
 }

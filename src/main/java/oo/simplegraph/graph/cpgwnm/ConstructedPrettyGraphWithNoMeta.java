@@ -23,13 +23,12 @@
  */
 package oo.simplegraph.graph.cpgwnm;
 
-import oo.simplegraph.graph.cpgwm.*;
-import oo.simplegraph.edge.Edge;
 import oo.simplegraph.graph.cg.ConstructedGraph;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * Constructs a graph from passed nodes
+ * 
  * @author Kapralov Sergey
  */
 public interface ConstructedPrettyGraphWithNoMeta<T> extends ConstructedGraph<T, Void> {

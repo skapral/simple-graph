@@ -23,19 +23,18 @@
  */
 package oo.simplegraph.graph.cpgwnm;
 
-import oo.simplegraph.graph.cpgwm.*;
+import java.util.Objects;
 import java.util.function.BiFunction;
-import oo.simplegraph.edge.EDirected;
 import oo.simplegraph.edge.Edge;
-import oo.simplegraph.graph.cgwm.CgwmSimple;
-import oo.simplegraph.graph.cgwm.ConstructedGraphWithMeta;
 import oo.simplegraph.graph.cgwnm.CgwnmSimple;
 import oo.simplegraph.graph.cgwnm.ConstructedGraphWithNoMeta;
+import oo.simplegraph.graph.cpgwm.CpgwmBase;
 import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * A basic implementation of {@link ConstructedPrettyGraphWithNoMeta}
+ * 
  * @author Kapralov Sergey
  */
 public class CpgwnmBase<T> implements ConstructedPrettyGraphWithNoMeta<T> {
@@ -55,7 +54,7 @@ public class CpgwnmBase<T> implements ConstructedPrettyGraphWithNoMeta<T> {
     }
     
     @Override
-    public ConstructedPrettyGraphWithNoMeta<T> withNode(Node<T> node) {
+    public final ConstructedPrettyGraphWithNoMeta<T> withNode(Node<T> node) {
         return new CpgwnmBase(
                 cg.withNode(node),
                 edgeFactory
@@ -63,7 +62,7 @@ public class CpgwnmBase<T> implements ConstructedPrettyGraphWithNoMeta<T> {
     }
 
     @Override
-    public ConstructedPrettyGraphWithNoMeta<T> withEdge(Node<T> node1, Node<T> node2) {
+    public final ConstructedPrettyGraphWithNoMeta<T> withEdge(Node<T> node1, Node<T> node2) {
         return new CpgwnmBase<>(
                 cg.withEdge(
                         edgeFactory.apply(node1, node2)
@@ -73,7 +72,28 @@ public class CpgwnmBase<T> implements ConstructedPrettyGraphWithNoMeta<T> {
     }
 
     @Override
-    public StructuredGraph<T, Void> result() {
+    public final StructuredGraph<T, Void> result() {
         return cg.result();
+    }
+    
+    @Override
+    public final int hashCode() {
+        return Objects.hash(cg, edgeFactory);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj instanceof CpgwnmBase) {
+            final CpgwnmBase other = (CpgwnmBase) obj;
+            return Objects.equals(this.cg, other.cg) &&
+                   Objects.equals(this.edgeFactory, other.edgeFactory);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public final String toString() {
+        return "CpgwnmBase{" + "cg=" + cg + ", edgeFactory=" + edgeFactory + '}';
     }
 }

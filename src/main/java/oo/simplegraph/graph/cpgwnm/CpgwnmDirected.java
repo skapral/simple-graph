@@ -26,7 +26,8 @@ package oo.simplegraph.graph.cpgwnm;
 import oo.simplegraph.edge.EDirected;
 
 /**
- *
+ * Constructed directed graph
+ * 
  * @author Kapralov Sergey
  */
 public class CpgwnmDirected<T> extends CpgwnmBase<T> {

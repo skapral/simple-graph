@@ -35,7 +35,8 @@ import oo.simplegraph.node.meta.NmEmpty;
 import oo.simplegraph.node.meta.NodeMeta;
 
 /**
- *
+ * A basic implementation of {@link NavigableGraph}
+ * 
  * @author Kapralov Sergey
  */
 public class NgSimple<T, M> implements NavigableGraph<T, M> {

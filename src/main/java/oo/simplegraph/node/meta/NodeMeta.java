@@ -26,7 +26,9 @@ package oo.simplegraph.node.meta;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * A table, which holds nodes meta-information (the additional information about nodes,
+ * which is not part of their identity, like weights)
+ * 
  * @author Kapralov Sergey
  */
 public interface NodeMeta<T, M> {

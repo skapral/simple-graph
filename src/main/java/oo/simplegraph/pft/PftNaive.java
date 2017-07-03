@@ -23,6 +23,7 @@
  */
 package oo.simplegraph.pft;
 
+import java.util.Objects;
 import oo.simplegraph.pft.pc.PcEmpty;
 import oo.simplegraph.pft.pc.PathChunk;
 import javaslang.collection.List;
@@ -33,13 +34,14 @@ import oo.simplegraph.pft.PathFindingTask;
 import oo.simplegraph.graph.ng.NavigableGraph;
 
 /**
- *
+ * A naive implementation of {@link PathFindingTask}
+ * 
  * @author Kapralov Sergey
  */
-public class PftNaive<T, M> implements PathFindingTask<T, M> {
-    private final NavigableGraph<T, M> graph;
+public class PftNaive<T> implements PathFindingTask<T> {
+    private final NavigableGraph<T, ?> graph;
     
-    public PftNaive(NavigableGraph<T, M> graph) {
+    public PftNaive(NavigableGraph<T, ?> graph) {
         this.graph = graph;
     }
     
@@ -65,5 +67,25 @@ public class PftNaive<T, M> implements PathFindingTask<T, M> {
             }
         }
         return Option.none();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.graph);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj instanceof PftNaive) {
+            final PftNaive other = (PftNaive) obj;
+            return Objects.equals(this.graph, other.graph);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public final String toString() {
+        return "PftNaive{" + "graph=" + graph + '}';
     }
 }

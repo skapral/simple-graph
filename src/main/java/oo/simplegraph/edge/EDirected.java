@@ -30,8 +30,10 @@ import javaslang.control.Option;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * One-directed graph edge
+ * 
  * @author Kapralov Sergey
+ * @param <V> type of nodes this edge references to
  */
 public class EDirected<V> implements Edge<V> {
     private final Node<V> start;

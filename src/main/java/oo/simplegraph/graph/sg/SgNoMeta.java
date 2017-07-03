@@ -30,7 +30,8 @@ import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NmEmpty;
 
 /**
- *
+ * Structured graph with no meta-information
+ * 
  * @author Kapralov Sergey
  */
 public class SgNoMeta<T> extends SgSimple<T, Void> {

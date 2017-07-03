@@ -41,7 +41,8 @@ class SgFromConstructedGraphInference<T, M> implements StructuredGraph.Inference
 
 
 /**
- *
+ * Constructed structured graph
+ * 
  * @author Kapralov Sergey
  */
 public class SgFromConstructedGraph<T, M> extends SgInferred<T, M> implements StructuredGraph<T, M> {

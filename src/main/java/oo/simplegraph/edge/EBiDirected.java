@@ -30,8 +30,10 @@ import javaslang.control.Option;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * Bi-directed graph edge
+ * 
  * @author Kapralov Sergey
+ * @param <V> type of nodes this edge references to
  */
 public class EBiDirected<V> implements Edge<V> {
 

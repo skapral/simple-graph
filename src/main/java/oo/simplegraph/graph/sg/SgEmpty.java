@@ -28,7 +28,8 @@ import oo.simplegraph.edge.meta.EmEmpty;
 import oo.simplegraph.node.meta.NmEmpty;
 
 /**
- *
+ * Empty graph structure
+ * 
  * @author Kapralov Sergey
  */
 public class SgEmpty<T, M> extends SgSimple<T, M> implements StructuredGraph<T, M> {

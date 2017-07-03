@@ -26,13 +26,29 @@ package oo.simplegraph.edge.meta;
 import oo.simplegraph.edge.Edge;
 
 /**
- *
+ * A table, which holds edges meta-information (the additional information about edges,
+ * which is not part of their identity, like weights)
+ * 
  * @author Kapralov Sergey
+ * @param <T> edge type
+ * @param <M> meta-information type
  */
 public interface EdgeMeta<T, M> {
+    /**
+     * EdgeMeta's inference
+     * 
+     * @param <T> edge type
+     * @param <M> meta-information type
+     */
     interface Inference<T, M> {
         EdgeMeta<T, M> edgeMeta();
     }
     
+    /**
+     * Reads meta-information for specific edge
+     * 
+     * @param edge
+     * @return meta-information for specific edge
+     */
     M metaForEdge(Edge<T> edge);
 }

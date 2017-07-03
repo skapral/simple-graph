@@ -23,33 +23,49 @@
  */
 package oo.simplegraph.graph.ng;
 
-import javaslang.collection.Array;
 import oo.simplegraph.edge.Edge;
 import javaslang.collection.List;
-import javaslang.control.Option;
 import oo.simplegraph.edge.meta.EdgeMeta;
 import oo.simplegraph.node.Node;
 import oo.simplegraph.node.meta.NodeMeta;
 
 /**
- *
+ * A graph representation, responsible for graph traversal
+ * 
  * @author Kapralov Sergey
  */
 public interface NavigableGraph<T, M> {
+    /**
+     * NavigableGraph inference
+     * 
+     * @param <T>
+     * @param <M> 
+     */
     interface Inference<T, M> {
+        /**
+         * @return inferred graph
+         */
         NavigableGraph<T, M> graph();
     }
     
+    /**
+     * Returns a list of adjacent edges. For each edge returned,
+     * {@code edge.follow(node)} always return non-empty optional node
+     * 
+     * @param node
+     * @return 
+     */
     List<Edge<T>> adjacentEdges(Node<T> node);
-    default Option<Edge<T>> findEdge(Node<T> node, Node<T> node2) {
-        return Option.sequence(
-                Array.of(
-                    adjacentEdges(node).filter(e -> e.follow(node).equals(node2)).headOption(),
-                    adjacentEdges(node2).filter(e -> e.follow(node).equals(node)).headOption()
-                )
-        ).flatMap(list -> list.headOption());
-    }
     
+    /**
+     * Nodes meta-information table
+     * @return 
+     */
     NodeMeta<T, M> nodeMeta();
+    
+    /**
+     * Edges meta-information table
+     * @return 
+     */
     EdgeMeta<T, M> edgeMeta();
 }

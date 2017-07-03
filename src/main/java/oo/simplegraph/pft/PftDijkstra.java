@@ -23,21 +23,22 @@
  */
 package oo.simplegraph.pft;
 
+import java.util.Objects;
 import javaslang.collection.List;
 import javaslang.control.Option;
 import oo.simplegraph.edge.Edge;
 import oo.simplegraph.graph.cg.dijkstra.DgImplementation;
 import oo.simplegraph.node.Node;
-import oo.simplegraph.pft.PathFindingTask;
 import oo.simplegraph.graph.ng.NavigableGraph;
 import oo.simplegraph.graph.ng.NgFromStructure;
 import oo.simplegraph.graph.sg.SgFromConstructedGraph;
 
 /**
- *
+ * Dijkstra shortest path task
+ * 
  * @author Kapralov Sergey
  */
-public class PftDijkstra<T> implements PathFindingTask<T, Integer> {
+public class PftDijkstra<T> implements PathFindingTask<T> {
     private final NavigableGraph<T, Integer> graph;
 
     public PftDijkstra(NavigableGraph<T, Integer> graph) {
@@ -57,5 +58,25 @@ public class PftDijkstra<T> implements PathFindingTask<T, Integer> {
 
         // TODO: get rid of PftNaive here
         return new PftNaive<>(dijkstraGraph).path(nodeStart, nodeEnd); 
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.graph);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (obj instanceof PftDijkstra) {
+            final PftDijkstra<?> other = (PftDijkstra<?>) obj;
+            return Objects.equals(this.graph, other.graph);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public final String toString() {
+        return "PftDijkstra{" + "graph=" + graph + '}';
     }
 }

@@ -26,7 +26,8 @@ package oo.simplegraph.graph.cg.dijkstra;
 import oo.simplegraph.graph.cg.ConstructedGraph;
 
 /**
- *
+ * Constructed Dijkstra tree graph
+ * 
  * @author Kapralov Sergey
  */
 public interface DijkstraGraph<T> extends ConstructedGraph<T, Integer> {

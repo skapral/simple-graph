@@ -28,8 +28,11 @@ import javaslang.collection.Map;
 import oo.simplegraph.edge.Edge;
 
 /**
- *
+ * A table which contains static meta-info about edges
+ * 
  * @author Kapralov Sergey
+ * @param <T>
+ * @param <M>
  */
 public class EmStatic<T, M> implements EdgeMeta<T, M> {
     private final Map<Edge<T>, M> edgesMeta;

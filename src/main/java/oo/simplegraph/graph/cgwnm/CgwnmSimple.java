@@ -23,82 +23,61 @@
  */
 package oo.simplegraph.graph.cgwnm;
 
-import oo.simplegraph.graph.cgwm.*;
 import java.util.Objects;
-import javaslang.collection.HashMap;
-import javaslang.collection.HashSet;
-import javaslang.collection.Map;
-import javaslang.collection.Set;
 import oo.simplegraph.edge.Edge;
-import oo.simplegraph.edge.meta.EmStatic;
-import oo.simplegraph.graph.sg.SgNoMeta;
-import oo.simplegraph.graph.sg.SgSimple;
+import oo.simplegraph.graph.cgwm.CgwmSimple;
+import oo.simplegraph.graph.cgwm.ConstructedGraphWithMeta;
 import oo.simplegraph.graph.sg.StructuredGraph;
 import oo.simplegraph.node.Node;
-import oo.simplegraph.node.meta.NmStatic;
 
 /**
- *
+ * Basic implementation of {@link ConstructedGraphWithNoMeta}
+ * 
  * @author Kapralov Sergey
  */
 public class CgwnmSimple<T> implements ConstructedGraphWithNoMeta<T> {
-    private final Set<Node<T>> nodes;
-    private final Set<Edge<T>> edges;
+
+    private final ConstructedGraphWithMeta<T, Void> cgwm;
 
     public CgwnmSimple() {
         this(
-                HashSet.empty(),
-                HashSet.empty()
+                new CgwmSimple<T, Void>()
         );
     }
 
-    public CgwnmSimple(Set<Node<T>> nodes, Set<Edge<T>> edges) {
-        this.nodes = nodes;
-        this.edges = edges;
+    public CgwnmSimple(ConstructedGraphWithMeta<T, Void> cgwm) {
+        this.cgwm = cgwm;
     }
-    
+
     @Override
     public final ConstructedGraphWithNoMeta<T> withNode(Node<T> node) {
-        return new CgwnmSimple<>(
-                nodes.add(node), 
-                edges
+        return new CgwnmSimple(
+                cgwm.withNode(node, null)
         );
     }
 
     @Override
     public final ConstructedGraphWithNoMeta<T> withEdge(Edge<T> edge) {
-        if(nodes.containsAll(edge.nodes())) {
-            return new CgwnmSimple<>(
-                    nodes, 
-                    edges.add(edge)
-            );
-        } else {
-            throw new RuntimeException(
-                String.format("attempt to add edge with inexisting nodes: %e", edge)
-            );
-        }
+        return new CgwnmSimple(
+                cgwm.withEdge(edge, null)
+        );
     }
 
     @Override
     public final StructuredGraph<T, Void> result() {
-        return new SgNoMeta<>(
-                nodes,
-                edges
-        );
+        return cgwm.result();
     }
-    
 
     @Override
     public final int hashCode() {
-        return Objects.hash(this.nodes, this.edges);
+        return Objects.hash(this.cgwm);
     }
 
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof CgwnmSimple) {
             final CgwnmSimple other = (CgwnmSimple) obj;
-            return Objects.equals(this.nodes, other.nodes) &&
-                   Objects.equals(this.edges, other.edges);
+            return Objects.equals(this.cgwm, other.cgwm);
         } else {
             return false;
         }
@@ -106,6 +85,6 @@ public class CgwnmSimple<T> implements ConstructedGraphWithNoMeta<T> {
 
     @Override
     public final String toString() {
-        return "CdgValidatingIntegrity{" + "nodes=" + nodes + ", edges=" + edges + '}';
+        return "CgwnmSimple{" + "cgwm=" + cgwm + '}';
     }
 }

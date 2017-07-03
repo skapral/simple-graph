@@ -26,7 +26,8 @@ package oo.simplegraph.graph.cpgwm;
 import oo.simplegraph.edge.EBiDirected;
 
 /**
- *
+ * Constructed bi-directed graph
+ * 
  * @author Kapralov Sergey
  */
 public class CpgwmBiDirectedGraph<T, M> extends CpgwmBase<T, M> {

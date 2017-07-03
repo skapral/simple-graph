@@ -29,9 +29,19 @@ import javaslang.collection.List;
 import javaslang.control.Option;
 
 /**
- *
+ * Path-finding algorithm
+ * 
  * @author Kapralov Sergey
  */
-public interface PathFindingTask<T, M> {
+public interface PathFindingTask<T> {
+    /**
+     * Returns a shortest path from nodeStart to nodeEnd
+     * 
+     * @param nodeStart
+     * @param nodeEnd
+     * @return a list of edges, representing the shortest path, or empty option 
+     *         if there no such path exists (like one of the nodes are unreachable 
+     *         or don't belong to the graph)
+     */
     Option<List<Edge<T>>> path(Node<T> nodeStart, Node<T> nodeEnd);
 }

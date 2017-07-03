@@ -28,10 +28,25 @@ import oo.simplegraph.graph.cg.ConstructedGraph;
 import oo.simplegraph.node.Node;
 
 /**
- *
+ * Collects nodes/edges with meta-information and constructs new graph
  * @author Kapralov Sergey
  */
 public interface ConstructedGraphWithMeta<T, M> extends ConstructedGraph<T, M> {
+    /**
+     * Add new node to the graph
+     * 
+     * @param node
+     * @param meta
+     * @return new constructed graph
+     */
     ConstructedGraphWithMeta<T, M> withNode(Node<T> node, M meta);
+    
+    /**
+     * Add new edge to the graph
+     * 
+     * @param edge
+     * @param meta
+     * @return new constructed graph
+     */
     ConstructedGraphWithMeta<T, M> withEdge(Edge<T> edge, M meta);
 }
